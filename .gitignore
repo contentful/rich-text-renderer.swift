@@ -1,0 +1,19 @@
+
+# macOS
+.DS_Store
+.gutter.json
+*.gcda
+*.gcno
+*.xccheckout
+xcuserdata
+.idea
+
+## Cocoapods
+Pods/
+build
+.build
+Packages
+*.xcscmblueprint
+
+# Carthage
+Carthage/Build/
