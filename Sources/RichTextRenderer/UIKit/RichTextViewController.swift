@@ -1,6 +1,6 @@
 //
 //  RichTextViewController.swift
-//  Contentful
+//  ContentfulRichTextRenderer
 //
 //  Created by JP Wright on 29/10/18.
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
@@ -9,22 +9,47 @@
 import UIKit
 import Contentful
 
+/// A custom `UIViewController` subclass which will render a `Contentful.RichTextDocument` to a `UITextView`.
+/// This class uses a custom `NSLayoutManager` subclass, and a custom `NSTextContainer` subclass to render `UIView` instances
+/// inline in text. If you want to copy-paste this class to manipulate and customize your rendering further, read:
+/// See: <https://developer.apple.com/documentation/appkit/textkit>
 open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
-    public var richText: RichTextDocument?
+    /// The `RichTextDocument` to render. This view controller can be initialzed with or without this variable;
+    /// setting this variable will render the text to the text view.
+    public var richText: RichTextDocument? {
+        didSet {
+            guard let richText = richText else { return }
+            let output = self.renderer.render(document: richText)
+            DispatchQueue.main.async {
+                self.textStorage.beginEditing()
+                self.textStorage.setAttributedString(output)
+                self.textStorage.endEditing()
+            }
+        }
+    }
 
+    /// The renderer which renderes the `RichTextDocument`.
     public var renderer: RichTextRenderer = DefaultRichTextRenderer()
 
+    /// The text view which the `RichTextDocument` is rendered to. This text view is a subview on this
+    /// view controller's view.
     public var textView: UITextView!  {
         didSet {
             textView.textContainerInset = self.textContainerInset
         }
     }
 
+    /// The underlying text storage.
     public let textStorage = NSTextStorage()
+
+    /// The custom `NSLayoutManager` which lays out the text within the text container and text view.
     public let layoutManager = RichTextLayoutManager()
+
+    /// The custom `NSTextContainer` which manages the areas text can be rendered to.
     public var textContainer: RichTextContainer!
 
+    /// The insets from the text view to the text container.
     public var textContainerInset: UIEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0) {
         didSet {
             layoutManager.textContainerInset = textContainerInset
@@ -32,6 +57,13 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         }
     }
 
+    /// Initializer
+    ///
+    /// - Parameters:
+    ///   - richText: The `RichTextDocument` document to be rendered.
+    ///   - renderer: The renderer to use which renders the `RichTextDocument`.
+    ///   - nibName: The nib name, or nil, passed to the super initializer init(nibName:bundle)
+    ///   - bundle: The bundle, or nil, passed to the super initializer init(nibName:bundle)
     public init(richText: RichTextDocument?, renderer: RichTextRenderer?, nibName: String?, bundle: Bundle?) {
         self.richText = richText
         self.renderer = renderer ?? DefaultRichTextRenderer()
@@ -57,7 +89,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         NotificationCenter.default.removeObserver(self)
     }
 
-    @objc func rotated() {
+    @objc private func rotated() {
         exclusionPaths = [:]
         textView.textContainer.exclusionPaths = []
 
@@ -73,14 +105,14 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                                                name: UIDevice.orientationDidChangeNotification,
                                                object: nil)
 
-        layoutManager.blockQuoteWidth = renderer.styling.blockQuoteWidth
-        layoutManager.blockQuoteColor = renderer.styling.blockQuoteColor
+        layoutManager.blockQuoteWidth = renderer.config.blockQuoteWidth
+        layoutManager.blockQuoteColor = renderer.config.blockQuoteColor
 
         textStorage.addLayoutManager(layoutManager)
 
         textContainer = RichTextContainer(size: view.bounds.size)
-        textContainer.blockQuoteTextInset = renderer.styling.blockQuoteTextInset
-        textContainer.blockQuoteWidth = renderer.styling.blockQuoteWidth
+        textContainer.blockQuoteTextInset = renderer.config.blockQuoteTextInset
+        textContainer.blockQuoteWidth = renderer.config.blockQuoteWidth
 
 
         textContainer.widthTracksTextView = true
@@ -97,15 +129,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textView.isEditable = false
 
         textContainer.size.height = .greatestFiniteMagnitude
-
-        // Apply layout constraints on the text view.
-//        textView.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            textView.topAnchor.constraint(equalTo: view.topAnchor),
-//            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//            ])
     }
 
     public var exclusionPaths: [String: UIBezierPath] = [:]
@@ -160,11 +183,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 continue
             }
 
-            // TODO: Better documentation and cleanup.
             // Make the view's frame the correct width.
             var adaptedRect = attachmentRect
             let textViewSize = self.view.frame.size
-            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.styling.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
+            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.config.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
             view.layout(with: adaptedRect.width)
 
             // Make the exclusion rect take up the entire width so that text doesn't wrap where it shouldn't
@@ -189,7 +211,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                     let additionalExclusionRect = CGRect(x: 0.0,
                                                          y: lineFragmentRect.origin.y + lineFragmentRect.height,
                                                          width: textViewSize.width,
-                                                         height: exclusionRect.height - lineFragmentRect.height + renderer.styling.embedMargin)
+                                                         height: exclusionRect.height - lineFragmentRect.height + renderer.config.embedMargin)
                     textView.textContainer.exclusionPaths.append(UIBezierPath(rect: additionalExclusionRect))
                 }
 
@@ -216,7 +238,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             var adaptedRect = attachmentRect
             let textViewSize = self.view.frame.size
 
-            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.styling.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
+            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.config.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
             view.frame.size.width = adaptedRect.width
             // Make the exclusion rect take up the entire width so that text doesn't wrap where it shouldn't
             adaptedRect.size = view.frame.size
@@ -243,6 +265,9 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     }
 }
 
+
+/// A custom `NSLayoutManager` subclass which has special handling for rendering `Contentful.BlockQuote` nodes
+/// with custom drawing.
 public class RichTextLayoutManager: NSLayoutManager {
 
     var blockQuoteWidth: CGFloat!
@@ -294,13 +319,15 @@ public class RichTextLayoutManager: NSLayoutManager {
     }
 }
 
+
+/// The custom `NSTextContainer` which has handling for rendering `Contentful.BlockQuote` nodes
+/// with a custom area.
 public class RichTextContainer: NSTextContainer {
 
     var blockQuoteTextInset: CGFloat!
 
     var blockQuoteWidth: CGFloat!
 
-    // This is for block quotes.
     public override func lineFragmentRect(forProposedRect proposedRect: CGRect,
                                           at characterIndex: Int,
                                           writingDirection baseWritingDirection: NSWritingDirection,

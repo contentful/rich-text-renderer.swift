@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  Contentful
+//  DefaultRichTextRenderer.swift
+//  ContentfulRichTextRenderer
 //
 //  Created by JP Wright on 9/25/18.
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
@@ -9,65 +9,61 @@
 import Foundation
 import Contentful
 
-public protocol RichTextRenderer {
-    func renderer(for node: Node) -> NodeRenderer
-    func render(document: RichTextDocument) -> NSAttributedString
-    var styling: Styling { get set }
-}
-
+/// The default `RichTextRenderer` provided by this library. All instance variables/properties on this
+/// type have sane defaults which will render the relevant nodes accordingly. If you wish to customize any particular
+/// renderer, simply create your own type conforming to `NodeRenderer` and assign it to the instance variable
+/// on the `DefaultRichTextRenderer`.
 public struct DefaultRichTextRenderer: RichTextRenderer {
 
-    public var headingRenderer: NodeRenderer
-    public var textRenderer: NodeRenderer
-    public var orderedListRenderer: NodeRenderer
-    public var unorderedListRenderer: NodeRenderer
-    public var blockQuoteRenderer: NodeRenderer
-    public var listItemRenderer: NodeRenderer
-    public var emptyRenderer: NodeRenderer
-    public var paragraphRenderer: NodeRenderer
-    public var hyperlinkRenderer: NodeRenderer
-    public var embedRenderer: NodeRenderer
-    public var inlineRenderer: NodeRenderer
-    public var horizontalRuleRenderer: NodeRenderer
+    public var config: RenderingConfiguration = RenderingConfiguration()
 
-    public var styling: Styling
+    /// The renderer for `Contentful.Heading` nodes. Defaults to an instance of `HeadingRenderer`.
+    public var headingRenderer: NodeRenderer = HeadingRenderer()
 
-    public init(styling: Styling) {
-        orderedListRenderer = OrderedListRenderer()
-        unorderedListRenderer = UnorderedListRenderer()
-        textRenderer = TextRenderer()
-        headingRenderer = HeadingRenderer()
-        blockQuoteRenderer = BlockQuoteRenderer()
-        emptyRenderer = EmptyRenderer()
-        listItemRenderer = ListItemRenderer()
-        paragraphRenderer = ParagraphRenderer()
-        hyperlinkRenderer = HyperlinkRenderer()
-        embedRenderer = ResourceLinkBlockRenderer()
-        inlineRenderer = ResourceLinkInlineRenderer()
-        horizontalRuleRenderer = HorizontalRuleRenderer()
+    /// The renderer for `Contentful.Text` nodes. Defaults to an instance of `TextRenderer`.
+    public var textRenderer: NodeRenderer = TextRenderer()
 
-        self.styling = styling
-    }
-    public init() {
-        orderedListRenderer = OrderedListRenderer()
-        unorderedListRenderer = UnorderedListRenderer()
-        textRenderer = TextRenderer()
-        headingRenderer = HeadingRenderer()
-        blockQuoteRenderer = BlockQuoteRenderer()
-        emptyRenderer = EmptyRenderer()
-        listItemRenderer = ListItemRenderer()
-        paragraphRenderer = ParagraphRenderer()
-        hyperlinkRenderer = HyperlinkRenderer()
-        embedRenderer = ResourceLinkBlockRenderer()
-        inlineRenderer = ResourceLinkInlineRenderer()
-        horizontalRuleRenderer = HorizontalRuleRenderer()
+    /// The renderer for `Contentful.OrderedList` nodes. Defaults to an instance of `OrderedListRenderer`.
+    public var orderedListRenderer: NodeRenderer = OrderedListRenderer()
 
-        styling = Styling()
+    /// The renderer for `Contentful.UnorderedList` nodes. Defaults to an instance of `UnorderedListRenderer`.
+    public var unorderedListRenderer: NodeRenderer = UnorderedListRenderer()
+
+    /// The renderer for `Contentful.BlockQuote` nodes. Defaults to an instance of `BlockQuoteRenderer`.
+    public var blockQuoteRenderer: NodeRenderer = BlockQuoteRenderer()
+
+    /// The renderer for `Contentful.ListItem` nodes. Defaults to an instance of `ListItemRenderer`.
+    public var listItemRenderer: NodeRenderer = ListItemRenderer()
+
+    /// The renderer for node types that are not yet supported by this library. Defaults to an instance of `EmptyRenderer`.
+    public var emptyRenderer: NodeRenderer = EmptyRenderer()
+
+    /// The renderer for `Contentful.Paragraph` nodes. Defaults to an instance of `ParagraphRenderer`.
+    public var paragraphRenderer: NodeRenderer = ParagraphRenderer()
+
+    /// The renderer for `Contentful.Hyperlink` nodes. Defaults to an instance of `HeadingRenderer`.
+    public var hyperlinkRenderer: NodeRenderer = HyperlinkRenderer()
+
+    /// The renderer for `Contentful.ResourceLinkBlock` nodes. Defaults to an instance of `ResourceLinkBlockRenderer`.
+    public var resourceLinkBlockRenderer: NodeRenderer = ResourceLinkBlockRenderer()
+
+    /// The renderer for `Contentful.ResourceLinkInline` nodes. Defaults to an instance of `ResourceLinkInlineRenderer`.
+    public var resourceLinkInlineRenderer: NodeRenderer = ResourceLinkInlineRenderer()
+
+    /// The renderer for `Contentful.HorizontalRule` nodes. Defaults to an instance of `HorizontalRuleRenderer`.
+    public var horizontalRuleRenderer: NodeRenderer = HorizontalRuleRenderer()
+
+    public init(styleConfig: RenderingConfiguration) {
+        self.config = styleConfig
     }
 
+    /// Initializes an instance of `DefaultRichTextRenderer` with default renderers and default styling configuration.
+    public init() {}
+
+    /// The starting context with which to render the `RichTextDocument`.
     public var baseContext: [CodingUserInfoKey: Any] {
         return [
-            .styles: styling,
+            .renderingConfig: config,
             .listContext: ListContext(level: 0,
                                       indentationLevel: 0,
                                       parentType: nil,
@@ -119,35 +115,42 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
             return emptyRenderer
 
         case .embeddedEntryBlock, .embeddedAssetBlock:
-            return embedRenderer
+            return resourceLinkBlockRenderer
 
         case .horizontalRule:
             return horizontalRuleRenderer
 
         case .embeddedEntryInline, .assetHyperlink, .entryHyperlink:
-            return inlineRenderer
+            return resourceLinkInlineRenderer
         }
     }
 
-    public static func font(for textNode: Text, styling: Styling) -> Font {
+
+    /// Returns the font for a text node that has the correct attributes: i.e. bold, italicized, etc.
+    ///
+    /// - Parameters:
+    ///   - textNode: The text node which has `marks` desribing the required font.
+    ///   - styleConfiguration: The styling configuration which holds the base font to render with.
+    /// - Returns: An instance of `UIFont` on iOS and tvOS, or an instance of `NSFont` on macOS.
+    public static func font(for textNode: Text, config: RenderingConfiguration) -> Font {
         let markTypes = textNode.marks.map { $0.type }
 
         var font: Font?
 
         if markTypes.contains(.bold) && markTypes.contains(.italic) {
-            font = styling.baseFont.italicizedAndBolded()
+            font = config.baseFont.italicizedAndBolded()
         } else if markTypes.contains(.bold) {
-            font = styling.baseFont.bolded()
+            font = config.baseFont.bolded()
         } else if markTypes.contains(.italic) {
-            font = styling.baseFont.italicized()
+            font = config.baseFont.italicized()
         } else if markTypes.contains(.code) {
-            font = styling.baseFont.monospaced()
+            font = config.baseFont.monospaced()
         }
         if let font = font {
             return font
         } else {
             // TODO: Log that no font was found for the relevant traits.
-            return styling.baseFont
+            return config.baseFont
         }
     }
 }
