@@ -1,6 +1,6 @@
 //
 //  EmbeddedAssetImageView.swift
-//  Contentful_iOS
+//  ContentfulRichTextRenderer
 //
 //  Created by JP Wright on 05/11/18.
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
@@ -13,10 +13,19 @@ import Contentful
 
 public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockRepresentable {
 
+    public init(asset: Asset) {
+        self.asset = asset
+        super.init(frame: .zero)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     public var surroundingTextShouldWrap: Bool = true
     public var context: [CodingUserInfoKey: Any] = [:]
 
-    var asset: Asset!
+    public var asset: Asset
 
     public func layout(with width: CGFloat) {
         // Get the current width of the cell and see if it is wider than the screen.
@@ -29,8 +38,7 @@ public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockRepresentable
         frame.size.height = width / CGFloat(aspectRatio)
     }
 
-    public func setImageToNaturalHeight(fromAsset asset: Asset,
-                                 additionalOptions: [ImageOption] = []) {
+    public func setImageToNaturalHeight(additionalOptions: [ImageOption] = []) {
 
         // Get the current width of the cell and see if it is wider than the screen.
         guard let width = asset.file?.details?.imageInfo?.width else { return }

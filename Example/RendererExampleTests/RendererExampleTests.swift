@@ -83,7 +83,7 @@ class RichTextRendererTests: XCTestCase {
             case .success(let arrayResponse):
                 expect(arrayResponse.items.count).to(equal(1))
 
-                let output = DefaultRichTextRenderer(styling: Styling()).render(document: arrayResponse.items.first!.body)
+                let output = DefaultRichTextRenderer(styling: StyleConfiguration()).render(document: arrayResponse.items.first!.body)
                 expect(output.length > 0).to(be(true))
 
             case .error(let error):

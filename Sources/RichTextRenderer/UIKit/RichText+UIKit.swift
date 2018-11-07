@@ -1,6 +1,6 @@
 //
 //  RichText+UIKit.swift
-//  Contentful
+//  ContentfulRichTextRenderer
 //
 //  Created by JP Wright on 29/10/18.
 //  Copyright © 2018 Contentful GmbH. All rights reserved.

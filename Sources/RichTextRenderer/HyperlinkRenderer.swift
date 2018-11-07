@@ -1,6 +1,6 @@
 //
 //  HyperlinkRenderer.swift
-//  Contentful
+//  ContentfulRichTextRenderer
 //
 //  Created by JP Wright on 9/26/18.
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
@@ -9,8 +9,9 @@
 import Foundation
 import Contentful
 
+/// A renderer for a `Contentful.Hyperlink` node. This renderer will apply a `NSAttributedString.Key.link` key with a value set to the hyperlink node's URI
+/// to the range of characters that comprise the node.
 public struct HyperlinkRenderer: NodeRenderer {
-
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let hyperlink = node as! Hyperlink
 
