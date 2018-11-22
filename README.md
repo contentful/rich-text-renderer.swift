@@ -57,6 +57,10 @@ let viewController = RichTextViewController(richText: yourRichTextField,
 
 Initializing a new `RenderingConfiguration()` provides a configuration with sane defaults. Simply create an instance, then mutate it to further customize the rendering.
 
+### In-depth tutorial
+
+For a more comprehensive tutorial on how to use the library, view the [tutorial](TUTORIAL.md) in the root directory of the project.
+
 ### Example
 
 The best way to get acquainted with using this library in an iOS app is to check out the [example project code](Example/RendererExample/ViewController.swift). In particular, pay attention to the view provider and inline provider in order to learn how to render entries and assets that are embedded in the rich text.
