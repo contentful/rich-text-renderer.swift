@@ -1,0 +1,22 @@
+language: objective-c
+osx_image: xcode10.1
+rvm:
+  - 2.4.3
+cache: bundler
+
+# Whitelist `master` branch as the only branch to build pushes for.
+branches:
+  only:
+    - master
+  
+before_install:
+  - bundle install
+  - cd Example
+  - bundle exec pod install
+
+script:
+  - xcodebuild  test -workspace Example/RendererExample.xcworkspace -scheme RendererExample -sdk iphonesimulator 
+    -destination 'platform=iOS Simulator,name=iPhone X,OS=12.1' ONLY_ACTIVE_ARCH=YES CODE_SIGNING_IDENTITY="" CODE_SIGNING_REQUIRED=NO | bundle exec xcpretty -c
+after_success:
+  - bundle exec pod lib lint Contentful.podspec
+
