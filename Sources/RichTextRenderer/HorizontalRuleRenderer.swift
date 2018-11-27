@@ -37,9 +37,17 @@ public struct HorizontalRuleRenderer: NodeRenderer {
         let semaphore = DispatchSemaphore(value: 0)
         var hrView: View!
 
-        DispatchQueue.main.sync {
+        // Dispatching synchronously to the main thread when you're on the main thread crashes. This generally happens in testing scenarios.
+        let callback: () -> Void = {
             hrView = provider.horizontalRule(context: context)
             semaphore.signal()
+        }
+        if Thread.isMainThread {
+            callback()
+        } else {
+            DispatchQueue.main.sync {
+                callback()
+            }
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
