@@ -72,10 +72,19 @@ public struct ResourceLinkBlockRenderer: NodeRenderer {
 
         var view: View!
 
-        DispatchQueue.main.sync {
+        // Dispatching synchronously to the main thread when you're on the main thread crashes. This generally happens in testing scenarios.
+        let callback: () -> Void = {
             view = provider.view(for: resolvedResource, context: context)
             semaphore.signal()
         }
+        if Thread.isMainThread {
+            callback()
+        } else {
+            DispatchQueue.main.sync {
+                callback()
+            }
+        }
+
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         var rendered = [NSMutableAttributedString(string: "\0", attributes: [.embed: view])] // use null character
         rendered.applyListItemStylingIfNecessary(node: node, context: context)

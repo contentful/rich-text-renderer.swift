@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D07C57021AC285100667CF0 /* SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D07C56F21AC285100667CF0 /* SnapshotTests.swift */; };
+		5D9E6D4421AC54E000918831 /* KIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9E6D4321AC54E000918831 /* KIF.swift */; };
 		5DD410F62191BE83003FC01E /* RendererExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD410F52191BE83003FC01E /* RendererExampleTests.swift */; };
+		5DE5A8CF21AD38A4004B0FC6 /* SnapshotTests in Resources */ = {isa = PBXBuildFile; fileRef = 5DE5A8CE21AD38A4004B0FC6 /* SnapshotTests */; };
+		5DF4A79121AC437C00FBAF82 /* rich-text-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = 5DF4A79021AC437C00FBAF82 /* rich-text-stub.json */; };
 		663F5A007E093E70573578F7 /* Pods_RendererExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32A84CF5935E0424815282B /* Pods_RendererExampleTests.framework */; };
 		97E8F99160AC4CE23442B107 /* Pods_RendererExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1CB3AD5AD3B293CD2EC660 /* Pods_RendererExample.framework */; };
 		ED54BACA1FC5BE2E00AA8199 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED54BAC91FC5BE2E00AA8199 /* AppDelegate.swift */; };
@@ -30,9 +34,13 @@
 		3D1CB3AD5AD3B293CD2EC660 /* Pods_RendererExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RendererExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57341691F8752A40A93F36E9 /* Pods-RendererExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RendererExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-RendererExampleTests/Pods-RendererExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		57EBD18442821431CB1A3710 /* Pods-RendererExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RendererExample.release.xcconfig"; path = "Target Support Files/Pods-RendererExample/Pods-RendererExample.release.xcconfig"; sourceTree = "<group>"; };
+		5D07C56F21AC285100667CF0 /* SnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTests.swift; sourceTree = "<group>"; };
+		5D9E6D4321AC54E000918831 /* KIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIF.swift; sourceTree = "<group>"; };
 		5DD410F32191BE82003FC01E /* RendererExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RendererExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DD410F52191BE83003FC01E /* RendererExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RendererExampleTests.swift; sourceTree = "<group>"; };
 		5DD410F72191BE83003FC01E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DE5A8CE21AD38A4004B0FC6 /* SnapshotTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SnapshotTests; sourceTree = "<group>"; };
+		5DF4A79021AC437C00FBAF82 /* rich-text-stub.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "rich-text-stub.json"; sourceTree = "<group>"; };
 		5F3998302BAD50D7F8342239 /* Pods-RendererExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RendererExampleTests.release.xcconfig"; path = "Target Support Files/Pods-RendererExampleTests/Pods-RendererExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		B32A84CF5935E0424815282B /* Pods_RendererExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RendererExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC5AEBF5D1CCA6676AF42DF7 /* Pods-RendererExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RendererExample.debug.xcconfig"; path = "Target Support Files/Pods-RendererExample/Pods-RendererExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -76,10 +84,30 @@
 		5DD410F42191BE83003FC01E /* RendererExampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				5DE5A8C221AD2EF1004B0FC6 /* __Snapshots__ */,
+				5DF4A78F21AC437C00FBAF82 /* ContentStubs */,
 				5DD410F52191BE83003FC01E /* RendererExampleTests.swift */,
+				5D9E6D4321AC54E000918831 /* KIF.swift */,
+				5D07C56F21AC285100667CF0 /* SnapshotTests.swift */,
 				5DD410F72191BE83003FC01E /* Info.plist */,
 			);
 			path = RendererExampleTests;
+			sourceTree = "<group>";
+		};
+		5DE5A8C221AD2EF1004B0FC6 /* __Snapshots__ */ = {
+			isa = PBXGroup;
+			children = (
+				5DE5A8CE21AD38A4004B0FC6 /* SnapshotTests */,
+			);
+			path = __Snapshots__;
+			sourceTree = "<group>";
+		};
+		5DF4A78F21AC437C00FBAF82 /* ContentStubs */ = {
+			isa = PBXGroup;
+			children = (
+				5DF4A79021AC437C00FBAF82 /* rich-text-stub.json */,
+			);
+			path = ContentStubs;
 			sourceTree = "<group>";
 		};
 		7BE3C74383F994A991246029 /* Pods */ = {
@@ -214,6 +242,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DE5A8CF21AD38A4004B0FC6 /* SnapshotTests in Resources */,
+				5DF4A79121AC437C00FBAF82 /* rich-text-stub.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,13 +296,15 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RendererExampleTests/Pods-RendererExampleTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/KIF/KIF.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapshotTesting/SnapshotTesting.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KIF.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapshotTesting.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -331,6 +363,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DD410F62191BE83003FC01E /* RendererExampleTests.swift in Sources */,
+				5D9E6D4421AC54E000918831 /* KIF.swift in Sources */,
+				5D07C57021AC285100667CF0 /* SnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

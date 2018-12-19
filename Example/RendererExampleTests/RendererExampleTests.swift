@@ -9,7 +9,6 @@
 @testable import ContentfulRichTextRenderer
 import Contentful
 import XCTest
-import Nimble
 import Foundation
 
 final class EmbeddedEntry: Resource, EntryDecodable, FieldKeysQueryable {
@@ -81,13 +80,13 @@ class RichTextRendererTests: XCTestCase {
         client.fetchArray(of: STTest.self, matching: QueryOn<STTest>.where(sys: .id, .equals("6I4TUQStjiCuGGu6EKOykQ"))) { result in
             switch result {
             case .success(let arrayResponse):
-                expect(arrayResponse.items.count).to(equal(1))
+                XCTAssertEqual(arrayResponse.items.count, 1)
 
-                let output = DefaultRichTextRenderer(styling: StyleConfiguration()).render(document: arrayResponse.items.first!.body)
-                expect(output.length > 0).to(be(true))
+                let output = DefaultRichTextRenderer(styleConfig: RenderingConfiguration()).render(document: arrayResponse.items.first!.body)
+                XCTAssert(output.length > 0)
 
             case .error(let error):
-                fail("\(error)")
+                XCTFail("\(error)")
             }
             expectation.fulfill()
         }

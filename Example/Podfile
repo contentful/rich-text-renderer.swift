@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 use_frameworks!
-platform :ios, "9.3"
+platform :ios, "10.0"
 
 target 'RendererExample' do
   pod 'Contentful'
@@ -9,7 +9,8 @@ target 'RendererExample' do
   
   target 'RendererExampleTests' do
     inherit! :search_paths
-    pod 'Nimble', :git => 'https://github.com/Quick/Nimble.git', :branch => 'master'
+    pod 'KIF'
+    pod 'SnapshotTesting', :git => 'https://github.com/pointfreeco/swift-snapshot-testing.git'
   end
 end
 

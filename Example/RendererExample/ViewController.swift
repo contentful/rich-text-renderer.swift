@@ -122,6 +122,9 @@ struct MyViewProvider: ViewProvider {
             imageView.surroundingTextShouldWrap = listContext.level == 0
             imageView.backgroundColor = .gray
             imageView.setImageToNaturalHeight()
+            // For snapshot testing.
+            imageView.isAccessibilityElement = true
+            imageView.accessibilityLabel = asset.title
             return imageView
         }
         return EmptyView(frame: .zero)
@@ -152,15 +155,17 @@ class ViewController: RichTextViewController {
 
         view.backgroundColor = UIColor.white
 
-        let query = QueryOn<STTest>.where(sys: .id, .equals("6tVjZ7i66QOSsi66KykGsk"))
-        client.fetchArray(of: STTest.self,
-                          matching: query) { [unowned self] result in
-            switch result {
-            case .success(let arrayResponse):
-                self.richText = arrayResponse.items.first!.body
+        if richText == nil {
+            let query = QueryOn<STTest>.where(sys: .id, .equals("6tVjZ7i66QOSsi66KykGsk"))
+            client.fetchArray(of: STTest.self,
+                              matching: query) { [unowned self] result in
+                switch result {
+                case .success(let arrayResponse):
+                    self.richText = arrayResponse.items.first!.body
 
-            case .error(let error):
-                print("\(error)")
+                case .error(let error):
+                    print("\(error)")
+                    }
             }
         }
     }
