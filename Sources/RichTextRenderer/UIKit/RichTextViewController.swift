@@ -19,13 +19,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     /// setting this variable will render the text to the text view.
     public var richText: RichTextDocument? {
         didSet {
-            guard let richText = richText else { return }
-            let output = self.renderer.render(document: richText)
-            DispatchQueue.main.async {
-                self.textStorage.beginEditing()
-                self.textStorage.setAttributedString(output)
-                self.textStorage.endEditing()
-            }
+            renderToView()
         }
     }
 
@@ -75,6 +69,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: UIViewController
+    
     override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
@@ -131,6 +127,11 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textContainer.size.height = .greatestFiniteMagnitude
     }
 
+    override open func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        renderToView()
+    }
+
     public var exclusionPaths: [String: UIBezierPath] = [:]
 
     // Inspired by: https://github.com/vlas-voloshin/SubviewAttachingTextView/blob/master/SubviewAttachingTextView/SubviewAttachingTextViewBehavior.swift
@@ -144,6 +145,18 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         layoutEmbeddedResourceViews(layoutManager: layoutManager)
         layoutHorizontalRules(layoutManager: layoutManager)
+    }
+
+    // MARK: Private
+
+    private func renderToView() {
+        guard let richText = richText else { return }
+        let output = self.renderer.render(document: richText)
+        DispatchQueue.main.async {
+            self.textStorage.beginEditing()
+            self.textStorage.setAttributedString(output)
+            self.textStorage.endEditing()
+        }
     }
 
     private func boundingRectAndLineFragmentRect(forAttachmentCharacterAt characterIndex: Int,
