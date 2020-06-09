@@ -41,9 +41,6 @@ public struct RendererConfiguration {
     /// The base font with which to begin styling. Defaults to the standard system font size.
     public var baseFont = Font.systemFont(ofSize: Font.systemFontSize)
 
-    /// The color of the text. Defaults to `UIColor.black`.
-    public var textColor = Color.black
-
     /// The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
     /// Defaults to 10.0 points.
     public var embedMargin: CGFloat = 10.0
