@@ -1,33 +1,8 @@
 // ContentfulRichTextRenderer
 
-import Foundation
-import CoreGraphics
 import Contentful
-
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-import UIKit
-#elseif os(macOS)
-import Cocoa
-import AppKit
-#endif
-
-#if os(iOS) || os(tvOS) || os(watchOS)
-/// If building for iOS, tvOS, or watchOS, `View` aliases to `UIView`. If building for macOS
-/// `View` aliases to `NSView`
-public typealias Color = UIColor
-public typealias Font = UIFont
-public typealias FontDescriptor = UIFontDescriptor
-public typealias View = UIView
-#else
-/// If building for iOS, tvOS, or watchOS, `View` aliases to `UIView`. If building for macOS
-/// `View` aliases to `NSView`
-public typealias Color = NSColor
-public typealias Font = NSFont
-public typealias FontDescriptor = NSFontDescriptor
-public typealias View = NSView
-#endif
-
+import CoreGraphics
+import Foundation
 
 /// A `RenderingConfiguration` describes all the configuration that should be used to render a `RichTextDocument`
 /// with a `RichTextRenderer`.
