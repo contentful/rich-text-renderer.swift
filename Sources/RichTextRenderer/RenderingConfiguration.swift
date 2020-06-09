@@ -162,37 +162,3 @@ public extension CodingUserInfoKey {
     /// A custom key, used by the `context` dictionary of `NodeRenderer` methods to store `ListContext`.
     public static let listContext = CodingUserInfoKey(rawValue: "listItemContextKey")!
 }
-
-
-// Code adapted from from MarkyMark.
-public extension Font {
-
-    /// Returns a bolded version of the current font, or `nil` if not available.
-    public func bolded() -> Font? {
-        if let descriptor = fontDescriptor.withSymbolicTraits(.traitBold) {
-            return Font(descriptor: descriptor, size: pointSize)
-        }
-        return nil
-    }
-
-    /// Returns a italicized version of the current font, or `nil` if not available.
-    public func italicized() -> Font? {
-        if let descriptor = fontDescriptor.withSymbolicTraits(.traitItalic) {
-            return Font(descriptor: descriptor, size: pointSize)
-        }
-        return nil
-    }
-
-    /// Returns `Menlo-Regular` font, as it's one of the only 2 monospaced fonts available on iOS.
-    public func monospaced() -> Font? {
-        return Font(name: "Menlo-Regular", size: pointSize)
-    }
-
-    /// Returns an italicized and bolded version of the current font, or `nil` if not available.
-    public func italicizedAndBolded() -> Font? {
-        if let descriptor = fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
-            return Font(descriptor: descriptor, size: pointSize)
-        }
-        return nil
-    }
-}
