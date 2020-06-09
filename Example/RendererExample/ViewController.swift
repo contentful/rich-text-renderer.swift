@@ -32,21 +32,21 @@ final class MarkdownContentType: Resource, EntryDecodable, FieldKeysQueryable {
 
 final class STTest: Resource, EntryDecodable, FieldKeysQueryable {
     
-    static let contentTypeId = "stTest"
+    static let contentTypeId = "article"
 
     let sys: Sys
-    let name: String
-    let body: RichTextDocument
+    let title: String
+    let content: RichTextDocument
 
     public required init(from decoder: Decoder) throws {
         sys = try decoder.sys()
         let fields = try decoder.contentfulFieldsContainer(keyedBy: FieldKeys.self)
-        name = try fields.decode(String.self, forKey: .name)
-        body = try fields.decode(RichTextDocument.self, forKey: .body)
+        title = try fields.decode(String.self, forKey: .title)
+        content = try fields.decode(RichTextDocument.self, forKey: .content)
     }
 
     enum FieldKeys: String, CodingKey {
-        case name, body
+        case title, content
     }
 }
 
@@ -143,21 +143,21 @@ class ViewController: RichTextViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    let client = Client(spaceId: "jd7yc4wnatx3",
-                        accessToken: "6256b8ef7d66805ca41f2728271daf27e8fa6055873b802a813941a0fe696248",
-                        contentTypeClasses: [STTest.self, EmbeddedEntry.self, MarkdownContentType.self])
+    let client = Client(spaceId: "9udmtmq3klnj",
+                        accessToken: "QghA6Rja4xNLKWAvrXhZiEtE8XuazE8c4XLwrvwOT-8",
+                        contentTypeClasses: [STTest.self, /*EmbeddedEntry.self, MarkdownContentType.self*/])
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.white
 
-        let query = QueryOn<STTest>.where(sys: .id, .equals("6tVjZ7i66QOSsi66KykGsk"))
+        let query = QueryOn<STTest>.where(sys: .id, .equals("Znv9fEW0y0XVyrkcO8Xq5"))
         client.fetchArray(of: STTest.self,
                           matching: query) { [unowned self] result in
             switch result {
             case .success(let arrayResponse):
-                self.richText = arrayResponse.items.first!.body
+                self.richText = arrayResponse.items.first!.content
 
             case .error(let error):
                 print("\(error)")

@@ -82,14 +82,8 @@ public struct RenderingConfiguration {
     /// of the first character of the list item. Defaults to 20.0 points.
     public var distanceFromBulletMinXToCharMinX: CGFloat = 20.0
 
-    /// The color that the block quote rectangle is filled with. Defaults to `UIColor.lightGray`
-    public var blockQuoteColor: Color = .lightGray
-
-    /// The width of the block quote rectangle on the block's leading edge. Defaults to 10.0 points.
-    public var blockQuoteWidth: CGFloat = 10.0
-
-    /// The inset between the block quote rectangle and the block quote text. Defaults to 30.0 points.
-    public var blockQuoteTextInset: CGFloat = 30.0
+    /// Configuration for `BlockQuote` nodes.
+    public var blockQuote: BlockQuoteConfiguration = .default
 
     /// Configuration for `Heading` nodes.
     public var heading: HeadingConfiguration = .default

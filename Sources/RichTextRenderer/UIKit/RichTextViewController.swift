@@ -105,14 +105,14 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                                                name: UIDevice.orientationDidChangeNotification,
                                                object: nil)
 
-        layoutManager.blockQuoteWidth = renderer.config.blockQuoteWidth
-        layoutManager.blockQuoteColor = renderer.config.blockQuoteColor
+        layoutManager.blockQuoteWidth = renderer.config.blockQuote.rectangleWidth
+        layoutManager.blockQuoteColor = renderer.config.blockQuote.rectangleColor
 
         textStorage.addLayoutManager(layoutManager)
 
         textContainer = RichTextContainer(size: view.bounds.size)
-        textContainer.blockQuoteTextInset = renderer.config.blockQuoteTextInset
-        textContainer.blockQuoteWidth = renderer.config.blockQuoteWidth
+        textContainer.blockQuoteTextInset = renderer.config.blockQuote.textInset
+        textContainer.blockQuoteWidth = renderer.config.blockQuote.rectangleWidth
 
 
         textContainer.widthTracksTextView = true
