@@ -22,7 +22,9 @@ public struct HeadingRenderer: NodeRenderer {
         }
 
         rendered.forEach {
-            $0.addAttributes(context.styleConfig.headingAttributes(level: Int(heading.level)), range: NSRange(location: 0, length: $0.length))
+            let headingLevel = HeadingLevel(rawValue: Int(heading.level)) ?? HeadingLevel.h1
+            let font = context.styleConfig.heading.fonts.font(for: headingLevel)
+            $0.addAttributes([.font: font], range: NSRange(location: 0, length: $0.length))
         }
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
         rendered.appendNewlineIfNecessary(node: node)

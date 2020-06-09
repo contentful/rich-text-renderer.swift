@@ -91,20 +91,8 @@ public struct RenderingConfiguration {
     /// The inset between the block quote rectangle and the block quote text. Defaults to 30.0 points.
     public var blockQuoteTextInset: CGFloat = 30.0
 
-    /// The fonts for `Heading` nodes, levels 1-6.
-    public var fontsForHeadingLevels: [Font] = [
-        Font.systemFont(ofSize: 24.0, weight: .semibold),
-        Font.systemFont(ofSize: 18, weight: .semibold),
-        Font.systemFont(ofSize: 16, weight: .semibold),
-        Font.systemFont(ofSize: 15, weight: .semibold),
-        Font.systemFont(ofSize: 14, weight: .semibold),
-        Font.systemFont(ofSize: 13, weight: .semibold)
-    ]
-
-    public func headingAttributes(level: Int) -> [NSAttributedString.Key: Any] {
-        let safeLevel = level < fontsForHeadingLevels.count ? level : 0
-        return [.font: fontsForHeadingLevels[safeLevel]]
-    }
+    /// Configuration for `Heading` nodes.
+    public var heading: HeadingConfiguration = .default
 }
 
 extension Dictionary where Key == CodingUserInfoKey {
