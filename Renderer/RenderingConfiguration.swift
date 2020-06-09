@@ -126,13 +126,6 @@ extension Swift.Array where Element == NSMutableAttributedString {
     }
 }
 
-/// A renderer that renders an empty string for any passed-in node.
-public struct EmptyRenderer: NodeRenderer {
-    public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
-        return [NSMutableAttributedString(string: "")]
-    }
-}
-
 public extension CodingUserInfoKey {
     /// A custom key, used by the `context` dictionary of `NodeRenderer` methods to store `RenderingConfiguration`.
     public static let renderingConfig = CodingUserInfoKey(rawValue: "renderingConfigKey")!
