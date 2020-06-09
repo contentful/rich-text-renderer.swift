@@ -25,7 +25,7 @@ public struct ResourceLinkInlineRenderer: NodeRenderer {
         let embeddedResourceNode = node as! ResourceLinkInline
         guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
 
-        let provider = context.styleConfig.resourceLinkInlineStringProvider
+        let provider = context.styleConfiguration.resourceLinkInlineStringProvider
 
         var rendered = [provider.string(for: resolvedResource, context: context)]
 

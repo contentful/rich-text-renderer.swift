@@ -32,21 +32,21 @@ final class MarkdownContentType: Resource, EntryDecodable, FieldKeysQueryable {
 
 final class STTest: Resource, EntryDecodable, FieldKeysQueryable {
     
-    static let contentTypeId = "stTest"
+    static let contentTypeId = "article"
 
     let sys: Sys
-    let name: String
-    let body: RichTextDocument
+    let title: String
+    let content: RichTextDocument
 
     public required init(from decoder: Decoder) throws {
         sys = try decoder.sys()
         let fields = try decoder.contentfulFieldsContainer(keyedBy: FieldKeys.self)
-        name = try fields.decode(String.self, forKey: .name)
-        body = try fields.decode(RichTextDocument.self, forKey: .body)
+        title = try fields.decode(String.self, forKey: .title)
+        content = try fields.decode(RichTextDocument.self, forKey: .content)
     }
 
     enum FieldKeys: String, CodingKey {
-        case name, body
+        case title, content
     }
 }
 
@@ -133,7 +133,7 @@ struct MyViewProvider: ResourceLinkBlockViewProviding {
 class ViewController: RichTextViewController {
 
     init() {
-        var styling = RenderingConfiguration()
+        var styling = RendererConfiguration()
         styling.resourceLinkBlockViewProvider = MyViewProvider()
         styling.resourceLinkInlineStringProvider = MyInlineProvider()
         let renderer = DefaultRichTextRenderer(styleConfig: styling)

@@ -14,5 +14,5 @@ public protocol RichTextRenderer {
     func render(document: RichTextDocument) -> NSAttributedString
 
     /// The styling configuration to use when rendering the `Contentful.RichTextDocument` to an `NSAttributedString`.
-    var config: RenderingConfiguration { get set }
+    var config: RendererConfiguration { get set }
 }

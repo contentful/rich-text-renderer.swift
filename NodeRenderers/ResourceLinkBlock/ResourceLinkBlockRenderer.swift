@@ -25,7 +25,7 @@ public struct ResourceLinkBlockRenderer: NodeRenderer {
         let embeddedResourceNode = node as! ResourceLinkBlock
         guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
 
-        let provider = context.styleConfig.resourceLinkBlockViewProvider
+        let provider = context.styleConfiguration.resourceLinkBlockViewProvider
 
         let semaphore = DispatchSemaphore(value: 0)
 

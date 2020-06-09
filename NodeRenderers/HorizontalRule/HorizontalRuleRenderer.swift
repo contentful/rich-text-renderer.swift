@@ -16,7 +16,7 @@ import Contentful
 public struct HorizontalRuleRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey : Any]) -> [NSMutableAttributedString] {
-        let provider = context.styleConfig.horizontalRuleViewProvider
+        let provider = context.styleConfiguration.horizontalRuleViewProvider
 
         let semaphore = DispatchSemaphore(value: 0)
         var hrView: View!

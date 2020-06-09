@@ -23,7 +23,7 @@ public struct HeadingRenderer: NodeRenderer {
 
         rendered.forEach {
             let headingLevel = HeadingLevel(rawValue: Int(heading.level)) ?? HeadingLevel.h1
-            let font = context.styleConfig.heading.fonts.font(for: headingLevel)
+            let font = context.styleConfiguration.heading.fonts.font(for: headingLevel)
             $0.addAttributes([.font: font], range: NSRange(location: 0, length: $0.length))
         }
         rendered.applyListItemStylingIfNecessary(node: node, context: context)

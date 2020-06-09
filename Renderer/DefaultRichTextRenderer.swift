@@ -15,7 +15,7 @@ import Contentful
 /// on the `DefaultRichTextRenderer`.
 public struct DefaultRichTextRenderer: RichTextRenderer {
 
-    public var config: RenderingConfiguration = RenderingConfiguration()
+    public var config: RendererConfiguration = RendererConfiguration()
 
     /// The renderer for `Contentful.Heading` nodes. Defaults to an instance of `HeadingRenderer`.
     public var headingRenderer: NodeRenderer = HeadingRenderer()
@@ -53,7 +53,7 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     /// The renderer for `Contentful.HorizontalRule` nodes. Defaults to an instance of `HorizontalRuleRenderer`.
     public var horizontalRuleRenderer: NodeRenderer = HorizontalRuleRenderer()
 
-    public init(styleConfig: RenderingConfiguration) {
+    public init(styleConfig: RendererConfiguration) {
         self.config = styleConfig
     }
 
@@ -63,7 +63,7 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     /// The starting context with which to render the `RichTextDocument`.
     public var baseContext: [CodingUserInfoKey: Any] {
         return [
-            .renderingConfig: config,
+            .rendererConfiguration: config,
             .listContext: ListContext(level: 0,
                                       indentationLevel: 0,
                                       parentType: nil,
@@ -132,7 +132,7 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     ///   - textNode: The text node which has `marks` desribing the required font.
     ///   - styleConfiguration: The styling configuration which holds the base font to render with.
     /// - Returns: An instance of `UIFont` on iOS and tvOS, or an instance of `NSFont` on macOS.
-    public static func font(for textNode: Text, config: RenderingConfiguration) -> Font {
+    public static func font(for textNode: Text, config: RendererConfiguration) -> Font {
         let markTypes = textNode.marks.map { $0.type }
 
         var font: Font?

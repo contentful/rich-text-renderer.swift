@@ -16,7 +16,7 @@ public struct TextRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let text = node as! Text
-        let renderingConfig = context.styleConfig
+        let renderingConfig = context.styleConfiguration
 
         let font = DefaultRichTextRenderer.font(for: text, config: renderingConfig)
 
