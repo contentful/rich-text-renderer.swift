@@ -173,7 +173,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     private func layoutEmbeddedResourceViews(layoutManager: NSLayoutManager) {
         // For each attached subview, find its associated attachment and position it according to its text layout
-        let attachmentRanges = textView.textStorage.attachmentRanges(forAttribute: .embed) as! [(ResourceBlockView, NSRange)]
+        let attachmentRanges = textView.textStorage.attachmentRanges(forAttribute: .embed) as! [(ResourceLinkBlockViewRepresentable, NSRange)]
         for (view, range) in attachmentRanges {
             guard let (attachmentRect, lineFragmentRect) = boundingRectAndLineFragmentRect(forAttachmentCharacterAt: range.location,
                                                                                            attachmentView: view,

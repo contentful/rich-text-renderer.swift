@@ -53,9 +53,6 @@ public struct RenderingConfiguration {
     /// The base font with which to begin styling. Defaults to the standard system font size.
     public var baseFont = Font.systemFont(ofSize: Font.systemFontSize)
 
-    /// The `ViewProvider` to render views for `ResourceLinkBlock` nodes.  Defaults to an instance of `EmptyViewProvider`
-    public var viewProvider: ViewProvider = EmptyViewProvider()
-
     /// The color of the text. Defaults to `UIColor.black`.
     public var textColor = Color.black
 
@@ -79,7 +76,12 @@ public struct RenderingConfiguration {
     public var horizontalRuleViewProvider: HorizontalRuleViewProviding = HorizontalRuleViewProvider()
 
     /// Provides a string for `ResourceLinkInline` nodes.
-    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding = ResourceLinkInlineStringProvider()
+    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding
+        = EmptyResourceLinkInlineStringProvider()
+
+    /// Provides a view for `ResourceLinkBlock` nodes.
+    public var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding
+        = EmptyResourceLinkBlockViewProvider()
 }
 
 extension Dictionary where Key == CodingUserInfoKey {

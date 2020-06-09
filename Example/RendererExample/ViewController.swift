@@ -68,7 +68,7 @@ final class EmbeddedEntry: Resource, EntryDecodable, FieldKeysQueryable {
     }
 }
 
-class EmbeddedTextView: UITextView, ResourceLinkBlockRepresentable {
+class EmbeddedTextView: UITextView, ResourceLinkBlockViewRepresentable {
     var surroundingTextShouldWrap: Bool = true
     var context: [CodingUserInfoKey: Any] = [:]
 
@@ -89,8 +89,8 @@ struct MyInlineProvider: ResourceLinkInlineStringProviding {
     }
 }
 
-struct MyViewProvider: ViewProvider {
-    func view(for resource: FlatResource, context: [CodingUserInfoKey: Any]) -> ResourceBlockView {
+struct MyViewProvider: ResourceLinkBlockViewProviding {
+    func view(for resource: FlatResource, context: [CodingUserInfoKey: Any]) -> ResourceLinkBlockViewRepresentable {
         if let embedded = resource as? EmbeddedEntry {
             let view = EmbeddedTextView(frame: .zero)
             view.context = context
@@ -124,7 +124,8 @@ struct MyViewProvider: ViewProvider {
             imageView.setImageToNaturalHeight()
             return imageView
         }
-        return EmptyView(frame: .zero)
+
+        return EmptyResourceLinkBlockView()
     }
 }
 
@@ -133,7 +134,7 @@ class ViewController: RichTextViewController {
 
     init() {
         var styling = RenderingConfiguration()
-        styling.viewProvider = MyViewProvider()
+        styling.resourceLinkBlockViewProvider = MyViewProvider()
         styling.resourceLinkInlineStringProvider = MyInlineProvider()
         let renderer = DefaultRichTextRenderer(styleConfig: styling)
         super.init(richText: nil, renderer: renderer, nibName: nil, bundle: nil)

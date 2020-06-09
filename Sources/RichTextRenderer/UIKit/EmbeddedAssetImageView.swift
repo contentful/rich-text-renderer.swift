@@ -11,7 +11,7 @@ import UIKit
 import AlamofireImage
 import Contentful
 
-public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockRepresentable {
+public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockViewRepresentable {
 
     public init(asset: Asset) {
         self.asset = asset
