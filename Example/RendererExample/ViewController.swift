@@ -32,21 +32,21 @@ final class MarkdownContentType: Resource, EntryDecodable, FieldKeysQueryable {
 
 final class STTest: Resource, EntryDecodable, FieldKeysQueryable {
     
-    static let contentTypeId = "article"
+    static let contentTypeId = "stTest"
 
     let sys: Sys
-    let title: String
-    let content: RichTextDocument
+    let name: String
+    let body: RichTextDocument
 
     public required init(from decoder: Decoder) throws {
         sys = try decoder.sys()
         let fields = try decoder.contentfulFieldsContainer(keyedBy: FieldKeys.self)
-        title = try fields.decode(String.self, forKey: .title)
-        content = try fields.decode(RichTextDocument.self, forKey: .content)
+        name = try fields.decode(String.self, forKey: .name)
+        body = try fields.decode(RichTextDocument.self, forKey: .body)
     }
 
     enum FieldKeys: String, CodingKey {
-        case title, content
+        case name, body
     }
 }
 
