@@ -59,17 +59,8 @@ public struct RenderingConfiguration {
     /// The `InlineProvider` to render strings for `ResourceLinkInline` nodes. Defaults to an instance of `EmptyInlineProvider`
     public var inlineResourceProvider: InlineProvider = EmptyInlineProvider()
 
-    /// The `HorizontalRuleProvider` to render views for `HorizontalRule` nodes. Defaults to an instance of `DefaultHorizontalRuleProvider`
-    public var horizontalRuleProvider: HorizontalRuleProvider  = DefaultHorizontalRuleProvider()
-
     /// The color of the text. Defaults to `UIColor.black`.
     public var textColor = Color.black
-
-    /// The space between paragraphs. Defaults to 15.0 points.
-    public var paragraphSpacing: CGFloat = 15.0
-
-    /// The space between lines. Defaults to 0.0 points.
-    public var lineSpacing: CGFloat = 0.0
 
     /// The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
     /// Defaults to 10.0 points.
@@ -82,11 +73,17 @@ public struct RenderingConfiguration {
     /// of the first character of the list item. Defaults to 20.0 points.
     public var distanceFromBulletMinXToCharMinX: CGFloat = 20.0
 
+    /// Configuration for `Text` nodes.
+    public var textConfiguration: TextConfiguration = .default
+
     /// Configuration for `BlockQuote` nodes.
     public var blockQuote: BlockQuoteConfiguration = .default
 
     /// Configuration for `Heading` nodes.
     public var heading: HeadingConfiguration = .default
+
+    /// Provides a view for `HorizontalRule` node.
+    public var horizontalRuleViewProvider: HorizontalRuleViewProviding = HorizontalRuleViewProvider()
 }
 
 extension Dictionary where Key == CodingUserInfoKey {

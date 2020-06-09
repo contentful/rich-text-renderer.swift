@@ -42,8 +42,8 @@ internal extension NSMutableAttributedString {
         // Indent subsequent lines to line up with first tab stop after bullet.
         paragraphStyle.headIndent = indentation + renderingConfig.distanceFromBulletMinXToCharMinX
 
-        paragraphStyle.paragraphSpacing = renderingConfig.paragraphSpacing
-        paragraphStyle.lineSpacing = renderingConfig.lineSpacing
+        paragraphStyle.paragraphSpacing = renderingConfig.textConfiguration.paragraphSpacing
+        paragraphStyle.lineSpacing = renderingConfig.textConfiguration.lineSpacing
 
         addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: length))
     }

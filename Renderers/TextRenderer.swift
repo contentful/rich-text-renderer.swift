@@ -21,8 +21,8 @@ public struct TextRenderer: NodeRenderer {
         let font = DefaultRichTextRenderer.font(for: text, config: renderingConfig)
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = renderingConfig.lineSpacing
-        paragraphStyle.paragraphSpacing = renderingConfig.paragraphSpacing
+        paragraphStyle.lineSpacing = renderingConfig.textConfiguration.lineSpacing
+        paragraphStyle.paragraphSpacing = renderingConfig.textConfiguration.paragraphSpacing
 
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
