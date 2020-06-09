@@ -16,20 +16,6 @@ import Cocoa
 import AppKit
 #endif
 
-/// Conform to this protocol to create custom string for `Contentful.ResourceLinkInlinee` nodes that are part of
-/// a `Contentful.RichTextDocument`.
-public protocol InlineProvider {
-    func string(for resource: FlatResource, context: [CodingUserInfoKey: Any]) -> NSMutableAttributedString
-}
-
-/// A custom `InlineProvider` which will return an empty string.
-public struct EmptyInlineProvider: InlineProvider {
-
-    public func string(for resource: FlatResource, context: [CodingUserInfoKey: Any]) -> NSMutableAttributedString {
-        return NSMutableAttributedString(string: "")
-    }
-}
-
 /// A renderer for a `Contentful.ResourceLinkBlock` node. This renderer will use the `InlineProvider`
 /// attached to the `RenderingConfiguration` which is available via the `context` Dictionary to grab the string
 /// which should be used to render this node.
@@ -39,7 +25,7 @@ public struct ResourceLinkInlineRenderer: NodeRenderer {
         let embeddedResourceNode = node as! ResourceLinkInline
         guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
 
-        let provider = context.styleConfig.inlineResourceProvider
+        let provider = context.styleConfig.resourceLinkInlineStringProvider
 
         var rendered = [provider.string(for: resolvedResource, context: context)]
 

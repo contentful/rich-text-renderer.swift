@@ -56,22 +56,12 @@ public struct RenderingConfiguration {
     /// The `ViewProvider` to render views for `ResourceLinkBlock` nodes.  Defaults to an instance of `EmptyViewProvider`
     public var viewProvider: ViewProvider = EmptyViewProvider()
 
-    /// The `InlineProvider` to render strings for `ResourceLinkInline` nodes. Defaults to an instance of `EmptyInlineProvider`
-    public var inlineResourceProvider: InlineProvider = EmptyInlineProvider()
-
     /// The color of the text. Defaults to `UIColor.black`.
     public var textColor = Color.black
 
     /// The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
     /// Defaults to 10.0 points.
     public var embedMargin: CGFloat = 10.0
-
-    /// The point value representing the indentation increment that each list should use. Deafults to 15.0 points.
-    public var indentationMultiplier: CGFloat = 15.0
-
-    /// The distance from the leading edge of the list item indicating character to the leading edge
-    /// of the first character of the list item. Defaults to 20.0 points.
-    public var distanceFromBulletMinXToCharMinX: CGFloat = 20.0
 
     /// Configuration for `Text` nodes.
     public var textConfiguration: TextConfiguration = .default
@@ -82,8 +72,14 @@ public struct RenderingConfiguration {
     /// Configuration for `Heading` nodes.
     public var heading: HeadingConfiguration = .default
 
+    /// Configuration for text lists.
+    public var textList: TextListConfiguration = .default
+
     /// Provides a view for `HorizontalRule` node.
     public var horizontalRuleViewProvider: HorizontalRuleViewProviding = HorizontalRuleViewProvider()
+
+    /// Provides a string for `ResourceLinkInline` nodes.
+    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding = ResourceLinkInlineStringProvider()
 }
 
 extension Dictionary where Key == CodingUserInfoKey {

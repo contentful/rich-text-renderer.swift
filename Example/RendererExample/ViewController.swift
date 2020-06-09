@@ -77,7 +77,7 @@ class EmbeddedTextView: UITextView, ResourceLinkBlockRepresentable {
     }
 }
 
-struct MyInlineProvider: InlineProvider {
+struct MyInlineProvider: ResourceLinkInlineStringProviding {
     func string(for resource: FlatResource, context: [CodingUserInfoKey: Any]) -> NSMutableAttributedString {
         if let embedded = resource as? EmbeddedEntry {
             let url = URL(string: "https://example.com/\(embedded.id)")!
@@ -134,7 +134,7 @@ class ViewController: RichTextViewController {
     init() {
         var styling = RenderingConfiguration()
         styling.viewProvider = MyViewProvider()
-        styling.inlineResourceProvider = MyInlineProvider()
+        styling.resourceLinkInlineStringProvider = MyInlineProvider()
         let renderer = DefaultRichTextRenderer(styleConfig: styling)
         super.init(richText: nil, renderer: renderer, nibName: nil, bundle: nil)
     }
