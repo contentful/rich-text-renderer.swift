@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 import Contentful
 
 /// A renderer for a `Contentful.HorizontalRule` node. This renderer will use the `HorizontalRuleProvider`

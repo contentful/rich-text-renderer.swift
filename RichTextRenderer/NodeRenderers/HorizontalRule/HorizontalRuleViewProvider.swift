@@ -1,6 +1,6 @@
 // RichTextRenderer
 
-import UIKit
+import CoreGraphics
 
 /// Default implementation of the `HorizontalRuleViewProviding`.
 public final class HorizontalRuleViewProvider: HorizontalRuleViewProviding {

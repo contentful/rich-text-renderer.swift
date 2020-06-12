@@ -1,0 +1,18 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Debug.xcconfig"
+
+BUNDLE_LOADER = $(TEST_HOST)
+INFOPLIST_FILE = $(TARGET_NAME)/Info.plist
+PRODUCT_BUNDLE_IDENTIFIER = com.contentful.$(TARGET_NAME)
+PRODUCT_NAME = $(TARGET_NAME)
+
+// To save us from embedding dynamic libraries in our test bundles we look in our
+// development directory at runtime for our dynamic libraries and frameworks
+// This strategy only works for test targets and shouldn't be used to configure apps.
+LD_RUNPATH_SEARCH_PATHS =
+LD_RUNPATH_SEARCH_PATHS[sdk=iphone*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Carthage/Build/iOS
+LD_RUNPATH_SEARCH_PATHS[sdk=appletv*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Carthage/Build/tvOS
+LD_RUNPATH_SEARCH_PATHS[sdk=watchos*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Carthage/Build/watchOS
+LD_RUNPATH_SEARCH_PATHS[sdk=macos*] = $(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Carthage/Build/macOS

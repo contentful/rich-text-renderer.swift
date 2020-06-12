@@ -32,7 +32,7 @@ private extension CGPoint {
 
 public extension NSAttributedString {
 
-    public func attachmentRanges(forAttribute attribute: NSAttributedString.Key) -> [(attachment: View, range: NSRange)] {
+    func attachmentRanges(forAttribute attribute: NSAttributedString.Key) -> [(attachment: View, range: NSRange)] {
         var ranges = [(View, NSRange)]()
 
         let fullRange = NSRange(location: 0, length: self.length)
