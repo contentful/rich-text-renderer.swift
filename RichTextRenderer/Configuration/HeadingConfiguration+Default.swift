@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 public extension HeadingConfiguration {
     static var `default`: HeadingConfiguration {

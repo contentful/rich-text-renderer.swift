@@ -1,4 +1,6 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
+
+import CoreGraphics
 
 /// Configuration for rendering `Text` node.
 public struct TextConfiguration {

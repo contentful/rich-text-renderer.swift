@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 /// Configuration for rendering `Heading` node.
 public struct HeadingConfiguration {

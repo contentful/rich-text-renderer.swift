@@ -1,0 +1,61 @@
+# Rules for SwiftLint s
+# https://github.com/realm/SwiftLint/blob/master/Rules.md
+excluded:
+  - Carthage
+  - Contentful.playground
+  - Packages
+  - Tests
+  - .build
+  - build
+disabled_rules:
+- syntactic_sugar
+- type_body_length
+- type_name
+- cyclomatic_complexity
+- function_parameter_count
+- legacy_constant
+- force_cast
+- force_try
+# Rule that says says type that conforms to protocol must be a class.
+# If we are in pure swift, this is not necessary.
+- class_delegate_protocol
+- weak_delegate
+- vertical_parameter_alignment
+# ignoring since some file that exists on travis, but not locally is throwing this as a compile error
+# Also, swiftlint says it will be removed in future versions
+- identifier_name
+- nesting # Disable warnings about structures nested more than 1 level deep.
+
+opt_in_rules:
+- first_where
+- fatal_error_message
+- attributes
+- unused_private_declaration
+- closure_end_indentation
+- collection_alignment
+- contains_over_first_not_nil
+- convenience_type
+- empty_count
+- empty_string
+- explicit_acl
+- multiline_arguments
+- multiline_parameters
+- toggle_bool
+- unneeded_parentheses_in_closure_argument
+
+# Parameterized
+line_length: 
+  warning: 150
+  ignores_comments: true
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_interpolated_strings: true
+file_length:
+  warning: 850
+vertical_whitespace:
+  max_empty_lines: 2
+function_body_length: 110
+#identifier_name:
+#  min_length: 2
+#  max_length: 30
+#

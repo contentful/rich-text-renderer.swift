@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 public extension TextConfiguration {
     static var `default`: TextConfiguration {

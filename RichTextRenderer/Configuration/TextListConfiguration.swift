@@ -1,4 +1,6 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
+
+import CoreGraphics
 
 /// Configuration for rendering ordered/unordered text lists.
 public struct TextListConfiguration {

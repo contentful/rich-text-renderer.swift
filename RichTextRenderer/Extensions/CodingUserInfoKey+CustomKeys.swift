@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 public extension CodingUserInfoKey {
     /// Custom key used by the `context` dictionary of `NodeRenderer` methods to store `RenderingConfiguration`.

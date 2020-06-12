@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 extension Dictionary where Key == CodingUserInfoKey {
     var styleConfiguration: RendererConfiguration {

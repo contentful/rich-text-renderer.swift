@@ -1,4 +1,6 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
+
+import CoreGraphics
 
 /// Represents view with `ResourceLinkBlock` content.
 public protocol ResourceLinkBlockViewRepresentable: View {

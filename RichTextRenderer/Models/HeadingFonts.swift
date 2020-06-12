@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 /// Font definitions for headings.
 public struct HeadingFonts {

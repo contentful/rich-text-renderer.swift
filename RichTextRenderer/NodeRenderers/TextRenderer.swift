@@ -20,7 +20,7 @@ public struct TextRenderer: NodeRenderer {
 
         let font = DefaultRichTextRenderer.font(for: text, config: renderingConfig)
 
-        let paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = MutableParagraphStyle()
         paragraphStyle.lineSpacing = renderingConfig.textConfiguration.lineSpacing
         paragraphStyle.paragraphSpacing = renderingConfig.textConfiguration.paragraphSpacing
 

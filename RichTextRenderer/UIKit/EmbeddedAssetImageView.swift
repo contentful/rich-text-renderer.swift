@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import AlamofireImage
 import Contentful
 
 public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockViewRepresentable {

@@ -1,4 +1,4 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
 
 /// Provides view representing horizontal line for a `HorizontalRule` node.
 public protocol HorizontalRuleViewProviding {

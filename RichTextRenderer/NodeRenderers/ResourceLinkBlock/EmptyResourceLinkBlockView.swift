@@ -1,4 +1,6 @@
-// ContentfulRichTextRenderer
+// RichTextRenderer
+
+import CoreGraphics
 
 /// View that can be used to represent unsupported `ResourceLinkBlock` nodes.
 public final class EmptyResourceLinkBlockView: View, ResourceLinkBlockViewRepresentable {
