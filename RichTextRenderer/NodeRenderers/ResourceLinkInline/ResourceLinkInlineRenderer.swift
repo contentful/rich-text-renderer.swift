@@ -23,6 +23,7 @@ public struct ResourceLinkInlineRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let embeddedResourceNode = node as! ResourceLinkInline
+
         guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
 
         let provider = context.styleConfiguration.resourceLinkInlineStringProvider

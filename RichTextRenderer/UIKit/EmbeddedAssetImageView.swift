@@ -6,6 +6,7 @@
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
 //
 
+import AlamofireImage
 import Foundation
 import UIKit
 import Contentful
@@ -63,6 +64,7 @@ public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockViewRepresent
         let url = try! asset.url(with: imageOptions)
 
         // Use AlamofireImage extensons to fetch the image and render the image veiw.
+        
         af_setImage(withURL: url,
                     placeholderImage: nil,
                     imageTransition: .crossDissolve(0.5),
