@@ -12,13 +12,12 @@ Pod::Spec.new do |spec|
       :file => 'LICENSE'
   }
 
-  spec.authors      = { "JP Wright" => "jp@contentful.com" }
   spec.source       = { :git => "https://github.com/contentful-labs/rich-text-renderer.swift.git",
                         :tag => spec.version.to_s }
   spec.requires_arc = true
   
-  spec.swift_version = '4.2'
-  spec.ios.deployment_target = '9.3'
+  spec.swift_version = '5.2'
+  spec.ios.deployment_target = '11.0'
 
   spec.source_files = 'Sources/RichTextRenderer/*.swift'
   spec.ios.source_files = 'Sources/RichTextRenderer/UIKit/*.swift'
