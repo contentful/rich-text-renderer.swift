@@ -23,7 +23,6 @@ public struct ResourceLinkBlockRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let embeddedResourceNode = node as! ResourceLinkBlock
-        guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
 
         let provider = context.styleConfiguration.resourceLinkBlockViewProvider
 
@@ -32,7 +31,7 @@ public struct ResourceLinkBlockRenderer: NodeRenderer {
         var view: View!
 
         DispatchQueue.main.sync {
-            view = provider.view(for: resolvedResource, context: context)
+            view = provider.view(for: embeddedResourceNode.data.target, context: context)
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)

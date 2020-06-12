@@ -24,11 +24,9 @@ public struct ResourceLinkInlineRenderer: NodeRenderer {
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let embeddedResourceNode = node as! ResourceLinkInline
 
-        guard let resolvedResource = embeddedResourceNode.data.resolvedResource else { return [] }
-
         let provider = context.styleConfiguration.resourceLinkInlineStringProvider
 
-        var rendered = [provider.string(for: resolvedResource, context: context)]
+        var rendered = [provider.string(for: embeddedResourceNode.data.target, context: context)]
 
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
         rendered.appendNewlineIfNecessary(node: node)
