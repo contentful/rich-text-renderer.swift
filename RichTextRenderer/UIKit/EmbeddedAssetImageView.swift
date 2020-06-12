@@ -63,11 +63,11 @@ public class EmbeddedAssetImageView: UIImageView, ResourceLinkBlockViewRepresent
 
         let url = try! asset.url(with: imageOptions)
 
-        // Use AlamofireImage extensons to fetch the image and render the image veiw.
-        
-        af_setImage(withURL: url,
-                    placeholderImage: nil,
-                    imageTransition: .crossDissolve(0.5),
-                    runImageTransitionIfCached: true)
+        self.af.setImage(
+            withURL: url,
+            placeholderImage: nil,
+            imageTransition: .crossDissolve(0.5),
+            runImageTransitionIfCached: true
+        )
     }
 }
