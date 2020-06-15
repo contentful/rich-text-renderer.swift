@@ -11,12 +11,8 @@ public struct DefaultRendererConfiguration: RendererConfiguration {
     public var heading: HeadingConfiguration = .default
     public var textList: TextListConfiguration = .default
     public var horizontalRuleViewProvider: HorizontalRuleViewProviding = HorizontalRuleViewProvider()
-
-    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding
-        = EmptyResourceLinkInlineStringProvider()
-
-    public var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding
-        = EmptyResourceLinkBlockViewProvider()
+    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding? = nil
+    public var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding? = nil
 
     public init() {}
 }

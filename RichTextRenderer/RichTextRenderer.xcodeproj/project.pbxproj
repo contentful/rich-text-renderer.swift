@@ -39,11 +39,8 @@
 		6DA0AB712493B89C005D4823 /* HeadingRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB592493B89C005D4823 /* HeadingRenderer.swift */; };
 		6DA0AB722493B89C005D4823 /* ResourceLinkInlineRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB5B2493B89C005D4823 /* ResourceLinkInlineRenderer.swift */; };
 		6DA0AB732493B89C005D4823 /* ResourceLinkInlineStringProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB5C2493B89C005D4823 /* ResourceLinkInlineStringProviding.swift */; };
-		6DA0AB742493B89C005D4823 /* EmptyResourceLinkInlineStringProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB5D2493B89C005D4823 /* EmptyResourceLinkInlineStringProvider.swift */; };
 		6DA0AB752493B89C005D4823 /* NodeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB5E2493B89C005D4823 /* NodeRenderer.swift */; };
 		6DA0AB772493B89C005D4823 /* ResourceLinkBlockViewProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB612493B89C005D4823 /* ResourceLinkBlockViewProviding.swift */; };
-		6DA0AB782493B89C005D4823 /* EmptyResourceLinkBlockViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB622493B89C005D4823 /* EmptyResourceLinkBlockViewProvider.swift */; };
-		6DA0AB792493B89C005D4823 /* EmptyResourceLinkBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB632493B89C005D4823 /* EmptyResourceLinkBlockView.swift */; };
 		6DA0AB7A2493B89C005D4823 /* ResourceLinkBlockRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB642493B89C005D4823 /* ResourceLinkBlockRenderer.swift */; };
 		6DA0AB7B2493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB652493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift */; };
 		6DA0AB7C2493B89C005D4823 /* ParagraphRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB662493B89C005D4823 /* ParagraphRenderer.swift */; };
@@ -92,11 +89,8 @@
 		6DA0AB592493B89C005D4823 /* HeadingRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadingRenderer.swift; sourceTree = "<group>"; };
 		6DA0AB5B2493B89C005D4823 /* ResourceLinkInlineRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLinkInlineRenderer.swift; sourceTree = "<group>"; };
 		6DA0AB5C2493B89C005D4823 /* ResourceLinkInlineStringProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLinkInlineStringProviding.swift; sourceTree = "<group>"; };
-		6DA0AB5D2493B89C005D4823 /* EmptyResourceLinkInlineStringProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResourceLinkInlineStringProvider.swift; sourceTree = "<group>"; };
 		6DA0AB5E2493B89C005D4823 /* NodeRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeRenderer.swift; sourceTree = "<group>"; };
 		6DA0AB612493B89C005D4823 /* ResourceLinkBlockViewProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockViewProviding.swift; sourceTree = "<group>"; };
-		6DA0AB622493B89C005D4823 /* EmptyResourceLinkBlockViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResourceLinkBlockViewProvider.swift; sourceTree = "<group>"; };
-		6DA0AB632493B89C005D4823 /* EmptyResourceLinkBlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyResourceLinkBlockView.swift; sourceTree = "<group>"; };
 		6DA0AB642493B89C005D4823 /* ResourceLinkBlockRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockRenderer.swift; sourceTree = "<group>"; };
 		6DA0AB652493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockViewRepresentable.swift; sourceTree = "<group>"; };
 		6DA0AB662493B89C005D4823 /* ParagraphRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParagraphRenderer.swift; sourceTree = "<group>"; };
@@ -225,7 +219,6 @@
 			children = (
 				6DA0AB5B2493B89C005D4823 /* ResourceLinkInlineRenderer.swift */,
 				6DA0AB5C2493B89C005D4823 /* ResourceLinkInlineStringProviding.swift */,
-				6DA0AB5D2493B89C005D4823 /* EmptyResourceLinkInlineStringProvider.swift */,
 			);
 			path = ResourceLinkInline;
 			sourceTree = "<group>";
@@ -234,8 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				6DA0AB612493B89C005D4823 /* ResourceLinkBlockViewProviding.swift */,
-				6DA0AB622493B89C005D4823 /* EmptyResourceLinkBlockViewProvider.swift */,
-				6DA0AB632493B89C005D4823 /* EmptyResourceLinkBlockView.swift */,
 				6DA0AB642493B89C005D4823 /* ResourceLinkBlockRenderer.swift */,
 				6DA0AB652493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift */,
 			);
@@ -415,7 +406,6 @@
 			files = (
 				6DA0AB922493B8C0005D4823 /* EmbeddedAssetImageView.swift in Sources */,
 				6D52775F2497CCBE00E559A5 /* DefaultRenderersProvider.swift in Sources */,
-				6DA0AB742493B89C005D4823 /* EmptyResourceLinkInlineStringProvider.swift in Sources */,
 				6DA0AB912493B8C0005D4823 /* RichTextViewController.swift in Sources */,
 				6DA0AB6B2493B89C005D4823 /* TextRenderer.swift in Sources */,
 				6DA0AB6F2493B89C005D4823 /* OrderedListRenderer.swift in Sources */,
@@ -435,7 +425,6 @@
 				6DA0AB732493B89C005D4823 /* ResourceLinkInlineStringProviding.swift in Sources */,
 				6DA0AB7B2493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift in Sources */,
 				6DA0AB6E2493B89C005D4823 /* HyperlinkRenderer.swift in Sources */,
-				6DA0AB792493B89C005D4823 /* EmptyResourceLinkBlockView.swift in Sources */,
 				6DA0AB7C2493B89C005D4823 /* ParagraphRenderer.swift in Sources */,
 				6DA0AB352493B88F005D4823 /* TextListConfiguration+Default.swift in Sources */,
 				6DA0AB7E2493B89C005D4823 /* HorizontalRuleViewProvider.swift in Sources */,
@@ -453,7 +442,6 @@
 				6DA0AB472493B894005D4823 /* NSAttributedString.swift in Sources */,
 				6DA0AB3C2493B88F005D4823 /* RendererConfiguration.swift in Sources */,
 				6DA0AB862493B8A7005D4823 /* RichTextRenderer.swift in Sources */,
-				6DA0AB782493B89C005D4823 /* EmptyResourceLinkBlockViewProvider.swift in Sources */,
 				6DA0AB772493B89C005D4823 /* ResourceLinkBlockViewProviding.swift in Sources */,
 				6D52775D2497CC7500E559A5 /* NodeRenderersProviding.swift in Sources */,
 				6DA0AB702493B89C005D4823 /* ListItemRenderer.swift in Sources */,

@@ -31,8 +31,8 @@ public protocol RendererConfiguration {
     var horizontalRuleViewProvider: HorizontalRuleViewProviding { get }
 
     /// Provides a string for `ResourceLinkInline` nodes.
-    var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding { get }
+    var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding? { get }
 
     /// Provides a view for `ResourceLinkBlock` nodes.
-    var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding { get }
+    var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding? { get }
 }
