@@ -18,14 +18,12 @@ public struct TextRenderer: NodeRenderer {
         let text = node as! Text
         let renderingConfig = context.styleConfiguration
 
-        let font = DefaultRichTextRenderer.font(for: text, config: renderingConfig)
-
         let paragraphStyle = MutableParagraphStyle()
         paragraphStyle.lineSpacing = renderingConfig.textConfiguration.lineSpacing
         paragraphStyle.paragraphSpacing = renderingConfig.textConfiguration.paragraphSpacing
 
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: font,
+            .font: renderingConfig.fontProvider.font(for: text),
             .paragraphStyle: paragraphStyle
         ]
         let attributedString = NSMutableAttributedString(string: text.value, attributes: attributes)

@@ -2,7 +2,6 @@
 
 import Contentful
 import CoreGraphics
-import Foundation
 
 /// A `RenderingConfiguration` describes all the configuration that should be used to render a `RichTextDocument`
 /// with a `RichTextRenderer`.
@@ -13,8 +12,8 @@ public struct RendererConfiguration {
     /// An instance of `RenderingConfiguration` with all variables set to defaults.
     public static let `default` = RendererConfiguration()
 
-    /// The base font with which to begin styling. Defaults to the standard system font size.
-    public var baseFont = Font.systemFont(ofSize: Font.systemFontSize)
+    /// Provides fonts in different variations for the renderers.
+    public var fontProvider: FontProviding = DefaultFontProvider()
 
     /// The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
     /// Defaults to 10.0 points.

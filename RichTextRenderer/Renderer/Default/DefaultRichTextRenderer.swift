@@ -15,7 +15,7 @@ import Contentful
 /// on the `DefaultRichTextRenderer`.
 public struct DefaultRichTextRenderer: RichTextRenderer {
 
-    public var config: RendererConfiguration = RendererConfiguration()
+    public var configuration: RendererConfiguration = .default
 
     /// The renderer for `Contentful.Heading` nodes. Defaults to an instance of `HeadingRenderer`.
     public var headingRenderer: NodeRenderer = HeadingRenderer()
@@ -54,7 +54,7 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     public var horizontalRuleRenderer: NodeRenderer = HorizontalRuleRenderer()
 
     public init(styleConfig: RendererConfiguration) {
-        self.config = styleConfig
+        self.configuration = styleConfig
     }
 
     /// Initializes an instance of `DefaultRichTextRenderer` with default renderers and default styling configuration.
@@ -63,7 +63,7 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     /// The starting context with which to render the `RichTextDocument`.
     public var baseContext: [CodingUserInfoKey: Any] {
         return [
-            .rendererConfiguration: config,
+            .rendererConfiguration: configuration,
             .listContext: ListContext(level: 0,
                                       indentationLevel: 0,
                                       parentType: nil,
@@ -122,35 +122,9 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
 
         case .embeddedEntryInline, .assetHyperlink, .entryHyperlink:
             return resourceLinkInlineRenderer
-        }
-    }
 
-
-    /// Returns the font for a text node that has the correct attributes: i.e. bold, italicized, etc.
-    ///
-    /// - Parameters:
-    ///   - textNode: The text node which has `marks` desribing the required font.
-    ///   - styleConfiguration: The styling configuration which holds the base font to render with.
-    /// - Returns: An instance of `UIFont` on iOS and tvOS, or an instance of `NSFont` on macOS.
-    public static func font(for textNode: Text, config: RendererConfiguration) -> Font {
-        let markTypes = textNode.marks.map { $0.type }
-
-        var font: Font?
-
-        if markTypes.contains(.bold) && markTypes.contains(.italic) {
-            font = config.baseFont.italicizedAndBolded()
-        } else if markTypes.contains(.bold) {
-            font = config.baseFont.bolded()
-        } else if markTypes.contains(.italic) {
-            font = config.baseFont.italicized()
-        } else if markTypes.contains(.code) {
-            font = config.baseFont.monospaced()
-        }
-        if let font = font {
-            return font
-        } else {
-            // TODO: Log that no font was found for the relevant traits.
-            return config.baseFont
+        @unknown default:
+            return EmptyRenderer()
         }
     }
 }

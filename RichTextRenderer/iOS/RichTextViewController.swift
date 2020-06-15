@@ -105,14 +105,14 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                                                name: UIDevice.orientationDidChangeNotification,
                                                object: nil)
 
-        layoutManager.blockQuoteWidth = renderer.config.blockQuote.rectangleWidth
-        layoutManager.blockQuoteColor = renderer.config.blockQuote.rectangleColor
+        layoutManager.blockQuoteWidth = renderer.configuration.blockQuote.rectangleWidth
+        layoutManager.blockQuoteColor = renderer.configuration.blockQuote.rectangleColor
 
         textStorage.addLayoutManager(layoutManager)
 
         textContainer = RichTextContainer(size: view.bounds.size)
-        textContainer.blockQuoteTextInset = renderer.config.blockQuote.textInset
-        textContainer.blockQuoteWidth = renderer.config.blockQuote.rectangleWidth
+        textContainer.blockQuoteTextInset = renderer.configuration.blockQuote.textInset
+        textContainer.blockQuoteWidth = renderer.configuration.blockQuote.rectangleWidth
 
 
         textContainer.widthTracksTextView = true
@@ -186,7 +186,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             // Make the view's frame the correct width.
             var adaptedRect = attachmentRect
             let textViewSize = self.view.frame.size
-            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.config.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
+            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.configuration.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
             view.layout(with: adaptedRect.width)
 
             // Make the exclusion rect take up the entire width so that text doesn't wrap where it shouldn't
@@ -211,7 +211,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                     let additionalExclusionRect = CGRect(x: 0.0,
                                                          y: lineFragmentRect.origin.y + lineFragmentRect.height,
                                                          width: textViewSize.width,
-                                                         height: exclusionRect.height - lineFragmentRect.height + renderer.config.embedMargin)
+                                                         height: exclusionRect.height - lineFragmentRect.height + renderer.configuration.embedMargin)
                     textView.textContainer.exclusionPaths.append(UIBezierPath(rect: additionalExclusionRect))
                 }
 
@@ -238,7 +238,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             var adaptedRect = attachmentRect
             let textViewSize = self.view.frame.size
 
-            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.config.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
+            adaptedRect.size.width = textViewSize.width - adaptedRect.origin.x - renderer.configuration.embedMargin - textView.textContainerInset.right - textView.textContainerInset.left
             view.frame.size.width = adaptedRect.width
             // Make the exclusion rect take up the entire width so that text doesn't wrap where it shouldn't
             adaptedRect.size = view.frame.size
