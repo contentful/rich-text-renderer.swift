@@ -5,10 +5,16 @@ import Contentful
 /// Renderer for `Contentful.RichTextDocument`.
 public struct RichTextRenderer: RichTextRendering {
 
-    public var configuration: RendererConfiguration = .default
-    public var nodeRenderers: NodeRenderersProviding = DefaultRenderersProvider()
+    public let configuration: RendererConfiguration
+    public let nodeRenderers: NodeRenderersProviding
 
-    public init() {}
+    public init(
+        configuration: RendererConfiguration = DefaultRendererConfiguration(),
+        nodeRenderers: NodeRenderersProviding = DefaultRenderersProvider()
+    ) {
+        self.configuration = configuration
+        self.nodeRenderers = nodeRenderers
+    }
 
     public func render(document: RichTextDocument) -> NSAttributedString {
         let context = makeRenderingContext()

@@ -9,8 +9,8 @@ public protocol RichTextRendering {
     func render(document: RichTextDocument) -> NSAttributedString
 
     /// Renderer configuration.
-    var configuration: RendererConfiguration { get set }
+    var configuration: RendererConfiguration { get }
 
     /// Renderers for different types of nodes.
-    var nodeRenderers: NodeRenderersProviding { get set }
+    var nodeRenderers: NodeRenderersProviding { get }
 }

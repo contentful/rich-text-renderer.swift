@@ -3,42 +3,36 @@
 import Contentful
 import CoreGraphics
 
-/// A `RenderingConfiguration` describes all the configuration that should be used to render a `RichTextDocument`
-/// with a `RichTextRenderer`.
-public struct RendererConfiguration {
-
-    public init() {}
-
-    /// An instance of `RenderingConfiguration` with all variables set to defaults.
-    public static let `default` = RendererConfiguration()
+/// Describes configuration of the `RichTextRenderer`.
+public protocol RendererConfiguration {
 
     /// Provides fonts in different variations for the renderers.
-    public var fontProvider: FontProviding = DefaultFontProvider()
+    var fontProvider: FontProviding { get }
 
-    /// The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
-    /// Defaults to 10.0 points.
-    public var embedMargin: CGFloat = 10.0
+    /**
+     The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
+     Defaults to 10.0 points.
+     */
+    var embedMargin: CGFloat { get }
 
     /// Configuration for `Text` nodes.
-    public var textConfiguration: TextConfiguration = .default
+    var textConfiguration: TextConfiguration { get }
 
     /// Configuration for `BlockQuote` nodes.
-    public var blockQuote: BlockQuoteConfiguration = .default
+    var blockQuote: BlockQuoteConfiguration { get }
 
     /// Configuration for `Heading` nodes.
-    public var heading: HeadingConfiguration = .default
+    var heading: HeadingConfiguration { get }
 
     /// Configuration for text lists.
-    public var textList: TextListConfiguration = .default
+    var textList: TextListConfiguration { get }
 
     /// Provides a view for `HorizontalRule` node.
-    public var horizontalRuleViewProvider: HorizontalRuleViewProviding = HorizontalRuleViewProvider()
+    var horizontalRuleViewProvider: HorizontalRuleViewProviding { get }
 
     /// Provides a string for `ResourceLinkInline` nodes.
-    public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding
-        = EmptyResourceLinkInlineStringProvider()
+    var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding { get }
 
     /// Provides a view for `ResourceLinkBlock` nodes.
-    public var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding
-        = EmptyResourceLinkBlockViewProvider()
+    var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding { get }
 }

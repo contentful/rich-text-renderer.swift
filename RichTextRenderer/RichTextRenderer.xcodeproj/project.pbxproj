@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2714822497D361009ED7FB /* DefaultRendererConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D2714812497D361009ED7FB /* DefaultRendererConfiguration.swift */; };
 		6D5277522497B62E00E559A5 /* FontProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5277512497B62E00E559A5 /* FontProviding.swift */; };
 		6D5277542497B6A000E559A5 /* DefaultFontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5277532497B6A000E559A5 /* DefaultFontProvider.swift */; };
 		6D5277562497BA0800E559A5 /* FontProviding+Marks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5277552497BA0800E559A5 /* FontProviding+Marks.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D2714812497D361009ED7FB /* DefaultRendererConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRendererConfiguration.swift; sourceTree = "<group>"; };
 		6D5277512497B62E00E559A5 /* FontProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
 		6D5277532497B6A000E559A5 /* DefaultFontProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFontProvider.swift; sourceTree = "<group>"; };
 		6D5277552497BA0800E559A5 /* FontProviding+Marks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontProviding+Marks.swift"; sourceTree = "<group>"; };
@@ -147,10 +149,10 @@
 		6DA0AB202493B32C005D4823 /* RichTextRenderer */ = {
 			isa = PBXGroup;
 			children = (
-				6DA0AB9D2493CD6F005D4823 /* iOS */,
 				6DA0AB952493C877005D4823 /* Configs */,
 				6DA0AB2B2493B88F005D4823 /* Configuration */,
 				6DA0AB3E2493B894005D4823 /* Extensions */,
+				6DA0AB9D2493CD6F005D4823 /* iOS */,
 				6DA0AB4B2493B898005D4823 /* Models */,
 				6DA0AB522493B89B005D4823 /* NodeRenderers */,
 				6DA0AB802493B8A4005D4823 /* Platforms */,
@@ -306,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				6D5277532497B6A000E559A5 /* DefaultFontProvider.swift */,
+				6D2714812497D361009ED7FB /* DefaultRendererConfiguration.swift */,
 				6D52775E2497CCBE00E559A5 /* DefaultRenderersProvider.swift */,
 			);
 			path = Default;
@@ -440,6 +443,7 @@
 				6DA0AB3D2493B88F005D4823 /* HeadingConfiguration.swift in Sources */,
 				6DA0AB4F2493B898005D4823 /* HeadingFonts.swift in Sources */,
 				6DA0AB722493B89C005D4823 /* ResourceLinkInlineRenderer.swift in Sources */,
+				6D2714822497D361009ED7FB /* DefaultRendererConfiguration.swift in Sources */,
 				6DA0AB6C2493B89C005D4823 /* BlockQuoteRenderer.swift in Sources */,
 				6DA0AB372493B88F005D4823 /* HeadingConfiguration+Default.swift in Sources */,
 				6DA0AB712493B89C005D4823 /* HeadingRenderer.swift in Sources */,
