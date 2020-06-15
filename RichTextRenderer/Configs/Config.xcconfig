@@ -1,7 +1,6 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-// Make one target work with both iOS and tvOS
 IOS_FILES = */iOS/* */iOS/*/*
 TVOS_FILES = */tvOS/* */tvOS/*/*
 MACOSX_FILES = */macOS/* */macOS/*/*
@@ -15,7 +14,6 @@ INCLUDED_SOURCE_FILE_NAMES[sdk=macos*] = $(MACOSX_FILES)
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos appletvsimulator appletvos watchos macosx
 TARGETED_DEVICE_FAMILY = 1,2,3
 
-// Deployment
 IPHONEOS_DEPLOYMENT_TARGET = 11.0
 TVOS_DEPLOYMENT_TARGET = 11.0
 WATCHOS_DEPLOYMENT_TARGET = 6.0
