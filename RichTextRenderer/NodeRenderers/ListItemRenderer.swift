@@ -23,12 +23,13 @@ public struct ListItemRenderer: NodeRenderer {
         mutableContext[.listContext] = listContext
 
         let rendered = listItem.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
-            let nodeRenderer = renderer.renderer(for: node)
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
-            listContext.isFirstListItemChild = false
-            mutableContext[.listContext] = listContext
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
+                listContext.isFirstListItemChild = false
+                mutableContext[.listContext] = listContext
 
-            rendered.append(contentsOf: renderedChildren)
+                rendered.append(contentsOf: renderedChildren)
+            }
         }
         return rendered
     }

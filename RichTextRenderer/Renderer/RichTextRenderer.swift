@@ -2,15 +2,41 @@
 
 import Contentful
 
-/// Conform to this protocol to render `RichTextDocument`.
-public protocol RichTextRenderer {
+/// Renderer for `Contentful.RichTextDocument`.
+public struct RichTextRenderer: RichTextRendering {
 
-    /// Return correct renderer for passed in `Node`.
-    func renderer(for node: Node) -> NodeRenderer
+    public var configuration: RendererConfiguration = .default
+    public var nodeRenderers: NodeRenderersProviding = DefaultRenderersProvider()
 
-    /// Renders entire `RichTextDocument` as `NSAttributedString`.
-    func render(document: RichTextDocument) -> NSAttributedString
+    public init() {}
 
-    /// Renderer configuration.
-    var configuration: RendererConfiguration { get set }
+    public func render(document: RichTextDocument) -> NSAttributedString {
+        let context = makeRenderingContext()
+
+        let renderedChildren = document.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
+            if let nodeRenderer = nodeRenderers.renderer(for: node) {
+                let renderedNodes = nodeRenderer.render(node: node, renderer: self, context: context)
+                rendered.append(contentsOf: renderedNodes)
+            }
+        }
+
+        let string = renderedChildren.reduce(into: NSMutableAttributedString()) { (rendered, next) in
+            rendered.append(next)
+        }
+
+        return string
+    }
+
+    private func makeRenderingContext() -> [CodingUserInfoKey: Any] {
+        [
+            .rendererConfiguration: configuration,
+            .listContext: ListContext(
+                level: 0,
+                indentationLevel: 0,
+                parentType: nil,
+                itemIndex: 0,
+                isFirstListItemChild: false
+            )
+        ]
+    }
 }

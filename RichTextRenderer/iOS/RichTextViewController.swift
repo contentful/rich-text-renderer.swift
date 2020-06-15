@@ -30,7 +30,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     }
 
     /// The renderer which renderes the `RichTextDocument`.
-    public var renderer: RichTextRenderer = DefaultRichTextRenderer()
+    public var renderer: RichTextRenderer = RichTextRenderer()
 
     /// The text view which the `RichTextDocument` is rendered to. This text view is a subview on this
     /// view controller's view.
@@ -66,7 +66,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     ///   - bundle: The bundle, or nil, passed to the super initializer init(nibName:bundle)
     public init(richText: RichTextDocument?, renderer: RichTextRenderer?, nibName: String?, bundle: Bundle?) {
         self.richText = richText
-        self.renderer = renderer ?? DefaultRichTextRenderer()
+        self.renderer = renderer ?? RichTextRenderer()
         super.init(nibName: nibName, bundle: bundle)
         layoutManager.textContainerInset = self.textContainerInset
     }

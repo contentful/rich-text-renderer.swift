@@ -27,9 +27,10 @@ public struct UnorderedListRenderer: NodeRenderer {
         mutableContext[.listContext] = listContext
 
         let rendered = unorderedList.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
-            let nodeRenderer = renderer.renderer(for: node)
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
-            rendered.append(contentsOf: renderedChildren)
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
+                rendered.append(contentsOf: renderedChildren)
+            }
         }
 
         return rendered

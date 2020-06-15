@@ -16,9 +16,10 @@ public struct HyperlinkRenderer: NodeRenderer {
         ]
 
         let renderedHyperlinkChildren = hyperlink.content.reduce(into: [NSAttributedString]()) { rendered, node in
-            let nodeRenderer = renderer.renderer(for: node)
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
-            rendered.append(contentsOf: renderedChildren)
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
+                rendered.append(contentsOf: renderedChildren)
+            }
         }
 
         let hyperlinkString = renderedHyperlinkChildren.reduce(into: NSMutableAttributedString()) { mutableString, renderedChild in

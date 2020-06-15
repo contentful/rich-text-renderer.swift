@@ -16,10 +16,10 @@ public struct ParagraphRenderer: NodeRenderer {
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let paragraph = node as! Paragraph
         var rendered = paragraph.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
-            let nodeRenderer = renderer.renderer(for: node)
-
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
-            rendered.append(contentsOf: renderedChildren)
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
+                rendered.append(contentsOf: renderedChildren)
+            }
         }
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
         rendered.appendNewlineIfNecessary(node: node)

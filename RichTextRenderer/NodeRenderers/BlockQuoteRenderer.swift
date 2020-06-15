@@ -12,9 +12,10 @@ public struct BlockQuoteRenderer: NodeRenderer {
         let blockQuote = node as! BlockQuote
 
         let renderedChildren = blockQuote.content.reduce(into: [NSMutableAttributedString]()) { rendered, node in
-            let nodeRenderer = renderer.renderer(for: node)
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
-            rendered.append(contentsOf: renderedChildren)
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
+                rendered.append(contentsOf: renderedChildren)
+            }
         }
 
         let quoteString = renderedChildren.reduce(into: NSMutableAttributedString()) { mutableString, renderedChild in

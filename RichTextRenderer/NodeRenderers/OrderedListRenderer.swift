@@ -29,13 +29,14 @@ public struct OrderedListRenderer: NodeRenderer {
         let rendered = orderedList.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
 
             mutableContext[.listContext] = listContext
-            let nodeRenderer = renderer.renderer(for: node)
-            let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
+            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
+                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
 
-            // Append to the list of all items.
-            rendered.append(contentsOf: renderedChildren)
+                // Append to the list of all items.
+                rendered.append(contentsOf: renderedChildren)
 
-            listContext.itemIndex += 1
+                listContext.itemIndex += 1
+            }
         }
 
         return rendered
