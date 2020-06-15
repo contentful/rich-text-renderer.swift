@@ -18,6 +18,7 @@
 		6DCFA8E32497E785002D59B3 /* Contentful.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8E12497E785002D59B3 /* Contentful.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DCFA9012497F3BE002D59B3 /* RichTextRenderer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA9002497F3BE002D59B3 /* RichTextRenderer.framework */; };
 		6DCFA9022497F3BE002D59B3 /* RichTextRenderer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA9002497F3BE002D59B3 /* RichTextRenderer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6DCFA9052497F556002D59B3 /* ViewProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCFA9042497F556002D59B3 /* ViewProviders.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,7 @@
 		6DCFA8D92497E0CB002D59B3 /* ContentfulService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentfulService.swift; sourceTree = "<group>"; };
 		6DCFA8E12497E785002D59B3 /* Contentful.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contentful.framework; path = Carthage/Build/iOS/Contentful.framework; sourceTree = "<group>"; };
 		6DCFA9002497F3BE002D59B3 /* RichTextRenderer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RichTextRenderer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DCFA9042497F556002D59B3 /* ViewProviders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProviders.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				6DCFA8D92497E0CB002D59B3 /* ContentfulService.swift */,
+				6DCFA9042497F556002D59B3 /* ViewProviders.swift */,
 				6DCFA8D12497DD73002D59B3 /* Models */,
 			);
 			path = Contentful;
@@ -215,6 +218,7 @@
 			files = (
 				6DCFA8C12497DB08002D59B3 /* ViewController.swift in Sources */,
 				6DCFA8DA2497E0CB002D59B3 /* ContentfulService.swift in Sources */,
+				6DCFA9052497F556002D59B3 /* ViewProviders.swift in Sources */,
 				6DCFA8BD2497DB08002D59B3 /* AppDelegate.swift in Sources */,
 				6DCFA8D32497DD78002D59B3 /* Article.swift in Sources */,
 			);

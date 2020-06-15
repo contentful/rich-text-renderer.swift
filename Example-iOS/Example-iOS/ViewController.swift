@@ -8,7 +8,10 @@ class ViewController: RichTextViewController {
     private let client = ContentfulService()
 
     init() {
-        let renderer = RichTextRenderer()
+        var configuration = DefaultRendererConfiguration()
+        configuration.resourceLinkBlockViewProvider = ExampleViewProvider()
+        let renderer = RichTextRenderer(configuration: configuration)
+        
         super.init(richText: nil, renderer: renderer, nibName: nil, bundle: nil)
     }
 

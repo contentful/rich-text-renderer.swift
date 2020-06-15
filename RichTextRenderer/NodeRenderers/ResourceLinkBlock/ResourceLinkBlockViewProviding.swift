@@ -7,5 +7,5 @@ public protocol ResourceLinkBlockViewProviding {
     func view(
         for resource: Link,
         context: [CodingUserInfoKey: Any]
-    ) -> ResourceLinkBlockViewRepresentable
+    ) -> ResourceLinkBlockViewRepresentable?
 }
