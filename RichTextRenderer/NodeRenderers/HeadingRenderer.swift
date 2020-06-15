@@ -10,7 +10,7 @@ public struct HeadingRenderer: NodeRenderer {
         renderer: RichTextRenderer,
         context: [CodingUserInfoKey: Any]
     ) -> [NSMutableAttributedString] {
-        let heading = node as! Heading
+        guard let heading = node as? Heading else { return [] }
         
         var rendered = heading.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
             if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {

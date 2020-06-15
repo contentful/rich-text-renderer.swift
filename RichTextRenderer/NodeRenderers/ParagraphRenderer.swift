@@ -14,7 +14,8 @@ import Contentful
 public struct ParagraphRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
-        let paragraph = node as! Paragraph
+        guard let paragraph = node as? Paragraph else { return [] }
+        
         var rendered = paragraph.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
             if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
                 let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)

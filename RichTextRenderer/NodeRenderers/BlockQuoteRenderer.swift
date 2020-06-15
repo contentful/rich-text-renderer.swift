@@ -9,7 +9,7 @@ public struct BlockQuoteRenderer: NodeRenderer {
         renderer: RichTextRenderer,
         context: [CodingUserInfoKey: Any]
     ) -> [NSMutableAttributedString] {
-        let blockQuote = node as! BlockQuote
+        guard let blockQuote = node as? BlockQuote else { return [] }
 
         let renderedChildren = blockQuote.content.reduce(into: [NSMutableAttributedString]()) { rendered, node in
             if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {

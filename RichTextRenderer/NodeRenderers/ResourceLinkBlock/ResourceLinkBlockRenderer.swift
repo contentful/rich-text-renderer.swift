@@ -22,9 +22,9 @@ import AppKit
 public struct ResourceLinkBlockRenderer: NodeRenderer {
 
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
-        let embeddedResourceNode = node as! ResourceLinkBlock
-
-        guard let provider = context.rendererConfiguration.resourceLinkBlockViewProvider else {
+        guard let embeddedResourceNode = node as? ResourceLinkBlock,
+            let provider = context.rendererConfiguration.resourceLinkBlockViewProvider
+        else {
             return []
         }
 

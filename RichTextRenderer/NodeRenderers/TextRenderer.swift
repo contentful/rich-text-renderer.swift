@@ -9,7 +9,7 @@ public struct TextRenderer: NodeRenderer {
         renderer: RichTextRenderer,
         context: [CodingUserInfoKey: Any]
     ) -> [NSMutableAttributedString] {
-        let text = node as! Text
+        guard let text = node as? Text else { return [] }
 
         let paragraphStyle = MutableParagraphStyle()
         paragraphStyle.lineSpacing = renderer.configuration.textConfiguration.lineSpacing

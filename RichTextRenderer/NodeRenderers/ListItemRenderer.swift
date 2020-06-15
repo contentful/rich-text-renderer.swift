@@ -14,8 +14,7 @@ import Contentful
 /// and it will also ensure the proper indentation is applied to the contained content.
 public struct ListItemRenderer: NodeRenderer {
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
-
-        let listItem = node as! ListItem
+        guard let listItem = node as? ListItem else { return [] }
 
         var mutableContext = context
         var listContext = mutableContext[.listContext] as! ListContext

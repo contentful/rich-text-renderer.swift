@@ -9,7 +9,7 @@ public struct HyperlinkRenderer: NodeRenderer {
         renderer: RichTextRenderer,
         context: [CodingUserInfoKey: Any]
     ) -> [NSMutableAttributedString] {
-        let hyperlink = node as! Hyperlink
+        guard let hyperlink = node as? Hyperlink else { return [] }
 
         let attributes: [NSAttributedString.Key: Any] = [
             .link: hyperlink.data.uri
