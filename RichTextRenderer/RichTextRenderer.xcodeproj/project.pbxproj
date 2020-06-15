@@ -177,12 +177,12 @@
 		6DA0AB3E2493B894005D4823 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6DA0AB432493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift */,
 				6DA0AB3F2493B894005D4823 /* CodingUserInfoKey+Dictionary.swift */,
 				6D5277552497BA0800E559A5 /* FontProviding+Marks.swift */,
-				6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */,
 				6DA0AB412493B894005D4823 /* NSAttributedString.swift */,
+				6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */,
 				6DA0AB422493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift */,
-				6DA0AB432493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,8 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				6DA0AB4C2493B898005D4823 /* HeadingFonts.swift */,
-				6DA0AB4D2493B898005D4823 /* HeadingLevel.swift */,
 				6DA0AB4E2493B898005D4823 /* HeadingFonts+Default.swift */,
+				6DA0AB4D2493B898005D4823 /* HeadingLevel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,19 +200,19 @@
 		6DA0AB522493B89B005D4823 /* NodeRenderers */ = {
 			isa = PBXGroup;
 			children = (
-				6DA0AB532493B89B005D4823 /* TextRenderer.swift */,
 				6DA0AB542493B89B005D4823 /* BlockQuoteRenderer.swift */,
-				6DA0AB552493B89B005D4823 /* UnorderedListRenderer.swift */,
-				6DA0AB562493B89B005D4823 /* HyperlinkRenderer.swift */,
-				6DA0AB572493B89C005D4823 /* OrderedListRenderer.swift */,
-				6DA0AB582493B89C005D4823 /* ListItemRenderer.swift */,
-				6DA0AB592493B89C005D4823 /* HeadingRenderer.swift */,
-				6DA0AB5A2493B89C005D4823 /* ResourceLinkInline */,
-				6DA0AB5E2493B89C005D4823 /* NodeRenderer.swift */,
 				6DA0AB5F2493B89C005D4823 /* EmptyRenderer.swift */,
-				6DA0AB602493B89C005D4823 /* ResourceLinkBlock */,
+				6DA0AB592493B89C005D4823 /* HeadingRenderer.swift */,
+				6DA0AB562493B89B005D4823 /* HyperlinkRenderer.swift */,
+				6DA0AB582493B89C005D4823 /* ListItemRenderer.swift */,
+				6DA0AB5E2493B89C005D4823 /* NodeRenderer.swift */,
+				6DA0AB572493B89C005D4823 /* OrderedListRenderer.swift */,
 				6DA0AB662493B89C005D4823 /* ParagraphRenderer.swift */,
+				6DA0AB532493B89B005D4823 /* TextRenderer.swift */,
+				6DA0AB552493B89B005D4823 /* UnorderedListRenderer.swift */,
 				6DA0AB672493B89C005D4823 /* HorizontalRule */,
+				6DA0AB602493B89C005D4823 /* ResourceLinkBlock */,
+				6DA0AB5A2493B89C005D4823 /* ResourceLinkInline */,
 			);
 			path = NodeRenderers;
 			sourceTree = "<group>";
@@ -292,9 +292,9 @@
 		6DA0AB9D2493CD6F005D4823 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				6DA0AB8F2493B8C0005D4823 /* EmbeddedAssetImageView.swift */,
 				6DA0AB8D2493B8C0005D4823 /* RichText+UIKit.swift */,
 				6DA0AB8E2493B8C0005D4823 /* RichTextViewController.swift */,
-				6DA0AB8F2493B8C0005D4823 /* EmbeddedAssetImageView.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";

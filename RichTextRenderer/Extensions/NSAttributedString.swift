@@ -26,7 +26,7 @@ internal extension NSMutableAttributedString {
         // At level 0, we're not rendering a list.
         guard listContext.level > 0 else { return }
 
-        let renderingConfig = context.styleConfiguration
+        let renderingConfig = context.rendererConfiguration
         let paragraphStyle = NSMutableParagraphStyle()
         let indentation = CGFloat(listContext.indentationLevel) * renderingConfig.textList.indentationMultiplier
 

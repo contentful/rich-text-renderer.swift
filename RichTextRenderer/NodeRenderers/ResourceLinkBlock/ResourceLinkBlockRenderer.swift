@@ -24,7 +24,7 @@ public struct ResourceLinkBlockRenderer: NodeRenderer {
     public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
         let embeddedResourceNode = node as! ResourceLinkBlock
 
-        let provider = context.styleConfiguration.resourceLinkBlockViewProvider
+        let provider = context.rendererConfiguration.resourceLinkBlockViewProvider
 
         let semaphore = DispatchSemaphore(value: 0)
 

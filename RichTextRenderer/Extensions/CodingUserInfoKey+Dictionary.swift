@@ -1,7 +1,7 @@
 // RichTextRenderer
 
 extension Dictionary where Key == CodingUserInfoKey {
-    var styleConfiguration: RendererConfiguration {
+    var rendererConfiguration: RendererConfiguration {
         return self[.rendererConfiguration] as! RendererConfiguration
     }
 }

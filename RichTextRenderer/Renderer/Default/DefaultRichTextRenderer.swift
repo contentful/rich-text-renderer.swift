@@ -60,20 +60,18 @@ public struct DefaultRichTextRenderer: RichTextRenderer {
     /// Initializes an instance of `DefaultRichTextRenderer` with default renderers and default styling configuration.
     public init() {}
 
-    /// The starting context with which to render the `RichTextDocument`.
-    public var baseContext: [CodingUserInfoKey: Any] {
-        return [
-            .rendererConfiguration: configuration,
-            .listContext: ListContext(level: 0,
-                                      indentationLevel: 0,
-                                      parentType: nil,
-                                      itemIndex: 0,
-                                      isFirstListItemChild: false)
-        ]
-    }
-
     public func render(document: RichTextDocument) -> NSAttributedString {
-        let context = baseContext
+        let context: [CodingUserInfoKey: Any] = [
+            .rendererConfiguration: configuration,
+            .listContext: ListContext(
+                level: 0,
+                indentationLevel: 0,
+                parentType: nil,
+                itemIndex: 0,
+                isFirstListItemChild: false
+            )
+        ]
+
         let renderedChildren = document.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
             let nodeRenderer = self.renderer(for: node)
             let renderedNodes = nodeRenderer.render(node: node, renderer: self, context: context)

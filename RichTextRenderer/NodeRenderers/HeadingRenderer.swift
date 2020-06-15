@@ -1,20 +1,17 @@
-//
-//  HeadingRenderer.swift
-//  ContentfulRichTextRenderer
-//
-//  Created by JP Wright on 9/26/18.
-//  Copyright © 2018 Contentful GmbH. All rights reserved.
-//
+// RichTextRenderer
 
-import Foundation
 import Contentful
 
-/// A renderer for a `Contentful.Heading` node. This renderer will apply fonts to the range of characters that comprise
-/// the node using the font types and sizes provided in the `RendererConfiguration` passed into the `DefaultRichTextRenderer`.
+/// Renderer for a `Contentful.Heading` node.
 public struct HeadingRenderer: NodeRenderer {
 
-    public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
+    public func render(
+        node: Node,
+        renderer: RichTextRenderer,
+        context: [CodingUserInfoKey: Any]
+    ) -> [NSMutableAttributedString] {
         let heading = node as! Heading
+        
         var rendered = heading.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
             let nodeRenderer = renderer.renderer(for: node)
             let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: context)
@@ -23,7 +20,7 @@ public struct HeadingRenderer: NodeRenderer {
 
         rendered.forEach {
             let headingLevel = HeadingLevel(rawValue: Int(heading.level)) ?? HeadingLevel.h1
-            let font = context.styleConfiguration.heading.fonts.font(for: headingLevel)
+            let font = renderer.configuration.heading.fonts.font(for: headingLevel)
             $0.addAttributes([.font: font], range: NSRange(location: 0, length: $0.length))
         }
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
