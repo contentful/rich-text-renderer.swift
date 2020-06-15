@@ -4,4 +4,7 @@
    <FileRef
       location = "group:RichTextRenderer/RichTextRenderer.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Example-iOS/Example-iOS.xcodeproj">
+   </FileRef>
 </Workspace>
