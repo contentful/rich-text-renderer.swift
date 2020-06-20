@@ -12,7 +12,7 @@ struct ExampleViewProvider: ResourceLinkBlockViewProviding {
         case .asset(let asset):
             guard asset.file?.details?.imageInfo != nil else { return nil }
 
-            let imageView = EmbeddedAssetImageView(asset: asset)
+            let imageView = ResourceLinkBlockImageView(asset: asset)
             let listContext = context[.listContext] as! ListContext
             imageView.surroundingTextShouldWrap = listContext.level == 0
             imageView.backgroundColor = .gray
