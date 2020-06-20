@@ -6,7 +6,6 @@
 //  Copyright © 2018 Contentful GmbH. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Contentful
 
@@ -16,19 +15,6 @@ public extension UITextView {
         return rect.offsetBy(dx: textContainerInset.left, dy: textContainerInset.top)
     }
 }
-
-private extension CGPoint {
-
-    func integral(withScaleFactor scaleFactor: CGFloat) -> CGPoint {
-        guard scaleFactor > 0.0 else {
-            return self
-        }
-
-        return CGPoint(x: round(self.x * scaleFactor) / scaleFactor,
-                       y: round(self.y * scaleFactor) / scaleFactor)
-    }
-}
-
 
 public extension NSAttributedString {
 
