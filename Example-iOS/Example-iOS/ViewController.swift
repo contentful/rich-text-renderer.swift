@@ -12,7 +12,7 @@ class ViewController: RichTextViewController {
         configuration.resourceLinkBlockViewProvider = ExampleViewProvider()
         let renderer = RichTextRenderer(configuration: configuration)
         
-        super.init(richText: nil, renderer: renderer, nibName: nil, bundle: nil)
+        super.init(renderer: renderer)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +31,7 @@ class ViewController: RichTextViewController {
             switch result {
             case .success(let article):
                 print(article)
-                self?.richText = article.content
+                self?.richTextDocument = article.content
 
             case .failure(let error):
                 print(error)

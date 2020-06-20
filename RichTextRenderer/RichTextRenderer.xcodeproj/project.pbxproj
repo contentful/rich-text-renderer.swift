@@ -59,6 +59,8 @@
 		6DCFA8FB2497F316002D59B3 /* Contentful.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; };
 		6DCFA8FC2497F316002D59B3 /* Contentful.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DF3ED15249E226100FEAFA7 /* ResourceLinkBlockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */; };
+		6DF3ED17249E2A2E00FEAFA7 /* RichTextLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */; };
+		6DF3ED19249E2A4B00FEAFA7 /* RichTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -136,6 +138,8 @@
 		6DCFA8F72497F307002D59B3 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		6DCFA8FA2497F316002D59B3 /* Contentful.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contentful.framework; path = Carthage/Build/iOS/Contentful.framework; sourceTree = "<group>"; };
 		6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockImageView.swift; sourceTree = "<group>"; };
+		6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLayoutManager.swift; sourceTree = "<group>"; };
+		6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +324,8 @@
 			children = (
 				6DA0AB8D2493B8C0005D4823 /* RichText+UIKit.swift */,
 				6DA0AB8E2493B8C0005D4823 /* RichTextViewController.swift */,
+				6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */,
+				6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 				6DA0AB752493B89C005D4823 /* NodeRenderer.swift in Sources */,
 				6DA0AB7F2493B89C005D4823 /* HorizontalRuleViewProviding.swift in Sources */,
 				6DA0AB732493B89C005D4823 /* ResourceLinkInlineStringProviding.swift in Sources */,
+				6DF3ED17249E2A2E00FEAFA7 /* RichTextLayoutManager.swift in Sources */,
 				6DA0AB7B2493B89C005D4823 /* ResourceLinkBlockViewRepresentable.swift in Sources */,
 				6DA0AB6E2493B89C005D4823 /* HyperlinkRenderer.swift in Sources */,
 				6DA0AB7C2493B89C005D4823 /* ParagraphRenderer.swift in Sources */,
@@ -475,6 +482,7 @@
 				6DA0AB6C2493B89C005D4823 /* BlockQuoteRenderer.swift in Sources */,
 				6DA0AB372493B88F005D4823 /* HeadingConfiguration+Default.swift in Sources */,
 				6DF3ED15249E226100FEAFA7 /* ResourceLinkBlockImageView.swift in Sources */,
+				6DF3ED19249E2A4B00FEAFA7 /* RichTextContainer.swift in Sources */,
 				6DA0AB712493B89C005D4823 /* HeadingRenderer.swift in Sources */,
 				6DA0AB492493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift in Sources */,
 				6DA0AB7A2493B89C005D4823 /* ResourceLinkBlockRenderer.swift in Sources */,
