@@ -45,8 +45,7 @@ public class RichTextLayoutManager: NSLayoutManager {
 
             frame.size.width = blockQuoteWidth
             frame.origin.x = textContainerInset.left + textContainers.first!.lineFragmentPadding
-            frame.origin.y += textContainers.first!.lineFragmentPadding
-            frame.size.height += textContainers.first!.lineFragmentPadding * 2
+            frame.origin.y += textContainerInset.top
             context?.saveGState()
             context?.fill(frame)
             context?.stroke(frame)

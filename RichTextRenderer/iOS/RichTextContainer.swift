@@ -6,25 +6,43 @@ import UIKit
 /// with a custom area.
 public class RichTextContainer: NSTextContainer {
 
-    var blockQuoteTextInset: CGFloat!
+    private let blockQuoteConfiguration: BlockQuoteConfiguration
 
-    var blockQuoteWidth: CGFloat!
+    init(
+        size: CGSize,
+        blockQuoteConfiguration: BlockQuoteConfiguration
+    ) {
+        self.blockQuoteConfiguration = blockQuoteConfiguration
+        super.init(size: size)
+    }
 
-    public override func lineFragmentRect(forProposedRect proposedRect: CGRect,
-                                          at characterIndex: Int,
-                                          writingDirection baseWritingDirection: NSWritingDirection,
-                                          remaining remainingRect: UnsafeMutablePointer<CGRect>?) -> CGRect {
-        let output = super.lineFragmentRect(forProposedRect: proposedRect,
-                                            at: characterIndex,
-                                            writingDirection: baseWritingDirection,
-                                            remaining: remainingRect)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-        let length = layoutManager!.textStorage!.length
-        guard characterIndex < length else { return output }
+    public override func lineFragmentRect(
+        forProposedRect proposedRect: CGRect,
+        at characterIndex: Int,
+        writingDirection baseWritingDirection: NSWritingDirection,
+        remaining remainingRect: UnsafeMutablePointer<CGRect>?
+    ) -> CGRect {
+        let output = super.lineFragmentRect(
+            forProposedRect: proposedRect,
+            at: characterIndex,
+            writingDirection: baseWritingDirection,
+            remaining: remainingRect
+        )
 
-        if layoutManager?.textStorage?.attribute(.block, at: characterIndex, effectiveRange: nil) != nil {
-            return output.insetBy(dx: blockQuoteTextInset, dy: 0.0)
+        guard let textStorage = layoutManager?.textStorage,
+            characterIndex < textStorage.length
+        else {
+            return output
         }
-        return output
+
+        if textStorage.attribute(.block, at: characterIndex, effectiveRange: nil) != nil {
+            return output.insetBy(dx: blockQuoteConfiguration.textInset, dy: 0.0)
+        } else {
+            return output
+        }
     }
 }

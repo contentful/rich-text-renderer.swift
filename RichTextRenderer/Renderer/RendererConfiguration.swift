@@ -1,7 +1,7 @@
 // RichTextRenderer
 
 import Contentful
-import CoreGraphics
+import UIKit
 
 /// Describes configuration of the `RichTextRenderer`.
 public protocol RendererConfiguration {
@@ -9,11 +9,8 @@ public protocol RendererConfiguration {
     /// Provides fonts in different variations for the renderers.
     var fontProvider: FontProviding { get }
 
-    /**
-     The margin from the leading edge with which embeddedd views for `ResourceLinkBlock` nodes should be inset.
-     Defaults to 10.0 points.
-     */
-    var embedMargin: CGFloat { get }
+    /// Insets of the rendered content
+    var contentInset: UIEdgeInsets { get }
 
     /// Configuration for `Text` nodes.
     var textConfiguration: TextConfiguration { get }
