@@ -1,17 +1,17 @@
 // RichTextRenderer
 
 public struct DefaultRenderersProvider: NodeRenderersProviding {
-    public var heading: NodeRenderer = HeadingRenderer()
-    public var text: NodeRenderer = TextRenderer()
-    public var orderedList: NodeRenderer = OrderedListRenderer()
-    public var unorderedList: NodeRenderer = UnorderedListRenderer()
-    public var blockQuote: NodeRenderer = BlockQuoteRenderer()
-    public var listItem: NodeRenderer = ListItemRenderer()
-    public var paragraph: NodeRenderer = ParagraphRenderer()
-    public var hyperlink: NodeRenderer = HyperlinkRenderer()
-    public var resourceLinkBlock: NodeRenderer = ResourceLinkBlockRenderer()
-    public var resourceLinkInline: NodeRenderer = ResourceLinkInlineRenderer()
-    public var horizontalRule: NodeRenderer = HorizontalRuleRenderer()
+    public var blockQuote: BlockQuoteRenderer = BlockQuoteRenderer()
+    public var heading: HeadingRenderer = HeadingRenderer()
+    public var horizontalRule: HorizontalRuleRenderer = HorizontalRuleRenderer()
+    public var hyperlink: HyperlinkRenderer = HyperlinkRenderer()
+    public var listItem: ListItemRenderer = ListItemRenderer()
+    public var orderedList: OrderedListRenderer = OrderedListRenderer()
+    public var paragraph: ParagraphRenderer = ParagraphRenderer()
+    public var resourceLinkBlock: ResourceLinkBlockRenderer = ResourceLinkBlockRenderer()
+    public var resourceLinkInline: ResourceLinkInlineRenderer = ResourceLinkInlineRenderer()
+    public var text: TextRenderer = TextRenderer()
+    public var unorderedList: UnorderedListRenderer = UnorderedListRenderer()
 
     public init() {}
 }

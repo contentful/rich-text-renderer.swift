@@ -1,39 +1,6 @@
-//
-//  ListItemRenderer.swift
-//  ContentfulRichTextRenderer
-//
-//  Created by JP Wright on 9/26/18.
-//  Copyright © 2018 Contentful GmbH. All rights reserved.
-//
+// RichTextRenderer
 
-import Foundation
 import Contentful
-
-/// A renderer for a `Contentful.ListItem` node. This renderer will mutate the passed-in context and pass that mutated context
-/// to its child nodes to ensure that the correct list item indicator (i.e. a bullet, or ordered list index character) is prepended to the content
-/// and it will also ensure the proper indentation is applied to the contained content.
-public struct ListItemRenderer: NodeRenderer {
-    public func render(node: Node, renderer: RichTextRenderer, context: [CodingUserInfoKey: Any]) -> [NSMutableAttributedString] {
-        guard let listItem = node as? ListItem else { return [] }
-
-        var mutableContext = context
-        var listContext = mutableContext[.listContext] as! ListContext
-        listContext.isFirstListItemChild = true
-        mutableContext[.listContext] = listContext
-
-        let rendered = listItem.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
-            if let nodeRenderer = renderer.nodeRenderers.renderer(for: node) {
-                let renderedChildren = nodeRenderer.render(node: node, renderer: renderer, context: mutableContext)
-                listContext.isFirstListItemChild = false
-                mutableContext[.listContext] = listContext
-
-                rendered.append(contentsOf: renderedChildren)
-            }
-        }
-        return rendered
-    }
-}
-
 
 /// `ListContext` is a special type which is used by this library's renderers to apply the proper indentation to
 /// lists and their items. It is also used to determine the proper character which should be used to indicate each list item

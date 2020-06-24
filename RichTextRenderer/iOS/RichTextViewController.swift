@@ -12,7 +12,7 @@ import Contentful
 open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     /// Renderer of the `Contentful.RichTextDocument`.
-    private let renderer: RichTextRenderer
+    private let renderer: RichTextDocumentRenderer
 
     /// The `renderer` renders `Contentful.RichTextDocument` into this view.
     private var textView: UITextView!
@@ -35,7 +35,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     public var textContainer: RichTextContainer!
 
     public init(
-        renderer: RichTextRenderer,
+        renderer: RichTextDocumentRenderer,
         richTextDocument: RichTextDocument? = nil
     ) {
         self.richTextDocument = richTextDocument

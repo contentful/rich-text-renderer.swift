@@ -10,7 +10,7 @@ class ViewController: RichTextViewController {
     init() {
         var configuration = DefaultRendererConfiguration()
         configuration.resourceLinkBlockViewProvider = ExampleViewProvider()
-        let renderer = RichTextRenderer(configuration: configuration)
+        let renderer = RichTextDocumentRenderer(configuration: configuration)
         
         super.init(renderer: renderer)
     }

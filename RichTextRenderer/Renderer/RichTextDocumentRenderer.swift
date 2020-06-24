@@ -3,10 +3,10 @@
 import Contentful
 
 /// Renderer for `Contentful.RichTextDocument`.
-public struct RichTextRenderer: RichTextRendering {
+public struct RichTextDocumentRenderer: RichTextDocumentRendering {
 
     public let configuration: RendererConfiguration
-    public let nodeRenderers: NodeRenderersProviding
+    private let nodeRenderers: NodeRenderersProviding
 
     public init(
         configuration: RendererConfiguration = DefaultRendererConfiguration(),
@@ -19,18 +19,30 @@ public struct RichTextRenderer: RichTextRendering {
     public func render(document: RichTextDocument) -> NSAttributedString {
         let context = makeRenderingContext()
 
-        let renderedChildren = document.content.reduce(into: [NSMutableAttributedString]()) { (rendered, node) in
-            if let nodeRenderer = nodeRenderers.renderer(for: node) {
-                let renderedNodes = nodeRenderer.render(node: node, renderer: self, context: context)
-                rendered.append(contentsOf: renderedNodes)
-            }
+        let contentNodes = document.content.compactMap { $0 as? RenderableNodeProviding }
+        let result = contentNodes.reduce(into: [NSMutableAttributedString]()) { result, contentNode in
+            let renderedNode = render(
+                node: contentNode,
+                context: context
+            )
+
+            result.append(contentsOf: renderedNode)
+        }.reduce(into: NSMutableAttributedString()) { result, child in
+            result.append(child)
         }
 
-        let string = renderedChildren.reduce(into: NSMutableAttributedString()) { (rendered, next) in
-            rendered.append(next)
-        }
+        return result
+    }
 
-        return string
+    public func render(
+        node: RenderableNodeProviding,
+        context: [CodingUserInfoKey: Any]
+    ) -> [NSMutableAttributedString] {
+        return nodeRenderers.render(
+            node: node.renderableNode,
+            renderer: self,
+            context: context
+        )
     }
 
     private func makeRenderingContext() -> [CodingUserInfoKey: Any] {
