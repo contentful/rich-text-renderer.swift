@@ -25,7 +25,18 @@ extension Swift.Array where Element == NSMutableAttributedString {
         let listChar = listContext.listChar(at: listIndex) ?? ""
 
         if listContext.isFirstListItemChild {
-            insert(NSMutableAttributedString(string: "\t" + listChar + "\t"), at: 0)
+            let attributedString = NSMutableAttributedString(string: "\t" + listChar + "\t")
+            if let heading = node as? Heading {
+                let configuration = context[.rendererConfiguration] as! RendererConfiguration
+
+                attributedString.addAttributes(
+                    [.font: configuration.heading.fonts.font(for: heading.headingLevel)],
+                    range: NSRange(location: 0, length: attributedString.length)
+                )
+            }
+
+            insert(attributedString, at: 0)
+
         } else if node is BlockNode {
             for _ in 0...listContext.indentationLevel {
                 insert(NSMutableAttributedString(string: "\t"), at: 0)

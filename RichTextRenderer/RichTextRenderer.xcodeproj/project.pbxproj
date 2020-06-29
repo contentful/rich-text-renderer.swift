@@ -64,6 +64,7 @@
 		6DCFA8F92497F307002D59B3 /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8F72497F307002D59B3 /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DCFA8FB2497F316002D59B3 /* Contentful.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; };
 		6DCFA8FC2497F316002D59B3 /* Contentful.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6DE2C22624AA4A7400C1549C /* Heading+HeadingLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */; };
 		6DF3ED15249E226100FEAFA7 /* ResourceLinkBlockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */; };
 		6DF3ED17249E2A2E00FEAFA7 /* RichTextLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */; };
 		6DF3ED19249E2A4B00FEAFA7 /* RichTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */; };
@@ -149,6 +150,7 @@
 		6DCFA8F32497F2F8002D59B3 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		6DCFA8F72497F307002D59B3 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		6DCFA8FA2497F316002D59B3 /* Contentful.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contentful.framework; path = Carthage/Build/iOS/Contentful.framework; sourceTree = "<group>"; };
+		6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Heading+HeadingLevel.swift"; sourceTree = "<group>"; };
 		6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockImageView.swift; sourceTree = "<group>"; };
 		6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLayoutManager.swift; sourceTree = "<group>"; };
 		6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextContainer.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				6DA0AB952493C877005D4823 /* Configs */,
 				6DA0AB2B2493B88F005D4823 /* Configuration */,
+				6DE2C22424AA4A5F00C1549C /* Contentful */,
 				6DA0AB3E2493B894005D4823 /* Extensions */,
 				6DA0AB9D2493CD6F005D4823 /* iOS */,
 				6DA0AB4B2493B898005D4823 /* Models */,
@@ -432,6 +435,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6DE2C22424AA4A5F00C1549C /* Contentful */ = {
+			isa = PBXGroup;
+			children = (
+				6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */,
+			);
+			path = Contentful;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -541,6 +552,7 @@
 				6D5277562497BA0800E559A5 /* FontProviding+Marks.swift in Sources */,
 				6DA0AB6D2493B89C005D4823 /* UnorderedListRenderer.swift in Sources */,
 				6D5277522497B62E00E559A5 /* FontProviding.swift in Sources */,
+				6DE2C22624AA4A7400C1549C /* Heading+HeadingLevel.swift in Sources */,
 				6D14B1E024A105F3001F0981 /* AttachmentRect.swift in Sources */,
 				6DA0AB512493B898005D4823 /* HeadingFonts+Default.swift in Sources */,
 				6DA0AB822493B8A4005D4823 /* CrossPlatformTypes.swift in Sources */,
