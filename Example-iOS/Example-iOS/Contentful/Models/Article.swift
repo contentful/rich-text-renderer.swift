@@ -15,6 +15,7 @@ final class Article: Resource, EntryDecodable, FieldKeysQueryable {
 
     public required init(from decoder: Decoder) throws {
         sys = try decoder.sys()
+        
         let fields = try decoder.contentfulFieldsContainer(keyedBy: FieldKeys.self)
         title = try fields.decode(String.self, forKey: .title)
         content = try fields.decode(RichTextDocument.self, forKey: .content)

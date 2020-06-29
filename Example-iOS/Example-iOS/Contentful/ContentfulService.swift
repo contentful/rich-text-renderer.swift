@@ -10,7 +10,9 @@ final class ContentfulService {
             spaceId: "9udmtmq3klnj",
             accessToken: "QghA6Rja4xNLKWAvrXhZiEtE8XuazE8c4XLwrvwOT-8",
             contentTypeClasses: [
-                Article.self
+                Article.self,
+                Car.self,
+                Cat.self
             ]
         )
     }
