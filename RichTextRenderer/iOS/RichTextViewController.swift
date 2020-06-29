@@ -47,12 +47,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override open func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        adjustTextViewOnDidLayoutSubviews()
-    }
-
     deinit {
         stopObservingNotifications()
     }
@@ -93,15 +87,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textView.isScrollEnabled = true
         textView.contentSize.height = .greatestFiniteMagnitude
         textView.isEditable = false
-    }
-
-    private func adjustTextViewOnDidLayoutSubviews() {
-        textView.frame = view.bounds.insetBy(
-            dx: view.safeAreaInsets.left,
-            dy: view.safeAreaInsets.top
-        )
-
-        textView.center = view.center
     }
 
     private func observeOrientationDidChangeNotification() {
