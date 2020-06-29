@@ -34,7 +34,7 @@ open class OrderedListRenderer: NodeRendering {
 
             let renderedNode = rootRenderer.render(
                 node: contentNode,
-                context: context
+                context: mutableContext
             )
 
             result.append(contentsOf: renderedNode)

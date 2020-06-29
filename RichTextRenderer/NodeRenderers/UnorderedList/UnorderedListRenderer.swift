@@ -30,7 +30,7 @@ open class UnorderedListRenderer: NodeRendering {
         let result = contentNodes.reduce(into: [NSMutableAttributedString()]) { result, contentNode in
             let renderedNode = rootRenderer.render(
                 node: contentNode,
-                context: context
+                context: mutableContext
             )
 
             result.append(contentsOf: renderedNode)
