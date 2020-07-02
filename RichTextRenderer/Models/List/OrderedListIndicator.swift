@@ -10,9 +10,9 @@ enum OrderedListIndicator: CaseIterable {
         case .alphabet:
             return letterIndicator(forItemAt: index)
         case .number:
-            return numberIndicator(forItemAt: index)
+            return numberIndicator(forItemAt: index + 1)
         case .romanNumber:
-            return romanNumberIndicator(forItemAt: index)
+            return romanNumberIndicator(forItemAt: index + 1)
         }
     }
 

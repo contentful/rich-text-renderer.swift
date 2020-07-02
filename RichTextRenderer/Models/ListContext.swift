@@ -29,7 +29,7 @@ public struct ListContext {
         case .orderedList:
             let indicatorTypes = OrderedListIndicator.allCases
             let indicatorType = indicatorTypes[level % indicatorTypes.count]
-            return indicatorType.indicator(forItemAt: index + 1) + "."
+            return indicatorType.indicator(forItemAt: index) + "."
         case .unorderedList:
             let indicatorTypes = UnorderedListBullet.allCases
             let indicatorType = indicatorTypes[level % indicatorTypes.count]
