@@ -25,7 +25,7 @@ open class BlockQuoteRenderer: NodeRendering {
 
         result.addAttributes(
             [.block: true],
-            range: NSRange(location: 0, length: result.length)
+            range: result.fullRange
         )
 
         var rendered = [result]

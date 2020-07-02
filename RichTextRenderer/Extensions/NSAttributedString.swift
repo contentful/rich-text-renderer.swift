@@ -7,14 +7,7 @@
 
 import Foundation
 import Contentful
-
-
-#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
-#elseif os(macOS)
-import Cocoa
-import AppKit
-#endif
 
 internal extension NSMutableAttributedString {
 
@@ -45,6 +38,6 @@ internal extension NSMutableAttributedString {
         paragraphStyle.paragraphSpacing = renderingConfig.textConfiguration.paragraphSpacing
         paragraphStyle.lineSpacing = renderingConfig.textConfiguration.lineSpacing
 
-        addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: length))
+        addAttributes([.paragraphStyle: paragraphStyle], range: fullRange)
     }
 }

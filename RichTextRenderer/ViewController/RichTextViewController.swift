@@ -82,6 +82,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     private func setupTextView() {
         textView = UITextView(frame: view.bounds, textContainer: textContainer)
         textView.textContainerInset = renderer.configuration.contentInset
+        textView.backgroundColor = UIColor.rtrSystemBackground
+
         view.addSubview(textView)
 
         textView.isScrollEnabled = true
@@ -107,7 +109,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textView.textContainer.exclusionPaths = []
 
         layoutManager.invalidateLayout(
-            forCharacterRange: NSRange(location: 0, length: textStorage.length),
+            forCharacterRange: textStorage.fullRange,
             actualCharacterRange: nil
         )
     }

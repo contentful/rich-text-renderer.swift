@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import UIKit
 
 extension Swift.Array where Element == NSMutableAttributedString {
     mutating func appendNewlineIfNecessary(node: Node) {
@@ -26,12 +27,22 @@ extension Swift.Array where Element == NSMutableAttributedString {
 
         if listContext.isFirstListItemChild {
             let attributedString = NSMutableAttributedString(string: "\t" + listChar + "\t")
+
+            attributedString.addAttributes(
+                [.foregroundColor: UIColor.rtrLabel],
+                range: attributedString.fullRange
+            )
+
             if let heading = node as? Heading {
                 let configuration = context[.rendererConfiguration] as! RendererConfiguration
 
+                let attributes: [NSAttributedString.Key: Any] = [
+                    .font: configuration.heading.fonts.font(for: heading.headingLevel)
+                ]
+
                 attributedString.addAttributes(
-                    [.font: configuration.heading.fonts.font(for: heading.headingLevel)],
-                    range: NSRange(location: 0, length: attributedString.length)
+                    attributes,
+                    range: attributedString.fullRange
                 )
             }
 

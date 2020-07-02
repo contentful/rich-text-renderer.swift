@@ -2,6 +2,7 @@
 
 import Contentful
 import RichTextRenderer
+import UIKit
 
 final class InlineProvider: ResourceLinkInlineStringProviding {
     func string(
@@ -26,7 +27,9 @@ private final class CatInlineProvider {
     static func string(for cat: Cat) -> NSMutableAttributedString {
         return NSMutableAttributedString(
             string: "🐈 \(cat.name) ❤️",
-            attributes: nil
+            attributes: [
+                .foregroundColor: UIColor.rtrLabel
+            ]
         )
     }
 }

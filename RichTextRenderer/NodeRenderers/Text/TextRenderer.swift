@@ -16,13 +16,17 @@ open class TextRenderer: NodeRendering {
         paragraphStyle.lineSpacing = rootRenderer.configuration.textConfiguration.lineSpacing
         paragraphStyle.paragraphSpacing = rootRenderer.configuration.textConfiguration.paragraphSpacing
 
+        let textColor = UIColor.rtrLabel
+
         var attributes: [NSAttributedString.Key: Any] = [
             .font: rootRenderer.configuration.fontProvider.font(for: node),
+            .foregroundColor: textColor,
             .paragraphStyle: paragraphStyle
         ]
 
         if node.marks.contains(Text.Mark(type: .underline)) {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+            attributes[.underlineColor] = textColor
         }
 
         return [

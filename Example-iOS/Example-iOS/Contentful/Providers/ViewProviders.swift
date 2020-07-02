@@ -54,9 +54,8 @@ final class CarView: UIView, ResourceLinkBlockViewRepresentable {
         title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         title.sizeToFit()
 
-        self.frame = title.bounds
-
-        backgroundColor = .yellow
+        frame = title.bounds
+        backgroundColor = .lightGray
     }
 
     required init?(coder: NSCoder) {

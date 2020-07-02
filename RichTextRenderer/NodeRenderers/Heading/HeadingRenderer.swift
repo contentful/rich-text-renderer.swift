@@ -23,7 +23,7 @@ open class HeadingRenderer: NodeRendering {
 
         result.forEach {
             let font = rootRenderer.configuration.heading.fonts.font(for: node.headingLevel)
-            $0.addAttributes([.font: font], range: NSRange(location: 0, length: $0.length))
+            $0.addAttributes([.font: font], range: $0.fullRange)
         }
         result.applyListItemStylingIfNecessary(node: node, context: context)
         result.appendNewlineIfNecessary(node: node)

@@ -25,7 +25,7 @@ open class HyperlinkRenderer: NodeRendering {
 
         result.addAttributes(
             [.link: node.data.uri],
-            range: NSRange(location: 0, length: result.length)
+            range: result.fullRange
         )
 
         return [result]
