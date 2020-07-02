@@ -10,7 +10,7 @@ extension NSTextStorage {
 
         let fullRange = NSRange(location: 0, length: self.length)
         enumerateAttribute(attribute, in: fullRange) { value, range, _ in
-            if let view = value as? View {
+            if let view = value as? UIView {
                 ranges.append(.init(view: view, range: range))
             }
         }

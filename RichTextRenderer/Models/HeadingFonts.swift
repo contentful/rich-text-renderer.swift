@@ -1,21 +1,23 @@
 // RichTextRenderer
 
+import UIKit
+
 /// Font definitions for headings.
 public struct HeadingFonts {
-    let h1: Font
-    let h2: Font
-    let h3: Font
-    let h4: Font
-    let h5: Font
-    let h6: Font
+    let h1: UIFont
+    let h2: UIFont
+    let h3: UIFont
+    let h4: UIFont
+    let h5: UIFont
+    let h6: UIFont
 
     public init(
-        h1: Font,
-        h2: Font,
-        h3: Font,
-        h4: Font,
-        h5: Font,
-        h6: Font
+        h1: UIFont,
+        h2: UIFont,
+        h3: UIFont,
+        h4: UIFont,
+        h5: UIFont,
+        h6: UIFont
     ) {
         self.h1 = h1
         self.h2 = h2
@@ -25,7 +27,7 @@ public struct HeadingFonts {
         self.h6 = h6
     }
 
-    func font(for level: HeadingLevel) -> Font {
+    func font(for level: HeadingLevel) -> UIFont {
         switch level {
         case .h1:
             return h1

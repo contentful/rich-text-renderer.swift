@@ -1,12 +1,12 @@
 // RichTextRenderer
 
-import CoreGraphics
+import UIKit
 
 /// Configuration for rendering `BlockQuote` node.
 public struct BlockQuoteConfiguration {
 
     /// Color of the rectangle presented next to the quote.
-    public let rectangleColor: Color
+    public let rectangleColor: UIColor
 
     /// Width of the rectangle presented next to the quote.
     public let rectangleWidth: CGFloat
@@ -15,7 +15,7 @@ public struct BlockQuoteConfiguration {
     public let textInset: CGFloat
 
     public init(
-        rectangleColor: Color,
+        rectangleColor: UIColor,
         rectangleWidth: CGFloat,
         textInset: CGFloat
     ) {

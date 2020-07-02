@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import UIKit
 
 /// Renderer for a `Contentful.HorizontalRule` node.
 open class HorizontalRuleRenderer: NodeRendering {
@@ -14,7 +15,7 @@ open class HorizontalRuleRenderer: NodeRendering {
         let provider = context.rendererConfiguration.horizontalRuleViewProvider
 
         let semaphore = DispatchSemaphore(value: 0)
-        var hrView: View!
+        var hrView: UIView!
 
         DispatchQueue.main.sync {
             hrView = provider.horizontalRule(context: context)

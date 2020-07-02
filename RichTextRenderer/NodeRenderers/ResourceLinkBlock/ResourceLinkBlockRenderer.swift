@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import UIKit
 
 /**
  A renderer for a `Contentful.ResourceLinkBlock` node. This renderer will use the `ViewProvider` attached
@@ -19,7 +20,7 @@ open class ResourceLinkBlockRenderer: NodeRendering {
 
         let semaphore = DispatchSemaphore(value: 0)
 
-        var view: View!
+        var view: UIView!
 
         DispatchQueue.main.sync {
             view = provider.view(for: node.data.target, context: context)

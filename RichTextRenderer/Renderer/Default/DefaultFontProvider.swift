@@ -1,41 +1,43 @@
 // RichTextRenderer
 
-public struct DefaultFontProvider: FontProviding {
-    private let font: Font
+import UIKit
 
-    public var regular: Font {
+public struct DefaultFontProvider: FontProviding {
+    private let font: UIFont
+
+    public var regular: UIFont {
         font
     }
 
-    public var bold: Font {
+    public var bold: UIFont {
         if let descriptor = font.fontDescriptor.withSymbolicTraits(.traitBold) {
-            return Font(descriptor: descriptor, size: descriptor.pointSize)
+            return UIFont(descriptor: descriptor, size: descriptor.pointSize)
         } else {
             return font
         }
     }
 
-    public var italic: Font {
+    public var italic: UIFont {
         if let descriptor = font.fontDescriptor.withSymbolicTraits(.traitItalic) {
-            return Font(descriptor: descriptor, size: descriptor.pointSize)
+            return UIFont(descriptor: descriptor, size: descriptor.pointSize)
         } else {
             return font
         }
     }
 
-    public var boldItalic: Font {
+    public var boldItalic: UIFont {
         if let descriptor = font.fontDescriptor.withSymbolicTraits([.traitItalic, .traitBold]) {
-            return Font(descriptor: descriptor, size: descriptor.pointSize)
+            return UIFont(descriptor: descriptor, size: descriptor.pointSize)
         } else {
             return font
         }
     }
 
-    public var code: Font {
-        Font(name: "Menlo-Regular", size: font.pointSize) ?? font
+    public var code: UIFont {
+        UIFont(name: "Menlo-Regular", size: font.pointSize) ?? font
     }
 
-    public init(font: Font = Font.systemFont(ofSize: Font.systemFontSize)) {
+    public init(font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)) {
         self.font = font
     }
 }

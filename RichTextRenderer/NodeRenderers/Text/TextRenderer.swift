@@ -12,7 +12,7 @@ open class TextRenderer: NodeRendering {
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
     ) -> [NSMutableAttributedString] {
-        let paragraphStyle = MutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = rootRenderer.configuration.textConfiguration.lineSpacing
         paragraphStyle.paragraphSpacing = rootRenderer.configuration.textConfiguration.paragraphSpacing
 

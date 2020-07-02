@@ -33,7 +33,7 @@ struct ExampleViewProvider: ResourceLinkBlockViewProviding {
     }
 }
 
-final class CarView: View, ResourceLinkBlockViewRepresentable {
+final class CarView: UIView, ResourceLinkBlockViewRepresentable {
     private let car: Car
 
     var surroundingTextShouldWrap: Bool = false
