@@ -5,7 +5,9 @@ import Contentful
 /// Renderer for `Contentful.RichTextDocument`.
 public struct RichTextDocumentRenderer: RichTextDocumentRendering {
 
+    /// Configuration of the renderer.
     public let configuration: RendererConfiguration
+    
     private let nodeRenderers: NodeRenderersProviding
 
     public init(
