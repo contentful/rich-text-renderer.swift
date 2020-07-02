@@ -2,8 +2,7 @@
 
 import Foundation
 
-enum UnorderedListBullet: String, CaseIterable {
-    case emptySquare = "▫︎"
+enum UnorderedListBullet: String {
     case fullCircle = "•"
     case emptyCircle = "◦"
     case fullSquare = "▪︎"

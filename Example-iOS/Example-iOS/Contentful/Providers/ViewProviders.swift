@@ -21,8 +21,7 @@ struct ExampleViewProvider: ResourceLinkBlockViewProviding {
             guard asset.file?.details?.imageInfo != nil else { return nil }
 
             let imageView = ResourceLinkBlockImageView(asset: asset)
-            let listContext = context[.listContext] as! ListContext
-            imageView.surroundingTextShouldWrap = listContext.level == 0
+
             imageView.backgroundColor = .gray
             imageView.setImageToNaturalHeight()
             return imageView

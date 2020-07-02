@@ -16,24 +16,33 @@ open class UnorderedListRenderer: NodeRendering {
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
     ) -> [NSMutableAttributedString] {
-        var mutableContext = context
-        var listContext = mutableContext[.listContext] as! ListContext
-        if let parentType = listContext.parentType, parentType == .unorderedList {
-            listContext.incrementIndentLevel(incrementNestingLevel: true)
+        var listContext: ListContext! = context[.listContext] as? ListContext
+        if listContext == nil {
+            listContext = ListContext(listType: .unordered)
         } else {
-            listContext.incrementIndentLevel(incrementNestingLevel: false)
+            listContext.itemIndex = 0
+            listContext.level += 1
+
+            if listContext.listType != .unordered {
+                listContext.listType = .unordered
+            }
         }
-        listContext.parentType = .unorderedList
+
+        var mutableContext = context
         mutableContext[.listContext] = listContext
 
         let contentNodes = node.content.compactMap { $0 as? RenderableNodeProviding }
         let result = contentNodes.reduce(into: [NSMutableAttributedString()]) { result, contentNode in
+            mutableContext[.listContext] = listContext
+
             let renderedNode = rootRenderer.render(
                 node: contentNode,
                 context: mutableContext
             )
 
             result.append(contentsOf: renderedNode)
+
+            listContext.itemIndex += 1
         }
 
         return result

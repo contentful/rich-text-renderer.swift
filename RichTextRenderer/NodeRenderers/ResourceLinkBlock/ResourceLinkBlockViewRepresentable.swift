@@ -4,9 +4,6 @@ import UIKit
 
 /// Represents view with `ResourceLinkBlock` content.
 public protocol ResourceLinkBlockViewRepresentable: UIView {
-    /// Determines if text around the view should wrap along the sides or should continue below.
-    var surroundingTextShouldWrap: Bool { get }
-
     /// Passed-in context. Useful for determining rendering logic.
     var context: [CodingUserInfoKey: Any] { get set }
 

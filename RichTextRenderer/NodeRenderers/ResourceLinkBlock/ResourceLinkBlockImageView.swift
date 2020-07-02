@@ -8,7 +8,6 @@ import UIKit
 public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepresentable {
 
     private var asset: Asset
-    public var surroundingTextShouldWrap: Bool = false
     public var context: [CodingUserInfoKey: Any] = [:]
 
     public init(asset: Asset) {

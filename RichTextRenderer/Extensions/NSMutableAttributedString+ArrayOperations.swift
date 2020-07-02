@@ -18,8 +18,7 @@ extension Swift.Array where Element == NSMutableAttributedString {
             return
         }
 
-        let listContext = context[.listContext] as! ListContext
-        guard listContext.level > 0 else { return }
+        guard let listContext = context[.listContext] as? ListContext else { return }
 
         // Get the character for the index.
         let listIndex = listContext.itemIndex

@@ -48,15 +48,6 @@ public struct RichTextDocumentRenderer: RichTextDocumentRendering {
     }
 
     private func makeRenderingContext() -> [CodingUserInfoKey: Any] {
-        [
-            .rendererConfiguration: configuration,
-            .listContext: ListContext(
-                level: 0,
-                indentationLevel: 0,
-                parentType: nil,
-                itemIndex: 0,
-                isFirstListItemChild: false
-            )
-        ]
+        [.rendererConfiguration: configuration]
     }
 }

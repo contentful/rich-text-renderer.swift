@@ -14,10 +14,7 @@ internal extension NSMutableAttributedString {
     /// This method uses all the state passed-in via the `context` to apply the proper paragraph styling
     /// to the characters contained in the passed-in node.
     func applyListItemStyling(node: Node, context: [CodingUserInfoKey: Any]) {
-        let listContext = context[.listContext] as! ListContext
-
-        // At level 0, we're not rendering a list.
-        guard listContext.level > 0 else { return }
+        guard let listContext = context[.listContext] as? ListContext else { return }
 
         let renderingConfig = context.rendererConfiguration
         let paragraphStyle = NSMutableParagraphStyle()

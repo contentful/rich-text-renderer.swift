@@ -1,14 +1,14 @@
 // RichTextRenderer
 
-enum OrderedListIndicator: CaseIterable {
-    case alphabet
+enum OrderedListIndicator {
+    case alphabet(Bool) // uppercased
     case number
     case romanNumber
 
     func indicator(forItemAt index: Int) -> String {
         switch self {
-        case .alphabet:
-            return letterIndicator(forItemAt: index)
+        case .alphabet(let uppercased):
+            return letterIndicator(forItemAt: index, uppercased: uppercased)
         case .number:
             return numberIndicator(forItemAt: index + 1)
         case .romanNumber:
@@ -16,9 +16,10 @@ enum OrderedListIndicator: CaseIterable {
         }
     }
 
-    private func letterIndicator(forItemAt index: Int) -> String {
-        let characters = "abcdefghijklmnopqrstuvwxyz".map { String($0).uppercased() }
-        return String(characters[index % characters.count])
+    private func letterIndicator(forItemAt index: Int, uppercased: Bool) -> String {
+        let characters = "abcdefghijklmnopqrstuvwxyz".map { String($0) }
+        let character = String(characters[index % characters.count])
+        return uppercased ? character.uppercased() : character
     }
 
     private func numberIndicator(forItemAt index: Int) -> String {
@@ -44,6 +45,6 @@ enum OrderedListIndicator: CaseIterable {
             startingValue -= arabic * divisor
         }
 
-        return romanValue
+        return romanValue.lowercased()
     }
 }

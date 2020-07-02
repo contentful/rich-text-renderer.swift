@@ -16,16 +16,19 @@ open class OrderedListRenderer: NodeRendering {
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
     ) -> [NSMutableAttributedString] {
-        var mutableContext = context
-
-        var listContext = mutableContext[.listContext] as! ListContext
-        if let parentType = listContext.parentType, parentType == .orderedList {
-            listContext.incrementIndentLevel(incrementNestingLevel: true)
+        var listContext: ListContext! = context[.listContext] as? ListContext
+        if listContext == nil {
+            listContext = ListContext(listType: .ordered)
         } else {
-            listContext.incrementIndentLevel(incrementNestingLevel: false)
+            listContext.itemIndex = 0
+            listContext.level += 1
+
+            if listContext.listType != .ordered {
+                listContext.listType = .ordered
+            }
         }
 
-        listContext.parentType = .orderedList
+        var mutableContext = context
         mutableContext[.listContext] = listContext
 
         let contentNodes = node.content.compactMap { $0 as? RenderableNodeProviding }
