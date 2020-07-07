@@ -21,11 +21,14 @@ extension Swift.Array where Element == NSMutableAttributedString {
         guard let listContext = context[.listContext] as? ListContext else { return }
 
         // Get the character for the index.
-        let listIndex = listContext.itemIndex
-        let listChar = listContext.listChar(at: listIndex) ?? ""
+        let indicator = ListItemIndicatorFactory().makeIndicator(
+            forListType: listContext.listType,
+            atIndex: listContext.itemIndex,
+            atLevel: listContext.level
+        )
 
         if listContext.isFirstListItemChild {
-            let attributedString = NSMutableAttributedString(string: "\t" + listChar + "\t")
+            let attributedString = NSMutableAttributedString(string: "\t" + indicator + "\t")
 
             attributedString.addAttributes(
                 [.foregroundColor: UIColor.rtrLabel],
@@ -48,7 +51,7 @@ extension Swift.Array where Element == NSMutableAttributedString {
             insert(attributedString, at: 0)
 
         } else if node is BlockNode {
-            for _ in 0...listContext.indentationLevel {
+            for _ in 0...listContext.level {
                 insert(NSMutableAttributedString(string: "\t"), at: 0)
             }
         }

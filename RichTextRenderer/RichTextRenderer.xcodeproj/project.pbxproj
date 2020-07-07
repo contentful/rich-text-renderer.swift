@@ -68,6 +68,8 @@
 		6DCFA8FB2497F316002D59B3 /* Contentful.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; };
 		6DCFA8FC2497F316002D59B3 /* Contentful.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCFA8FA2497F316002D59B3 /* Contentful.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DE2C22624AA4A7400C1549C /* Heading+HeadingLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */; };
+		6DEC862C24B4B3F700528501 /* ListItemIndicatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC862B24B4B3F700528501 /* ListItemIndicatorFactory.swift */; };
+		6DEC862E24B4B4CF00528501 /* ListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC862D24B4B4CF00528501 /* ListType.swift */; };
 		6DF3ED15249E226100FEAFA7 /* ResourceLinkBlockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */; };
 		6DF3ED17249E2A2E00FEAFA7 /* RichTextLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */; };
 		6DF3ED19249E2A4B00FEAFA7 /* RichTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */; };
@@ -157,6 +159,8 @@
 		6DCFA8F72497F307002D59B3 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		6DCFA8FA2497F316002D59B3 /* Contentful.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contentful.framework; path = Carthage/Build/iOS/Contentful.framework; sourceTree = "<group>"; };
 		6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Heading+HeadingLevel.swift"; sourceTree = "<group>"; };
+		6DEC862B24B4B3F700528501 /* ListItemIndicatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemIndicatorFactory.swift; sourceTree = "<group>"; };
+		6DEC862D24B4B4CF00528501 /* ListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListType.swift; sourceTree = "<group>"; };
 		6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockImageView.swift; sourceTree = "<group>"; };
 		6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLayoutManager.swift; sourceTree = "<group>"; };
 		6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextContainer.swift; sourceTree = "<group>"; };
@@ -243,6 +247,9 @@
 		6D26718D24AE3B9700F3C895 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				6D1897E224A35EFC0030542A /* ListContext.swift */,
+				6DEC862B24B4B3F700528501 /* ListItemIndicatorFactory.swift */,
+				6DEC862D24B4B4CF00528501 /* ListType.swift */,
 				6D26719024AE3BC900F3C895 /* OrderedListIndicator.swift */,
 				6D26718E24AE3BB300F3C895 /* UnorderedListBullet.swift */,
 			);
@@ -333,7 +340,6 @@
 				6DA0AB4C2493B898005D4823 /* HeadingFonts.swift */,
 				6DA0AB4E2493B898005D4823 /* HeadingFonts+Default.swift */,
 				6DA0AB4D2493B898005D4823 /* HeadingLevel.swift */,
-				6D1897E224A35EFC0030542A /* ListContext.swift */,
 				6D0AB89724A28847005419E1 /* RenderableNode.swift */,
 				6D0AB89924A28878005419E1 /* RenderableNodeProviding.swift */,
 				6D26718D24AE3B9700F3C895 /* List */,
@@ -565,6 +571,7 @@
 				6D14B1E024A105F3001F0981 /* AttachmentRect.swift in Sources */,
 				6D26719124AE3BC900F3C895 /* OrderedListIndicator.swift in Sources */,
 				6DA0AB512493B898005D4823 /* HeadingFonts+Default.swift in Sources */,
+				6DEC862C24B4B3F700528501 /* ListItemIndicatorFactory.swift in Sources */,
 				6DA0AB502493B898005D4823 /* HeadingLevel.swift in Sources */,
 				6DA0AB7D2493B89C005D4823 /* HorizontalRuleRenderer.swift in Sources */,
 				6D335AF324AE37E000884348 /* NSAttributedString+FullRange.swift in Sources */,
@@ -602,6 +609,7 @@
 				6DA0AB3C2493B88F005D4823 /* RendererConfiguration.swift in Sources */,
 				6DA0AB862493B8A7005D4823 /* RichTextDocumentRenderer.swift in Sources */,
 				6D335AF124AE369300884348 /* UIColor+DarkAppearance.swift in Sources */,
+				6DEC862E24B4B4CF00528501 /* ListType.swift in Sources */,
 				6DA0AB772493B89C005D4823 /* ResourceLinkBlockViewProviding.swift in Sources */,
 				6D52775D2497CC7500E559A5 /* NodeRenderersProviding.swift in Sources */,
 				6D1897E324A35EFC0030542A /* ListContext.swift in Sources */,

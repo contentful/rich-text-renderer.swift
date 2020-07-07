@@ -18,7 +18,7 @@ internal extension NSMutableAttributedString {
 
         let renderingConfig = context.rendererConfiguration
         let paragraphStyle = NSMutableParagraphStyle()
-        let indentation = CGFloat(listContext.indentationLevel) * renderingConfig.textList.indentationMultiplier
+        let indentation = CGFloat(listContext.level) * renderingConfig.textList.indentationMultiplier
 
         // The first tab stop defines the x-position where the bullet or index is drawn.
         // The second tab stop defines the x-position where the list content begins.
