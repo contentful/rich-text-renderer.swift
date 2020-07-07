@@ -35,7 +35,6 @@
 		6DA0AB3D2493B88F005D4823 /* HeadingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB342493B88F005D4823 /* HeadingConfiguration.swift */; };
 		6DA0AB452493B894005D4823 /* CodingUserInfoKey+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB3F2493B894005D4823 /* CodingUserInfoKey+Dictionary.swift */; };
 		6DA0AB462493B894005D4823 /* NSAttributedStringKey+Contentful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */; };
-		6DA0AB472493B894005D4823 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB412493B894005D4823 /* NSAttributedString.swift */; };
 		6DA0AB482493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB422493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift */; };
 		6DA0AB492493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB432493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift */; };
 		6DA0AB4F2493B898005D4823 /* HeadingFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA0AB4C2493B898005D4823 /* HeadingFonts.swift */; };
@@ -122,7 +121,6 @@
 		6DA0AB342493B88F005D4823 /* HeadingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadingConfiguration.swift; sourceTree = "<group>"; };
 		6DA0AB3F2493B894005D4823 /* CodingUserInfoKey+Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Dictionary.swift"; sourceTree = "<group>"; };
 		6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedStringKey+Contentful.swift"; sourceTree = "<group>"; };
-		6DA0AB412493B894005D4823 /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		6DA0AB422493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+ArrayOperations.swift"; sourceTree = "<group>"; };
 		6DA0AB432493B894005D4823 /* CodingUserInfoKey+CustomKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+CustomKeys.swift"; sourceTree = "<group>"; };
 		6DA0AB4C2493B898005D4823 /* HeadingFonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadingFonts.swift; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				6DA0AB3F2493B894005D4823 /* CodingUserInfoKey+Dictionary.swift */,
 				6D5277552497BA0800E559A5 /* FontProviding+Marks.swift */,
 				6D8E196C24A36D2900BD04E4 /* Node+RenderableNodeProviding.swift */,
-				6DA0AB412493B894005D4823 /* NSAttributedString.swift */,
 				6D335AF224AE37E000884348 /* NSAttributedString+FullRange.swift */,
 				6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */,
 				6DA0AB422493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift */,
@@ -609,7 +606,6 @@
 				6DA0AB7A2493B89C005D4823 /* ResourceLinkBlockRenderer.swift in Sources */,
 				6DA0AB872493B8A7005D4823 /* RichTextDocumentRendering.swift in Sources */,
 				6D14B1DC24A101E1001F0981 /* NSTextStorage+Attachments.swift in Sources */,
-				6DA0AB472493B894005D4823 /* NSAttributedString.swift in Sources */,
 				6DA0AB3C2493B88F005D4823 /* RendererConfiguration.swift in Sources */,
 				6DA0AB862493B8A7005D4823 /* RichTextDocumentRenderer.swift in Sources */,
 				6D335AF124AE369300884348 /* UIColor+DarkAppearance.swift in Sources */,

@@ -7,9 +7,7 @@ import UIKit
 public class RichTextLayoutManager: NSLayoutManager {
 
     var blockQuoteWidth: CGFloat!
-
     var blockQuoteColor: UIColor!
-
     var textContainerInset: UIEdgeInsets!
 
     public override init() {

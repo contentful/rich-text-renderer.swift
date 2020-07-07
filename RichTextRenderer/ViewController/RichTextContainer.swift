@@ -5,7 +5,6 @@ import UIKit
 /// The custom `NSTextContainer` which has handling for rendering `Contentful.BlockQuote` nodes
 /// with a custom area.
 public class RichTextContainer: NSTextContainer {
-
     private let blockQuoteConfiguration: BlockQuoteConfiguration
 
     init(

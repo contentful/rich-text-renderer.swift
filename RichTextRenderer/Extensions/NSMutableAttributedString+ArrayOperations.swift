@@ -13,7 +13,9 @@ extension Swift.Array where Element == NSMutableAttributedString {
             return
         }
 
-        guard let listContext = context[.listContext] as? ListContext else { return }
+        guard let listContext = context[.listContext] as? ListContext,
+            let rendererConfiguration = context[.rendererConfiguration] as? RendererConfiguration
+        else { return }
 
         // Get the character for the index.
         let indicator = ListItemIndicatorFactory().makeIndicator(
@@ -31,10 +33,8 @@ extension Swift.Array where Element == NSMutableAttributedString {
             )
 
             if let heading = node as? Heading {
-                let configuration = context[.rendererConfiguration] as! RendererConfiguration
-
                 let attributes: [NSAttributedString.Key: Any] = [
-                    .font: configuration.heading.fonts.font(for: heading.headingLevel)
+                    .font: rendererConfiguration.heading.fonts.font(for: heading.headingLevel)
                 ]
 
                 attributedString.addAttributes(
@@ -52,8 +52,40 @@ extension Swift.Array where Element == NSMutableAttributedString {
         }
 
         forEach { string in
-            string.applyListItemStyling(node: node, context: context)
+            applyListItemStyling(
+                string: string,
+                rendererConfiguration: rendererConfiguration,
+                listContext: listContext
+            )
         }
     }
-}
 
+    /// This method uses all the state passed-in via the `context` to apply the proper paragraph styling
+    /// to the characters contained in the passed-in node.
+    private func applyListItemStyling(
+        string: NSMutableAttributedString,
+        rendererConfiguration: RendererConfiguration,
+        listContext: ListContext
+    ) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        let indentationInPx = CGFloat(listContext.level) * rendererConfiguration.textList.indentationMultiplier
+
+        // The first tab stop defines the x-position where the bullet or index is drawn.
+        // The second tab stop defines the x-position where the list content begins.
+        let firstStop: CGFloat = indentationInPx
+        let nextStop: CGFloat = indentationInPx + rendererConfiguration.textList.distanceToListItem
+
+        paragraphStyle.tabStops = [
+            NSTextTab(textAlignment: .left, location: firstStop, options: [:]),
+            NSTextTab(textAlignment: .left, location: nextStop, options: [:])
+        ]
+
+        // Indent subsequent lines to line up with first tab stop after bullet.
+        paragraphStyle.headIndent = indentationInPx + rendererConfiguration.textList.distanceToListItem
+
+        paragraphStyle.paragraphSpacing = rendererConfiguration.textConfiguration.paragraphSpacing
+        paragraphStyle.lineSpacing = rendererConfiguration.textConfiguration.lineSpacing
+
+        string.addAttributes([.paragraphStyle: paragraphStyle], range: string.fullRange)
+    }
+}
