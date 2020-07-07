@@ -26,7 +26,7 @@ open class HeadingRenderer: NodeRendering {
             $0.addAttributes([.font: font], range: $0.fullRange)
         }
         result.applyListItemStylingIfNecessary(node: node, context: context)
-        result.appendNewlineIfNecessary(node: node)
+        result.append(.makeNewLineString())
 
         return result
     }

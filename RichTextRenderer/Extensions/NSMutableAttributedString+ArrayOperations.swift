@@ -4,11 +4,6 @@ import Contentful
 import UIKit
 
 extension Swift.Array where Element == NSMutableAttributedString {
-    mutating func appendNewlineIfNecessary(node: Node) {
-        guard node is BlockNode else { return }
-        append(NSMutableAttributedString(string: "\n"))
-    }
-
     mutating func applyListItemStylingIfNecessary(node: Node, context: [CodingUserInfoKey: Any]) {
 
         // check the current node and if it has children,

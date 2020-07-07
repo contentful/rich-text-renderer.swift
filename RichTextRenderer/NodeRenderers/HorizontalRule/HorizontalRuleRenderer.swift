@@ -25,7 +25,7 @@ open class HorizontalRuleRenderer: NodeRendering {
 
         var rendered = [NSMutableAttributedString(string: "\0", attributes: [.horizontalRule: hrView])]
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
-        rendered.appendNewlineIfNecessary(node: node)
+        rendered.append(.makeNewLineString())
         return rendered
     }
 }

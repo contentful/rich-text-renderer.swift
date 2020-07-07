@@ -30,7 +30,7 @@ open class BlockQuoteRenderer: NodeRendering {
 
         var rendered = [result]
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
-        rendered.appendNewlineIfNecessary(node: node)
+        rendered.append(.makeNewLineString())
         return rendered
     }
 }

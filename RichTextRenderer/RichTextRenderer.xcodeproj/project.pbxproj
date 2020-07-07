@@ -70,6 +70,7 @@
 		6DE2C22624AA4A7400C1549C /* Heading+HeadingLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */; };
 		6DEC862C24B4B3F700528501 /* ListItemIndicatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC862B24B4B3F700528501 /* ListItemIndicatorFactory.swift */; };
 		6DEC862E24B4B4CF00528501 /* ListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC862D24B4B4CF00528501 /* ListType.swift */; };
+		6DEC863024B4B6B900528501 /* NSMutableAttributedString+NewLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC862F24B4B6B900528501 /* NSMutableAttributedString+NewLine.swift */; };
 		6DF3ED15249E226100FEAFA7 /* ResourceLinkBlockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */; };
 		6DF3ED17249E2A2E00FEAFA7 /* RichTextLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */; };
 		6DF3ED19249E2A4B00FEAFA7 /* RichTextContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */; };
@@ -161,6 +162,7 @@
 		6DE2C22524AA4A7400C1549C /* Heading+HeadingLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Heading+HeadingLevel.swift"; sourceTree = "<group>"; };
 		6DEC862B24B4B3F700528501 /* ListItemIndicatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemIndicatorFactory.swift; sourceTree = "<group>"; };
 		6DEC862D24B4B4CF00528501 /* ListType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListType.swift; sourceTree = "<group>"; };
+		6DEC862F24B4B6B900528501 /* NSMutableAttributedString+NewLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+NewLine.swift"; sourceTree = "<group>"; };
 		6DF3ED14249E226100FEAFA7 /* ResourceLinkBlockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLinkBlockImageView.swift; sourceTree = "<group>"; };
 		6DF3ED16249E2A2E00FEAFA7 /* RichTextLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextLayoutManager.swift; sourceTree = "<group>"; };
 		6DF3ED18249E2A4B00FEAFA7 /* RichTextContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextContainer.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				6D335AF224AE37E000884348 /* NSAttributedString+FullRange.swift */,
 				6DA0AB402493B894005D4823 /* NSAttributedStringKey+Contentful.swift */,
 				6DA0AB422493B894005D4823 /* NSMutableAttributedString+ArrayOperations.swift */,
+				6DEC862F24B4B6B900528501 /* NSMutableAttributedString+NewLine.swift */,
 				6D14B1DB24A101E1001F0981 /* NSTextStorage+Attachments.swift */,
 				6D335AF024AE369300884348 /* UIColor+DarkAppearance.swift */,
 			);
@@ -579,6 +582,7 @@
 				6DA0AB452493B894005D4823 /* CodingUserInfoKey+Dictionary.swift in Sources */,
 				6D26718F24AE3BB300F3C895 /* UnorderedListBullet.swift in Sources */,
 				6D5277542497B6A000E559A5 /* DefaultFontProvider.swift in Sources */,
+				6DEC863024B4B6B900528501 /* NSMutableAttributedString+NewLine.swift in Sources */,
 				6D0AB89824A28847005419E1 /* RenderableNode.swift in Sources */,
 				6DA0AB752493B89C005D4823 /* NodeRendering.swift in Sources */,
 				6DA0AB7F2493B89C005D4823 /* HorizontalRuleViewProviding.swift in Sources */,

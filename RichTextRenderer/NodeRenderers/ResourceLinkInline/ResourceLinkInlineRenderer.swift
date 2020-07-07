@@ -19,7 +19,6 @@ open class ResourceLinkInlineRenderer: NodeRendering {
 
         var rendered = [provider.string(for: node.data.target, context: context)]
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
-        rendered.appendNewlineIfNecessary(node: node)
 
         return rendered
     }

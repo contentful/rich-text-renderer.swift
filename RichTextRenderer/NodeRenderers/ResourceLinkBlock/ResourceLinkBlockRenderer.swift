@@ -29,7 +29,8 @@ open class ResourceLinkBlockRenderer: NodeRendering {
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         var rendered = [NSMutableAttributedString(string: "\0", attributes: [.embed: view])] // use null character
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
-        rendered.appendNewlineIfNecessary(node: node)
+        rendered.append(.makeNewLineString())
+        
         return rendered
     }
 }
