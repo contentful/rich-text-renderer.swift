@@ -15,7 +15,7 @@ extension FontProviding {
         } else if markTypes.contains(.italic) {
             return italic
         } else if markTypes.contains(.code) {
-            return code
+            return monospaced
         } else {
             return regular
         }

@@ -17,9 +17,6 @@ public protocol RendererConfiguration {
     /// Configuration for `BlockQuote` nodes.
     var blockQuote: BlockQuoteConfiguration { get }
 
-    /// Configuration for `Heading` nodes.
-    var heading: HeadingConfiguration { get }
-
     /// Configuration for text lists.
     var textList: TextListConfiguration { get }
 

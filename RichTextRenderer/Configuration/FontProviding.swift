@@ -12,6 +12,9 @@ public protocol FontProviding {
     var italic: UIFont { get }
     var boldItalic: UIFont { get }
 
+    /// Fonts used in heading nodes.
+    var headingFonts: HeadingFonts { get }
+
     /// Font used to render code snippets (monospace).
-    var code: UIFont { get }
+    var monospaced: UIFont { get }
 }
