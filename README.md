@@ -17,7 +17,7 @@
 ##### CocoaPods installation
 
 ```ruby
-platform :ios, '9.0'
+platform :ios, '11.0'
 use_frameworks!
 pod 'ContentfulRichTextRenderer'
 ```
@@ -27,7 +27,7 @@ pod 'ContentfulRichTextRenderer'
 You can also use [Carthage](https://github.com/Carthage/Carthage) for integration by adding the following to your `Cartfile`:
 
 ```
-github "contentful-labs/rich-text-renderer.swift" ~> 0.0.1
+github "contentful/rich-text-renderer-swift"
 ```
 
 #### Swift Package Manager [swift-tools-version 4.2]
