@@ -6,7 +6,9 @@ import Contentful
 open class HeadingRenderer: NodeRendering {
     public typealias NodeType = Heading
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: Heading,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

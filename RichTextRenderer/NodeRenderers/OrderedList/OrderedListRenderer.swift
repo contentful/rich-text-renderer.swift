@@ -11,7 +11,9 @@ import Contentful
 open class OrderedListRenderer: NodeRendering {
     public typealias NodeType = OrderedList
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: OrderedList,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

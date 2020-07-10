@@ -6,7 +6,9 @@ import Contentful
 open class HyperlinkRenderer: NodeRendering {
     public typealias NodeType = Hyperlink
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: Hyperlink,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

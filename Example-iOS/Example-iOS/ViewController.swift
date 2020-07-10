@@ -11,8 +11,14 @@ class ViewController: RichTextViewController {
         var configuration = DefaultRendererConfiguration()
         configuration.resourceLinkBlockViewProvider = ExampleBlockViewProvider()
         configuration.resourceLinkInlineStringProvider = ExampleInlineStringProvider()
-        let renderer = RichTextDocumentRenderer(configuration: configuration)
-        
+
+        let renderersProvider = DefaultRenderersProvider()
+
+        let renderer = RichTextDocumentRenderer(
+            configuration: configuration,
+            nodeRenderers: renderersProvider
+        )
+
         super.init(renderer: renderer)
     }
 
@@ -40,4 +46,3 @@ class ViewController: RichTextViewController {
         }
     }
 }
-

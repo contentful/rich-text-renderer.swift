@@ -3,7 +3,7 @@
 import Contentful
 import UIKit
 
-extension Swift.Array where Element == NSMutableAttributedString {
+public extension Swift.Array where Element == NSMutableAttributedString {
     mutating func applyListItemStylingIfNecessary(node: Node, context: [CodingUserInfoKey: Any]) {
 
         // check the current node and if it has children,

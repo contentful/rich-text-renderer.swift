@@ -10,7 +10,9 @@ import Contentful
 open class ResourceLinkInlineRenderer: NodeRendering {
     public typealias NodeType = ResourceLinkInline
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: ResourceLinkInline,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

@@ -6,7 +6,9 @@ import Contentful
 open class BlockQuoteRenderer: NodeRendering {
     public typealias NodeType = BlockQuote
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: BlockQuote,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

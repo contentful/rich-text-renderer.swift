@@ -6,7 +6,9 @@ import Contentful
 open class ParagraphRenderer: NodeRendering {
     public typealias NodeType = Paragraph
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: Paragraph,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

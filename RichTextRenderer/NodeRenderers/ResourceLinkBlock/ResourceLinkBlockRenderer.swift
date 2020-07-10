@@ -11,7 +11,9 @@ import UIKit
 open class ResourceLinkBlockRenderer: NodeRendering {
     public typealias NodeType = ResourceLinkBlock
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: ResourceLinkBlock,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

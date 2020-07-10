@@ -11,7 +11,9 @@ import Contentful
 open class ListItemRenderer: NodeRendering {
     public typealias NodeType = ListItem
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: ListItem,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

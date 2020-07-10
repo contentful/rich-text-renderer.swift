@@ -7,7 +7,9 @@ import UIKit
 open class HorizontalRuleRenderer: NodeRendering {
     public typealias NodeType = HorizontalRule
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: HorizontalRule,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]

@@ -7,7 +7,9 @@ import UIKit
 open class TextRenderer: NodeRendering {
     public typealias NodeType = Text
 
-    public func render(
+    required public init() {}
+
+    open func render(
         node: Text,
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
