@@ -32,7 +32,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     }
 
     /// The custom `NSTextContainer` which manages the areas text can be rendered to.
-    public var textContainer: RichTextContainer!
+    private var textContainer: ConcreteTextContainer!
 
     public init(
         renderer: RichTextDocumentRenderer,
@@ -62,9 +62,9 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         textStorage.addLayoutManager(layoutManager)
 
-        textContainer = RichTextContainer(
-            size: view.bounds.size,
-            blockQuoteConfiguration: renderer.configuration.blockQuote
+        textContainer = ConcreteTextContainer(size: view.bounds.size)
+        textContainer.add(provider: BlockLineFragmentProvider(
+            blockQuoteConfiguration: renderer.configuration.blockQuote)
         )
 
         textContainer.widthTracksTextView = true
