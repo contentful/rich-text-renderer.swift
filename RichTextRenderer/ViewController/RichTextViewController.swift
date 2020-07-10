@@ -4,11 +4,10 @@ import UIKit
 import Contentful
 
 /**
- View controller that renders `Contentful.RichTextDocument` to internal `UITextView`.
+ View controller that renders `Contentful.RichTextDocument`.
 
- It uses `NSLayoutManager` subclass, and a custom `NSTextContainer` subclass to render `UIView` instances inline
- in text.
- */
+ The content of the document is rendered to internal text view.
+*/
 open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     /// Renderer of the `Contentful.RichTextDocument`.
@@ -24,7 +23,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     private var exclusionPathsStorage: [String: UIBezierPath] = [:]
 
     /// The custom `NSLayoutManager` which lays out the text within the text container and text view.
-    private let layoutManager = RichTextLayoutManager()
+    private let layoutManager = DefaultLayoutManager()
 
     /// Document to be rendered.
     public var richTextDocument: RichTextDocument? {
@@ -56,9 +55,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         observeOrientationDidChangeNotification()
 
-        layoutManager.textContainerInset = renderer.configuration.contentInset
-        layoutManager.blockQuoteWidth = renderer.configuration.blockQuote.rectangleWidth
-        layoutManager.blockQuoteColor = renderer.configuration.blockQuote.rectangleColor
+        layoutManager.blockQuoteDecorationRenderer = BlockQuoteDecorationRenderer(
+            blockQuoteConfiguration: renderer.configuration.blockQuote,
+            textContainerInsets: renderer.configuration.contentInsets
+        )
 
         textStorage.addLayoutManager(layoutManager)
 
@@ -81,7 +81,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     private func setupTextView() {
         textView = UITextView(frame: view.bounds, textContainer: textContainer)
-        textView.textContainerInset = renderer.configuration.contentInset
+        textView.textContainerInset = renderer.configuration.contentInsets
         textView.backgroundColor = UIColor.rtrSystemBackground
 
         view.addSubview(textView)
@@ -149,7 +149,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     private func layoutEmbeddedResourceViews(layoutManager: NSLayoutManager) {
         let containerRect = self.view.frame
-        let contentInset = renderer.configuration.contentInset
+        let contentInset = renderer.configuration.contentInsets
 
         // For each attached subview, find its associated attachment and position it according to its text layout
         let attachments = textView.textStorage.findAttachments(forAttribute: .embed)
@@ -216,7 +216,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     private func layoutHorizontalRules(layoutManager: NSLayoutManager) {
         let containerRect = self.view.frame
-        let contentInset = renderer.configuration.contentInset
+        let contentInset = renderer.configuration.contentInsets
 
         let attachmentRanges = textView.textStorage.findAttachments(forAttribute: .horizontalRule)
         for attachment in attachmentRanges {

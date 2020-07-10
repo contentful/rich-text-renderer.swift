@@ -9,7 +9,7 @@ public protocol RendererConfiguration {
     var fontProvider: FontProviding { get }
 
     /// Insets of the rendered content
-    var contentInset: UIEdgeInsets { get }
+    var contentInsets: UIEdgeInsets { get }
 
     /// Configuration for `Text` nodes.
     var textConfiguration: TextConfiguration { get }
