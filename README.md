@@ -28,45 +28,44 @@ github "contentful/rich-text-renderer-swift"
 The main entry point for the library is the `RichTextViewController`. You can either use it standalone, or subclass it. The `view` instance for `RichTextViewController` has a `UITextView` subview that uses a custom `NSLayoutManager` and `NSTextContainer` to lay out text, enabling text to wrap around nested views for embedded assets and entries, and also enabling blockquote styling analogous to that seen on websites. 
 
 ```swift
-import Contentful
-import RichTextRenderer
-import UIKit
+  import Contentful
+  import RichTextRenderer
+  import UIKit
 
-class ViewController: RichTextViewController {
-    private let client = ContentfulService() /// Your service fetching data from Contentful.
+  class ViewController: RichTextViewController {
+      private let client = ContentfulService() /// Your service fetching data from Contentful.
 
-    init() {
-        /// Default configuration of the renderer.
-        let configuration = DefaultRendererConfiguration()
+      init() {
+          /// Default configuration of the renderer.
+          let configuration = DefaultRendererConfiguration()
 
-        let renderer = RichTextDocumentRenderer(configuration: configuration)
-        
-        super.init(renderer: renderer)
-    }
+          let renderer = RichTextDocumentRenderer(configuration: configuration)
+          
+          super.init(renderer: renderer)
+      }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+      required init?(coder aDecoder: NSCoder) {
+          fatalError("init(coder:) has not been implemented")
+      }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+      override func viewDidLoad() {
+          super.viewDidLoad()
 
-        fetchContent()
-    }
+          fetchContent()
+      }
 
-    private func fetchContent() {
-        client.fetchArticle { [weak self] result in
-            switch result {
-            case .success(let article):
-                self?.richTextDocument = article.content
+      private func fetchContent() {
+          client.fetchArticle { [weak self] result in
+              switch result {
+              case .success(let article):
+                  self?.richTextDocument = article.content
 
-            case .failure(let error):
-                break
-            }
-        }
-    }
-}
-
+              case .failure(let error):
+                  break
+              }
+          }
+      }
+  }
 ```
 
 You can configure how the renderer renders content by modifying `DefaultRendererConfiguration` instance or by creating new one conforming to `RendererConfiguration` protocol.
@@ -77,121 +76,154 @@ Initializing instance of `DefaultRendererConfiguration` provides a configuration
 You can render custom views for `ResourceLinkBlock` nodes by passing a view provider to the configuration object.
 
 ```swift
-var configuration = DefaultRendererConfiguration()
-configuration.resourceLinkBlockViewProvider = ExampleBlockViewProvider()
+  var configuration = DefaultRendererConfiguration()
+  configuration.resourceLinkBlockViewProvider = ExampleBlockViewProvider()
 ```
 
 Below is the example implementation on the view provider that is cappable of rendering `Car` model and the `Asset`.
 
 ```swift
-struct ExampleViewProvider: ResourceLinkBlockViewProviding {
-    func view(for resource: Link, context: [CodingUserInfoKey: Any]) -> ResourceLinkBlockViewRepresentable? {
-        switch resource {
-        case .entryDecodable(let entryDecodable):
-            if let car = entryDecodable as? Car {
-                return CarView(car: car)
-            }
+  struct ExampleViewProvider: ResourceLinkBlockViewProviding {
+      func view(for resource: Link, context: [CodingUserInfoKey: Any]) -> ResourceLinkBlockViewRepresentable? {
+          switch resource {
+          case .entryDecodable(let entryDecodable):
+              if let car = entryDecodable as? Car {
+                  return CarView(car: car)
+              }
 
-            return nil
+              return nil
 
-        case .entry:
-            return nil
+          case .entry:
+              return nil
 
-        case .asset(let asset):
-            guard asset.file?.details?.imageInfo != nil else { return nil }
+          case .asset(let asset):
+              guard asset.file?.details?.imageInfo != nil else { return nil }
 
-            let imageView = ResourceLinkBlockImageView(asset: asset)
+              let imageView = ResourceLinkBlockImageView(asset: asset)
 
-            imageView.backgroundColor = .gray
-            imageView.setImageToNaturalHeight()
-            return imageView
+              imageView.backgroundColor = .gray
+              imageView.setImageToNaturalHeight()
+              return imageView
 
-        default:
-            return nil
-        }
-    }
-}
+          default:
+              return nil
+          }
+      }
+  }
 
-final class CarView: UIView, ResourceLinkBlockViewRepresentable {
-    private let car: Car
+  final class CarView: UIView, ResourceLinkBlockViewRepresentable {
+      private let car: Car
 
-    var surroundingTextShouldWrap: Bool = false
-    var context: [CodingUserInfoKey : Any] = [:]
+      var surroundingTextShouldWrap: Bool = false
+      var context: [CodingUserInfoKey : Any] = [:]
 
-    public init(car: Car) {
-        self.car = car
-        super.init(frame: .zero)
+      public init(car: Car) {
+          self.car = car
+          super.init(frame: .zero)
 
-        let title = UILabel(frame: .zero)
-        title.text = "🚗 " + car.model + " 🚗"
-        title.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(title)
+          let title = UILabel(frame: .zero)
+          title.text = "🚗 " + car.model + " 🚗"
+          title.translatesAutoresizingMaskIntoConstraints = false
+          addSubview(title)
 
-        title.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        title.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        title.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        title.sizeToFit()
+          title.topAnchor.constraint(equalTo: topAnchor).isActive = true
+          title.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+          title.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+          title.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+          title.sizeToFit()
 
-        frame = title.bounds
-        backgroundColor = .lightGray
-    }
+          frame = title.bounds
+          backgroundColor = .lightGray
+      }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+      required init?(coder: NSCoder) {
+          fatalError("init(coder:) has not been implemented")
+      }
 
-    func layout(with width: CGFloat) {}
-}
+      func layout(with width: CGFloat) {}
+  }
 ```
 
 ### Rendering `ResourceLinkInline` node.
 Inline elements in the `RichTextDocument` can be rendered as `NSMutableAttributedString` object. 
 
 ```swift
-var configuration = DefaultRendererConfiguration()
-configuration.resourceLinkInlineStringProvider = ExampleInlineStringProvider()
+  var configuration = DefaultRendererConfiguration()
+  configuration.resourceLinkInlineStringProvider = ExampleInlineStringProvider()
 ```
 
 Below is the implementation of the inline string provider that renders `Cat` type.
 
 ```swift
-import Contentful
-import RichTextRenderer
-import UIKit
+  import Contentful
+  import RichTextRenderer
+  import UIKit
 
-final class ExampleInlineStringProvider: ResourceLinkInlineStringProviding {
-    func string(
-        for resource: Link,
-        context: [CodingUserInfoKey : Any]
-    ) -> NSMutableAttributedString {
-        switch resource {
-        case .entryDecodable(let entryDecodable):
-            if let cat = entryDecodable as? Cat {
-                return CatInlineProvider.string(for: cat)
-            }
+  final class ExampleInlineStringProvider: ResourceLinkInlineStringProviding {
+      func string(
+          for resource: Link,
+          context: [CodingUserInfoKey : Any]
+      ) -> NSMutableAttributedString {
+          switch resource {
+          case .entryDecodable(let entryDecodable):
+              if let cat = entryDecodable as? Cat {
+                  return CatInlineProvider.string(for: cat)
+              }
 
-        default:
-            break
-        }
+          default:
+              break
+          }
 
-        return NSMutableAttributedString(string: "")
-    }
-}
+          return NSMutableAttributedString(string: "")
+      }
+  }
 
-private final class CatInlineProvider {
-    static func string(for cat: Cat) -> NSMutableAttributedString {
-        return NSMutableAttributedString(
-            string: "🐈 \(cat.name) ❤️",
-            attributes: [
-                .foregroundColor: UIColor.rtrLabel
-            ]
-        )
-    }
+  private final class CatInlineProvider {
+      static func string(for cat: Cat) -> NSMutableAttributedString {
+          return NSMutableAttributedString(
+              string: "🐈 \(cat.name) ❤️",
+              attributes: [
+                  .foregroundColor: UIColor.rtrLabel
+              ]
+          )
+      }
+  }
+```
+
+### Custom renderers
+The library has been implemented the way that you can provide custom renderers for specific node types.
+
+Simply create a class that inherits from one of the default renderers and write your own. Then attach to a `DefaultRenderersProvider` and that's it.
+
+```swift
+final class ExampleParagraphRenderer: ParagraphRenderer {
+  typealias NodeType = Paragraph
+
+  override func render(
+      node: Paragraph,
+      rootRenderer: RichTextDocumentRendering,
+      context: [CodingUserInfoKey : Any]
+  ) -> [NSMutableAttributedString] {
+      /// Your code for rendering paragraphs.
+  }
 }
 ```
 
-### Example
+```swift
+  let configuration = DefaultRendererConfiguration()
+
+  var renderersProvider = DefaultRenderersProvider()
+  renderersProvider.paragraph = ExampleParagraphRenderer()
+
+  let renderer = RichTextDocumentRenderer(
+      configuration: configuration,
+      nodeRenderers: renderersProvider
+  )
+
+  super.init(renderer: renderer)
+```
+
+### Example Usage
 The best way to get acquainted with using this library in an iOS app is to check out the example that is a part of this repository. In particular, pay attention to the view provider and inline provider in order to learn how to render entries and assets that are embedded in the rich text.
 
 ### Have questions about how to use this library?
