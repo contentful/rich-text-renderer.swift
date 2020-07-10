@@ -4,7 +4,7 @@ import Contentful
 import RichTextRenderer
 import UIKit
 
-struct ExampleViewProvider: ResourceLinkBlockViewProviding {
+struct ExampleBlockViewProvider: ResourceLinkBlockViewProviding {
     func view(for resource: Link, context: [CodingUserInfoKey: Any]) -> ResourceLinkBlockViewRepresentable? {
         switch resource {
         case .entryDecodable(let entryDecodable):

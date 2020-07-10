@@ -4,7 +4,7 @@ import Contentful
 import RichTextRenderer
 import UIKit
 
-final class InlineProvider: ResourceLinkInlineStringProviding {
+final class ExampleInlineStringProvider: ResourceLinkInlineStringProviding {
     func string(
         for resource: Link,
         context: [CodingUserInfoKey : Any]
