@@ -86,6 +86,12 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         view.addSubview(textView)
 
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+
         textView.isScrollEnabled = true
         textView.contentSize.height = .greatestFiniteMagnitude
         textView.isEditable = false
@@ -121,9 +127,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     private func renderDocumentIfNeeded() {
         guard let document = richTextDocument else { return }
 
-        let output = self.renderer.render(document: document)
-
         DispatchQueue.main.async {
+            let output = self.renderer.render(document: document)
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
