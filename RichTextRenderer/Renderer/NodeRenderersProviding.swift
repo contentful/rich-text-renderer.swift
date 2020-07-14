@@ -15,16 +15,10 @@ public protocol NodeRenderersProviding {
     var resourceLinkInline: ResourceLinkInlineRenderer { get set }
     var text: TextRenderer { get set }
     var unorderedList: UnorderedListRenderer { get set }
-
-    func render(
-        node: RenderableNode,
-        renderer: RichTextDocumentRendering,
-        context: [CodingUserInfoKey: Any]
-    ) -> [NSMutableAttributedString]
 }
 
 extension NodeRenderersProviding {
-    public func render(
+    func render(
         node: RenderableNode,
         renderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
