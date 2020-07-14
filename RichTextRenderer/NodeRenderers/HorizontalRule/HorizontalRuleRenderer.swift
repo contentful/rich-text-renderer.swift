@@ -16,15 +16,7 @@ open class HorizontalRuleRenderer: NodeRendering {
     ) -> [NSMutableAttributedString] {
         let provider = context.rendererConfiguration.horizontalRuleViewProvider
 
-        let semaphore = DispatchSemaphore(value: 0)
-        var hrView: UIView!
-
-        DispatchQueue.main.sync {
-            hrView = provider.horizontalRule(context: context)
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
-
+        let hrView = provider.horizontalRule(context: context)
         var rendered = [NSMutableAttributedString(string: "\0", attributes: [.horizontalRule: hrView])]
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
         rendered.append(.makeNewLineString())

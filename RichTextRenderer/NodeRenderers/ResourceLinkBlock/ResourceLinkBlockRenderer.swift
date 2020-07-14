@@ -20,15 +20,7 @@ open class ResourceLinkBlockRenderer: NodeRendering {
     ) -> [NSMutableAttributedString] {
         guard let provider = context.rendererConfiguration.resourceLinkBlockViewProvider else { return [] }
 
-        let semaphore = DispatchSemaphore(value: 0)
-
-        var view: UIView!
-
-        DispatchQueue.main.sync {
-            view = provider.view(for: node.data.target, context: context)
-            semaphore.signal()
-        }
-        _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+        let view = provider.view(for: node.data.target, context: context)
         var rendered = [NSMutableAttributedString(string: "\0", attributes: [.embed: view])] // use null character
         rendered.applyListItemStylingIfNecessary(node: node, context: context)
         rendered.append(.makeNewLineString())
