@@ -10,6 +10,11 @@ import Contentful
 */
 open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
+    private enum Constant {
+        static let embedSuffix = "-embed"
+        static let hrSuffix = "-hr"
+    }
+
     /// Renderer of the `Contentful.RichTextDocument`.
     private let renderer: RichTextDocumentRenderer
 
@@ -19,9 +24,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     /// The underlying text storage.
     private let textStorage = NSTextStorage()
 
-    /// Storage for exclusion paths, regions where a text is not rendered in the text container.
-    private var exclusionPathsStorage: [String: UIBezierPath] = [:]
-
     /// The custom `NSLayoutManager` which lays out the text within the text container and text view.
     private let layoutManager = DefaultLayoutManager()
 
@@ -29,6 +31,11 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     public var richTextDocument: RichTextDocument? {
         didSet { renderDocumentIfNeeded() }
     }
+
+    /// Storage for exclusion paths, regions where a text is not rendered in the text container.
+    private var exclusionPathsStorage: [String: UIBezierPath] = [:]
+
+    private var attachmentViews = [String: UIView]()
 
     /// The custom `NSTextContainer` which manages the areas text can be rendered to.
     private var textContainer: ConcreteTextContainer!
@@ -112,6 +119,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     private func invalidateLayout() {
         exclusionPathsStorage.removeAll()
+        
+        attachmentViews.forEach { _, view in view.removeFromSuperview() }
+        attachmentViews.removeAll()
+
         textView.textContainer.exclusionPaths.removeAll()
 
         layoutManager.invalidateLayout(
@@ -220,12 +231,13 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         attachmentCastedView.layout(with: attachmentRect.width)
 
-        let exclusionKey = String(range.hashValue) + "-embed"
+        let exclusionKey = String(range.hashValue) + Constant.embedSuffix
         addExclusionPath(for: boundingRect, key: exclusionKey)
 
         if attrView.superview == nil {
             attrView.frame = attachmentRect
             textView.addSubview(attrView)
+            attachmentViews[exclusionKey] = attrView
         }
     }
 
@@ -274,12 +286,13 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             height: attrView.frame.height
         )
 
-        let exclusionKey = String(range.hashValue) + "-horizontalRule"
+        let exclusionKey = String(range.hashValue) + Constant.hrSuffix
         addExclusionPath(for: boundingRect, key: exclusionKey)
 
         if attrView.superview == nil {
             attrView.frame = attachmentRect
             textView.addSubview(attrView)
+            attachmentViews[exclusionKey] = attrView
         }
     }
 
