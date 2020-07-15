@@ -40,6 +40,20 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     /// The custom `NSTextContainer` which manages the areas text can be rendered to.
     private var textContainer: ConcreteTextContainer!
 
+    /**
+        Workaround: Internal variable used for handling laying-out content on the text view
+        update while changing screen orientation.
+
+        Orientation change is tricky to handle for `UITextView` and its `NSLayoutManager`.
+        The `layoutManager:didCompleteLayoutForTextContainer:atEnd:` method is called multiple times over the
+        orientation change animation and it is difficult to detect when to layout custom subviews presented on
+        the text view. I noticed that `viewWillTransition:toSize:withCoordinator` reports size of the `view` that
+        will be valid after rotation animation ended and as the text view is about the same size I do a check on
+        the `layoutManager:didCompleteLayoutForTextContainer:atEnd:` to detect a proper moment to layout subviews
+        on the text view. It works very well with slow and quick multiple-steps orientation change operations.
+     */
+    private var expectedTextViewSizeAfterOrientationChange: CGSize?
+
     public init(
         renderer: RichTextDocumentRenderer,
         richTextDocument: RichTextDocument? = nil
@@ -59,8 +73,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-
-        observeOrientationDidChangeNotification()
 
         layoutManager.blockQuoteDecorationRenderer = BlockQuoteDecorationRenderer(
             blockQuoteConfiguration: renderer.configuration.blockQuote,
@@ -104,31 +116,13 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textView.isEditable = false
     }
 
-    private func observeOrientationDidChangeNotification() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleOrientationDidChangeNotification),
-            name: UIDevice.orientationDidChangeNotification,
-            object: nil
-        )
-    }
-
-    @objc private func handleOrientationDidChangeNotification() {
-        invalidateLayout()
-    }
-
     private func invalidateLayout() {
         exclusionPathsStorage.removeAll()
-        
+
         attachmentViews.forEach { _, view in view.removeFromSuperview() }
         attachmentViews.removeAll()
 
         textView.textContainer.exclusionPaths.removeAll()
-
-        layoutManager.invalidateLayout(
-            forCharacterRange: textStorage.fullRange,
-            actualCharacterRange: nil
-        )
     }
 
     private func stopObservingNotifications() {
@@ -146,6 +140,12 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         }
     }
 
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // Expect text view to be of the passed in `size`.
+        expectedTextViewSizeAfterOrientationChange = size
+
+        invalidateLayout()
+    }
 
     // MARK: - NSLayoutManagerDelegate
 
@@ -157,24 +157,31 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     ) {
         guard layoutFinishedFlag == true else { return }
 
-        layoutCustomElements()
+        // When expected size is specified the text view size have to match. Otherwise that is not a proper moment
+        // for laying out the content while changing orientation.
+        if let expectedSize = expectedTextViewSizeAfterOrientationChange, expectedSize != textView.bounds.size {
+            return
+        }
+
+        layoutElementsOnTextView(containerSize: textView.bounds.size)
+
+        expectedTextViewSizeAfterOrientationChange = nil
     }
 
-    private func layoutCustomElements() {
+    private func layoutElementsOnTextView(containerSize: CGSize) {
         textView.textStorage.enumerateAttributes(
             in: textView.textStorage.fullRange,
             options: []
         ) { attributes, range, _ in
             if attributes.keys.contains(.embed) {
-                layoutEmbedElement(attributes: attributes, range: range)
+                layoutEmbedElement(attributes: attributes, range: range, containerSize: containerSize)
             } else if attributes.keys.contains(.horizontalRule) {
-                layoutHorizontalRuleElement(attributes: attributes, range: range)
+                layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
     }
 
-    private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange) {
-        let containerRect = self.view.frame
+    private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
         let contentInset = renderer.configuration.contentInsets
 
         guard let attrView = attributes[.embed] as? UIView else {
@@ -204,7 +211,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
 
-        let newWidth = containerRect.width
+        let newWidth = containerSize.width
             - lineFragmentRect.minX
             - glyphLocation.x
             - contentInset.left
@@ -217,7 +224,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         let boundingRect = CGRect(
             x: lineFragmentRect.minX,
             y: lineFragmentRect.minY,
-            width: containerRect.width,
+            width: containerSize.width,
             height: newHeight
         )
 
@@ -241,8 +248,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         }
     }
 
-    private func layoutHorizontalRuleElement(attributes: [NSAttributedString.Key: Any], range: NSRange) {
-        let containerRect = self.view.frame
+    private func layoutHorizontalRuleElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
         let contentInset = renderer.configuration.contentInsets
 
         guard let attrView = attributes[.horizontalRule] as? UIView else {
@@ -267,7 +273,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
 
-        let newWidth = containerRect.width
+        let newWidth = containerSize.width
             - lineFragmentRect.minX
             - contentInset.left
             - contentInset.right
@@ -275,7 +281,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         let boundingRect = CGRect(
             x: lineFragmentRect.minX,
             y: lineFragmentRect.minY,
-            width: containerRect.width,
+            width: containerSize.width,
             height: 0
         )
 
