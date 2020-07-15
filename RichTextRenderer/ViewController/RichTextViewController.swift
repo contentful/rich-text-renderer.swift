@@ -111,8 +111,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     }
 
     private func invalidateLayout() {
-        exclusionPathsStorage = [:]
-        textView.textContainer.exclusionPaths = []
+        exclusionPathsStorage.removeAll()
+        textView.textContainer.exclusionPaths.removeAll()
 
         layoutManager.invalidateLayout(
             forCharacterRange: textStorage.fullRange,
@@ -144,131 +144,142 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         didCompleteLayoutFor textContainer: NSTextContainer?,
         atEnd layoutFinishedFlag: Bool
     ) {
-        guard let textView = self.textView, layoutFinishedFlag == true else { return }
+        guard layoutFinishedFlag == true else { return }
 
-        let layoutManager = textView.layoutManager
-
-        layoutEmbeddedResourceViews(layoutManager: layoutManager)
-        layoutHorizontalRules(layoutManager: layoutManager)
+        layoutCustomElements()
     }
 
-    private func layoutEmbeddedResourceViews(layoutManager: NSLayoutManager) {
-        let containerRect = self.view.frame
-        let contentInset = renderer.configuration.contentInsets
-
-        // For each attached subview, find its associated attachment and position it according to its text layout
-        let attachments = textView.textStorage.findAttachments(forAttribute: .embed)
-        for attachment in attachments {
-            guard let attachmentCastedView = attachment.view as? ResourceLinkBlockViewRepresentable else {
-                attachment.view.isHidden = true
-                continue
-            }
-
-            let glyphRange = layoutManager.glyphRange(
-                forCharacterRange: NSRange(location: attachment.range.location, length: 1),
-                actualCharacterRange: nil
-            )
-
-            let glyphIndex = glyphRange.location
-            guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
-                attachment.view.isHidden = true
-                continue
-            }
-
-            let lineFragmentRect = layoutManager.lineFragmentRect(
-                forGlyphAt: glyphIndex,
-                effectiveRange: nil
-            )
-
-            let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
-
-            let newWidth = containerRect.width
-                - lineFragmentRect.minX
-                - glyphLocation.x
-                - contentInset.left
-                - contentInset.right
-
-            let scaleFactor = newWidth / attachment.view.frame.width
-            let newHeight = scaleFactor * attachment.view.frame.height
-
-            // Rect specifying an area where text should not be rendered.
-            let boundingRect = CGRect(
-                x: lineFragmentRect.minX,
-                y: lineFragmentRect.minY,
-                width: containerRect.width,
-                height: newHeight
-            )
-
-            // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
-            let attachmentRect = CGRect(
-                x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
-                y: lineFragmentRect.minY + contentInset.top,
-                width: newWidth,
-                height: newHeight
-            )
-
-            attachmentCastedView.layout(with: attachmentRect.width)
-
-            let exclusionKey = String(attachment.range.hashValue) + "-embed"
-            addExclusionPath(for: boundingRect, key: exclusionKey)
-
-            if attachment.view.superview == nil {
-                attachment.view.frame = attachmentRect
-                textView.addSubview(attachment.view)
+    private func layoutCustomElements() {
+        textView.textStorage.enumerateAttributes(
+            in: textView.textStorage.fullRange,
+            options: []
+        ) { attributes, range, _ in
+            if attributes.keys.contains(.embed) {
+                layoutEmbedElement(attributes: attributes, range: range)
+            } else if attributes.keys.contains(.horizontalRule) {
+                layoutHorizontalRuleElement(attributes: attributes, range: range)
             }
         }
     }
 
-    private func layoutHorizontalRules(layoutManager: NSLayoutManager) {
+    private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange) {
         let containerRect = self.view.frame
         let contentInset = renderer.configuration.contentInsets
 
-        let attachmentRanges = textView.textStorage.findAttachments(forAttribute: .horizontalRule)
-        for attachment in attachmentRanges {
-            let glyphRange = layoutManager.glyphRange(
-                forCharacterRange: NSRange(location: attachment.range.location, length: 1),
-                actualCharacterRange: nil
-            )
+        guard let attrView = attributes[.embed] as? UIView else {
+            return
+        }
 
-            let glyphIndex = glyphRange.location
-            guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
-                attachment.view.isHidden = true
-                continue
-            }
+        guard let attachmentCastedView = attrView as? ResourceLinkBlockViewRepresentable else {
+            attrView.isHidden = true
+            return
+        }
 
-            let lineFragmentRect = layoutManager.lineFragmentRect(
-                forGlyphAt: glyphIndex,
-                effectiveRange: nil
-            )
+        let glyphRange = layoutManager.glyphRange(
+            forCharacterRange: NSRange(location: range.location, length: 1),
+            actualCharacterRange: nil
+        )
 
-            let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
+        let glyphIndex = glyphRange.location
+        guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
+            attrView.isHidden = true
+            return
+        }
 
-            let newWidth = containerRect.width
-                - lineFragmentRect.minX
-                - contentInset.left
-                - contentInset.right
+        let lineFragmentRect = layoutManager.lineFragmentRect(
+            forGlyphAt: glyphIndex,
+            effectiveRange: nil
+        )
 
-            let boundingRect = CGRect(
-                x: lineFragmentRect.minX,
-                y: lineFragmentRect.minY,
-                width: containerRect.width,
-                height: 0
-            )
+        let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
 
-            let attachmentRect = CGRect(
-                x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
-                y: lineFragmentRect.minY + contentInset.top,
-                width: newWidth,
-                height: attachment.view.frame.height
-            )
+        let newWidth = containerRect.width
+            - lineFragmentRect.minX
+            - glyphLocation.x
+            - contentInset.left
+            - contentInset.right
 
-            let exclusionKey = String(attachment.range.hashValue) + "-horizontalRule"
-            addExclusionPath(for: boundingRect, key: exclusionKey)
+        let scaleFactor = newWidth / attrView.frame.width
+        let newHeight = scaleFactor * attrView.frame.height
 
-            if attachment.view.superview == nil {
-                attachment.view.frame = attachmentRect
-                textView.addSubview(attachment.view)
-            }
+        // Rect specifying an area where text should not be rendered.
+        let boundingRect = CGRect(
+            x: lineFragmentRect.minX,
+            y: lineFragmentRect.minY,
+            width: containerRect.width,
+            height: newHeight
+        )
+
+        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
+        let attachmentRect = CGRect(
+            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
+            y: lineFragmentRect.minY + contentInset.top,
+            width: newWidth,
+            height: newHeight
+        )
+
+        attachmentCastedView.layout(with: attachmentRect.width)
+
+        let exclusionKey = String(range.hashValue) + "-embed"
+        addExclusionPath(for: boundingRect, key: exclusionKey)
+
+        if attrView.superview == nil {
+            attrView.frame = attachmentRect
+            textView.addSubview(attrView)
+        }
+    }
+
+    private func layoutHorizontalRuleElement(attributes: [NSAttributedString.Key: Any], range: NSRange) {
+        let containerRect = self.view.frame
+        let contentInset = renderer.configuration.contentInsets
+
+        guard let attrView = attributes[.horizontalRule] as? UIView else {
+            return
+        }
+
+        let glyphRange = layoutManager.glyphRange(
+            forCharacterRange: NSRange(location: range.location, length: 1),
+            actualCharacterRange: nil
+        )
+
+        let glyphIndex = glyphRange.location
+        guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
+            attrView.isHidden = true
+            return
+        }
+
+        let lineFragmentRect = layoutManager.lineFragmentRect(
+            forGlyphAt: glyphIndex,
+            effectiveRange: nil
+        )
+
+        let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
+
+        let newWidth = containerRect.width
+            - lineFragmentRect.minX
+            - contentInset.left
+            - contentInset.right
+
+        let boundingRect = CGRect(
+            x: lineFragmentRect.minX,
+            y: lineFragmentRect.minY,
+            width: containerRect.width,
+            height: 0
+        )
+
+        let attachmentRect = CGRect(
+            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
+            y: lineFragmentRect.minY + contentInset.top,
+            width: newWidth,
+            height: attrView.frame.height
+        )
+
+        let exclusionKey = String(range.hashValue) + "-horizontalRule"
+        addExclusionPath(for: boundingRect, key: exclusionKey)
+
+        if attrView.superview == nil {
+            attrView.frame = attachmentRect
+            textView.addSubview(attrView)
         }
     }
 
