@@ -1,7 +1,7 @@
 // Example-iOS
 
 import Contentful
-import RichTextRenderer
+import ContentfulRichTextRenderer
 import UIKit
 
 struct ExampleBlockViewProvider: ResourceLinkBlockViewProviding {

@@ -1,7 +1,7 @@
 // Example-iOS
 
 import Contentful
-import RichTextRenderer
+import ContentfulRichTextRenderer
 import UIKit
 
 final class ExampleInlineStringProvider: ResourceLinkInlineStringProviding {

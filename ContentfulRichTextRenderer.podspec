@@ -18,5 +18,8 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = "11.0"
 
   spec.source_files = "RichTextRenderer/**/*.swift"
+
+  spec.dependency 'AlamofireImage'
+  spec.dependency 'Contentful'
 end
 

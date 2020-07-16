@@ -8,7 +8,7 @@ target 'RichTextRenderer' do
 end
 
 target 'Example-iOS' do
-  xcodeproj 'Example-iOS/Example-iOS.xcodeproj'
+  project 'Example-iOS/Example-iOS.xcodeproj'
   pod 'Contentful'
   pod 'ContentfulRichTextRenderer', :path => 'ContentfulRichTextRenderer.podspec'
 end
