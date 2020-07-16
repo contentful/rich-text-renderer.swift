@@ -1,2 +1,0 @@
-git "git@github.com:contentful/contentful.swift.git"
-github "Alamofire/AlamofireImage" ~> 4.1
