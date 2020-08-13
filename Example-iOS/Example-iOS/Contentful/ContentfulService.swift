@@ -18,6 +18,6 @@ final class ContentfulService {
     }
 
     func fetchArticle(completion: @escaping (Result<Article, Error>) -> Void) {
-        self.client.fetch(Article.self, id: "Znv9fEW0y0XVyrkcO8Xq5", then: completion)
+        self.client.fetch(Article.self, id: "59XJArAv7bhLikabR9qnOR", then: completion)
     }
 }

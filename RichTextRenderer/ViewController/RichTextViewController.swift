@@ -221,7 +221,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         let newHeight = scaleFactor * attrView.frame.height
 
         // Rect specifying an area where text should not be rendered.
-        let boundingRect = CGRect(
+        // The rect is being updated right before the exclusion path is created.
+        var boundingRect = CGRect(
             x: lineFragmentRect.minX,
             y: lineFragmentRect.minY,
             width: containerSize.width,
@@ -236,13 +237,19 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             height: newHeight
         )
 
-        attachmentCastedView.layout(with: attachmentRect.width)
-
-        let exclusionKey = String(range.hashValue) + Constant.embedSuffix
-        addExclusionPath(for: boundingRect, key: exclusionKey)
-
         if attrView.superview == nil {
             attrView.frame = attachmentRect
+
+            attachmentCastedView.layout(with: attachmentRect.width)
+
+            let exclusionKey = String(range.hashValue) + Constant.embedSuffix
+
+            // Update bounding rect after laying out the view.
+            let updatedRect = attachmentCastedView.frame
+            boundingRect.size.height = updatedRect.height
+
+            addExclusionPath(for: boundingRect, key: exclusionKey)
+
             textView.addSubview(attrView)
             attachmentViews[exclusionKey] = attrView
         }
