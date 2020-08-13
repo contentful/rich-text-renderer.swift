@@ -45,7 +45,7 @@ final class SuggestedArticleView: UIView, ResourceLinkBlockViewRepresentable {
         title = UILabel(frame: .zero)
         title.translatesAutoresizingMaskIntoConstraints = false
         title.text = article.title
-        title.textColor = UIColor.black
+        title.textColor = UIColor.rtrLabel
         title.numberOfLines = 0
         addSubview(title)
 
@@ -69,10 +69,10 @@ final class SuggestedArticleView: UIView, ResourceLinkBlockViewRepresentable {
             constant: Constant.padding
         ).isActive = true
 
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.rtrSystemBackground
         layer.shadowColor = UIColor.rtrLabel.cgColor
-        layer.shadowOffset = .init(width: 4, height: 2)
-        layer.shadowRadius = 4
+        layer.shadowOffset = .init(width: 0, height: 0)
+        layer.shadowRadius = 6
         layer.shadowOpacity = 0.25
 
         if let imageUrl = article.thumbnail?.url {
