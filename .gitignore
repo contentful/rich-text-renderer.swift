@@ -9,7 +9,7 @@ xcuserdata
 .idea
 
 ## Cocoapods
-Pods/
+#Pods/
 build
 .build
 Packages

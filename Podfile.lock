@@ -1,0 +1,35 @@
+PODS:
+  - Alamofire (5.2.2)
+  - AlamofireImage (4.1.0):
+    - Alamofire (~> 5.1)
+  - Contentful (5.2.0):
+    - Contentful/ImageOptions (= 5.2.0)
+  - Contentful/ImageOptions (5.2.0)
+  - ContentfulRichTextRenderer (1.0):
+    - AlamofireImage
+    - Contentful
+
+DEPENDENCIES:
+  - AlamofireImage
+  - Contentful
+  - ContentfulRichTextRenderer (from `ContentfulRichTextRenderer.podspec`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - Contentful
+
+EXTERNAL SOURCES:
+  ContentfulRichTextRenderer:
+    :path: ContentfulRichTextRenderer.podspec
+
+SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
+  Contentful: 4973186d957d01c4868107fa4bda2149cd5ea107
+  ContentfulRichTextRenderer: 4708dfac5e702058db0ad617e4d9e0e61cda5f7c
+
+PODFILE CHECKSUM: 5f25e3c0ed7f21cbf643044d554ad42e477ccf5e
+
+COCOAPODS: 1.6.0.beta.2
