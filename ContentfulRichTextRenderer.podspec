@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
   spec.license = { :type => "MIT", :file => "LICENSE" }
 
-  spec.source       = { :git => "https://github.com/contentful-labs/rich-text-renderer.swift", :tag => spec.version.to_s }
+  spec.source       = { :git => "https://github.com/contentful-labs/rich-text-renderer.swift.git", :tag => spec.version.to_s }
 
   spec.requires_arc = true
   
