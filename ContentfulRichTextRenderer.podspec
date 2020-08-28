@@ -20,6 +20,6 @@ Pod::Spec.new do |spec|
   spec.source_files = "RichTextRenderer/**/*.swift"
 
   spec.dependency 'AlamofireImage'
-  spec.dependency 'Contentful'
+  spec.dependency 'Contentful', '~> 5.2.0'
 end
 
