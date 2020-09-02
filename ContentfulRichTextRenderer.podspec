@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = "ContentfulRichTextRenderer"
-  spec.version          = "0.2.0"
+  spec.version          = "0.2.1"
   spec.summary          = "Swift library for rendering Contentful RichTextDocument."
   spec.homepage         = "https://github.com/contentful-labs/rich-text-renderer.swift"
   spec.social_media_url = 'https://twitter.com/contentful'
@@ -17,9 +17,9 @@ Pod::Spec.new do |spec|
   spec.swift_version = "5.2"
   spec.ios.deployment_target = "11.0"
 
-  spec.source_files = "RichTextRenderer/**/*.swift"
+  spec.source_files = "Sources/RichTextRenderer/**/*.swift"
 
-  spec.dependency 'AlamofireImage'
-  spec.dependency 'Contentful'
+  spec.dependency 'AlamofireImage', '~> 4.1.0'
+  spec.dependency 'Contentful', '~> 5.2.0'
 end
 

@@ -11,7 +11,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = ViewController()
+
+        let startViewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(withIdentifier: String(describing: StartViewController.self))
+            
+        let viewController = startViewController
         window.rootViewController = viewController
         window.makeKeyAndVisible()
 

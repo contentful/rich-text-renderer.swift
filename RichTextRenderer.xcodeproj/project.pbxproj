@@ -77,7 +77,7 @@
 		2BD885339F0023F978CA6F98 /* Pods-RichTextRenderer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextRenderer.release.xcconfig"; path = "Target Support Files/Pods-RichTextRenderer/Pods-RichTextRenderer.release.xcconfig"; sourceTree = "<group>"; };
 		3B52550B1566C370D70CCA32 /* Pods-RichTextRenderer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RichTextRenderer.debug.xcconfig"; path = "Target Support Files/Pods-RichTextRenderer/Pods-RichTextRenderer.debug.xcconfig"; sourceTree = "<group>"; };
 		6DB2F3A424C02B3600A07D9B /* RichTextRenderer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RichTextRenderer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextRenderer.h; sourceTree = "<group>"; };
+		6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RichTextRenderer.h; path = Sources/RichTextRenderer/RichTextRenderer.h; sourceTree = SOURCE_ROOT; };
 		6DB2F3A824C02B3600A07D9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DB2F3B024C02BA300A07D9B /* Node+RenderableNodeProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+RenderableNodeProviding.swift"; sourceTree = "<group>"; };
 		6DB2F3B124C02BA300A07D9B /* CodingUserInfoKey+Dictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+Dictionary.swift"; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		6DB2F39A24C02B3600A07D9B = {
 			isa = PBXGroup;
 			children = (
-				6DB2F3A624C02B3600A07D9B /* RichTextRenderer */,
+				6DB2F3A624C02B3600A07D9B /* Sources */,
 				6DB2F3A524C02B3600A07D9B /* Products */,
 				D2E1138CBDDAAA897F0D9CA5 /* Pods */,
 				B6C344483D9AC96B0E93F66A /* Frameworks */,
@@ -174,20 +174,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6DB2F3A624C02B3600A07D9B /* RichTextRenderer */ = {
+		6DB2F3A624C02B3600A07D9B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				6DB2F3FB24C02BA500A07D9B /* Configuration */,
-				6DB2F3C424C02BA400A07D9B /* Contentful */,
-				6DB2F3AF24C02BA300A07D9B /* Extensions */,
-				6DB2F3E424C02BA400A07D9B /* Models */,
-				6DB2F3C624C02BA400A07D9B /* NodeRenderers */,
-				6DB2F3F224C02BA500A07D9B /* Renderer */,
-				6DB2F3BA24C02BA300A07D9B /* ViewController */,
-				6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */,
-				6DB2F3A824C02B3600A07D9B /* Info.plist */,
+				6DCC7F97250013D1000EF0E7 /* RichTextRenderer */,
 			);
-			path = RichTextRenderer;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		6DB2F3AF24C02BA300A07D9B /* Extensions */ = {
@@ -419,6 +411,22 @@
 				6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		6DCC7F97250013D1000EF0E7 /* RichTextRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				6DB2F3FB24C02BA500A07D9B /* Configuration */,
+				6DB2F3C424C02BA400A07D9B /* Contentful */,
+				6DB2F3AF24C02BA300A07D9B /* Extensions */,
+				6DB2F3E424C02BA400A07D9B /* Models */,
+				6DB2F3C624C02BA400A07D9B /* NodeRenderers */,
+				6DB2F3F224C02BA500A07D9B /* Renderer */,
+				6DB2F3BA24C02BA300A07D9B /* ViewController */,
+				6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */,
+				6DB2F3A824C02B3600A07D9B /* Info.plist */,
+			);
+			path = RichTextRenderer;
 			sourceTree = "<group>";
 		};
 		B6C344483D9AC96B0E93F66A /* Frameworks */ = {
@@ -741,7 +749,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RichTextRenderer/Info.plist;
+				INFOPLIST_FILE = Sources/RichTextRenderer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -749,6 +757,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.contentful.RichTextRenderer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -769,7 +778,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = RichTextRenderer/Info.plist;
+				INFOPLIST_FILE = Sources/RichTextRenderer/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -777,6 +786,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.contentful.RichTextRenderer;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
