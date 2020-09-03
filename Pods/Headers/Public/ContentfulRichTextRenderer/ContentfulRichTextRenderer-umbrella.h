@@ -1,1 +1,1 @@
-/Users/tomkowz/Prywatne/DG/Projekty/Expertlead/Contentful/rich-text-renderer/Pods/Target Support Files/ContentfulRichTextRenderer/ContentfulRichTextRenderer-umbrella.h
+../../../Target Support Files/ContentfulRichTextRenderer/ContentfulRichTextRenderer-umbrella.h

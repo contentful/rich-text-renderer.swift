@@ -1,1 +1,1 @@
-/Users/tomkowz/Prywatne/DG/Projekty/Expertlead/Contentful/rich-text-renderer/Pods/Target Support Files/Alamofire/Alamofire-umbrella.h
+../../../Target Support Files/Alamofire/Alamofire-umbrella.h
