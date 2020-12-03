@@ -8,9 +8,11 @@ class ViewController: RichTextViewController {
     private let client = ContentfulService()
 
     init() {
-        var configuration = DefaultRendererConfiguration()
-        configuration.resourceLinkBlockViewProvider = ExampleBlockViewProvider()
-        configuration.resourceLinkInlineStringProvider = ExampleInlineStringProvider()
+        let configuration = DefaultRendererConfiguration(
+            resourceLinkInlineStringProvider: ExampleInlineStringProvider(),
+            resourceLinkBlockViewProvider: ExampleBlockViewProvider(),
+            imageLoader: AlamofireImageLoader()
+        )
 
         let renderersProvider = DefaultRenderersProvider()
 

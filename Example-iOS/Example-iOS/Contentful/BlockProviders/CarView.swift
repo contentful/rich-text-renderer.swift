@@ -7,10 +7,11 @@ final class CarView: UIView, ResourceLinkBlockViewRepresentable {
     private let car: Car
 
     var surroundingTextShouldWrap: Bool = false
-    var context: [CodingUserInfoKey : Any] = [:]
+    var context: [CodingUserInfoKey: Any]
 
-    public init(car: Car) {
+    public init(car: Car, context: [CodingUserInfoKey: Any] = [:]) {
         self.car = car
+        self.context = context
         super.init(frame: .zero)
 
         let title = UILabel(frame: .zero)

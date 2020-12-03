@@ -22,6 +22,7 @@
 		6DCC7F96250009CF000EF0E7 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCC7F95250009CF000EF0E7 /* StartViewController.swift */; };
 		6DEB233424E531AF009D5879 /* CarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB233324E531AF009D5879 /* CarView.swift */; };
 		6DEB233624E531D3009D5879 /* SuggestedArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB233524E531D3009D5879 /* SuggestedArticleView.swift */; };
+		97130AAC2578C0A100CC7618 /* AlamofireImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97130AAB2578C0A100CC7618 /* AlamofireImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		6DCC7F95250009CF000EF0E7 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6DEB233324E531AF009D5879 /* CarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarView.swift; sourceTree = "<group>"; };
 		6DEB233524E531D3009D5879 /* SuggestedArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedArticleView.swift; sourceTree = "<group>"; };
+		97130AAB2578C0A100CC7618 /* AlamofireImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireImageLoader.swift; sourceTree = "<group>"; };
 		D954E450246B71B288D7C891 /* Pods-Example-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example-iOS.release.xcconfig"; path = "Target Support Files/Pods-Example-iOS/Pods-Example-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				6DB2F48824C0302400A07D9B /* ContentfulService.swift */,
+				97130AAB2578C0A100CC7618 /* AlamofireImageLoader.swift */,
 				6DB2F48224C02DF100A07D9B /* BlockProviders */,
 				6DEB233224E5317A009D5879 /* InlineProviders */,
 				6DB2F48324C02DF100A07D9B /* Models */,
@@ -258,6 +261,7 @@
 				6DB2F46E24C02CB800A07D9B /* AppDelegate.swift in Sources */,
 				6DB2F48924C0302400A07D9B /* ContentfulService.swift in Sources */,
 				6DEB233424E531AF009D5879 /* CarView.swift in Sources */,
+				97130AAC2578C0A100CC7618 /* AlamofireImageLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

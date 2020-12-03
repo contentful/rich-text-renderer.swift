@@ -9,9 +9,9 @@ struct ExampleBlockViewProvider: ResourceLinkBlockViewProviding {
         switch resource {
         case .entryDecodable(let entryDecodable):
             if let car = entryDecodable as? Car {
-                return CarView(car: car)
+                return CarView(car: car, context: context)
             } else if let article = entryDecodable as? Article {
-                return SuggestedArticleView(article: article)
+                return SuggestedArticleView(article: article, context: context)
             }
 
             return nil
@@ -22,7 +22,7 @@ struct ExampleBlockViewProvider: ResourceLinkBlockViewProviding {
         case .asset(let asset):
             guard asset.file?.details?.imageInfo != nil else { return nil }
 
-            let imageView = ResourceLinkBlockImageView(asset: asset)
+            let imageView = ResourceLinkBlockImageView(asset: asset, context: context)
 
             imageView.backgroundColor = .gray
             imageView.setImageToNaturalHeight()
