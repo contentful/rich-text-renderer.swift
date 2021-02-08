@@ -5,7 +5,7 @@ PODS:
   - Contentful (5.2.0):
     - Contentful/ImageOptions (= 5.2.0)
   - Contentful/ImageOptions (5.2.0)
-  - ContentfulRichTextRenderer (0.2.0):
+  - ContentfulRichTextRenderer (0.2.1):
     - AlamofireImage (~> 4.1.0)
     - Contentful (~> 5.2.0)
 
@@ -28,8 +28,8 @@ SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
   Contentful: 4973186d957d01c4868107fa4bda2149cd5ea107
-  ContentfulRichTextRenderer: c3ad3e3811139ec1da8c65632b5e135f86853cd5
+  ContentfulRichTextRenderer: 48646d8d54ea693b8be199c4b2ea75b06d66280d
 
-PODFILE CHECKSUM: 5f25e3c0ed7f21cbf643044d554ad42e477ccf5e
+PODFILE CHECKSUM: bd675c168d5509e36d3f486fb30efb77aeb621ef
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
