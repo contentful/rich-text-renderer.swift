@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "ContentfulRichTextRenderer",
     platforms: [
-        .iOS(.v11)
+        .iOS(.v10)
     ],
     products: [
         .library(
