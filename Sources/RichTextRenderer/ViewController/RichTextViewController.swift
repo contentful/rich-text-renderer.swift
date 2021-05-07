@@ -140,6 +140,15 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         }
     }
 
+    private func calculateAndSetPreferredContentSize() {
+        let newContentSize = textView.sizeThatFits(textView.bounds.size)
+        guard newContentSize != preferredContentSize else {
+            return
+        }
+
+        preferredContentSize = newContentSize
+    }
+
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         // Expect text view to be of the passed in `size`.
         expectedTextViewSizeAfterOrientationChange = size
@@ -179,6 +188,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
+
+        calculatePreferredContentSize()
     }
 
     private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
