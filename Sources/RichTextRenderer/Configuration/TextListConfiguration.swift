@@ -9,4 +9,12 @@ public struct TextListConfiguration {
 
     /// Distance from leading margin of the bullet/number to the first character of the list item.
     public let distanceToListItem: CGFloat
+
+    public init(
+        indentationMultiplier: CGFloat,
+        distanceToListItem: CGFloat
+    ) {
+        self.indentationMultiplier = indentationMultiplier
+        self.distanceToListItem = distanceToListItem
+    }
 }
