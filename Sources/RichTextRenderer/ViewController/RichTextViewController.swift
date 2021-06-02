@@ -137,6 +137,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
+            self.calculateAndSetPreferredContentSize()
         }
     }
 
@@ -188,8 +189,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
-
-        calculatePreferredContentSize()
     }
 
     private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
