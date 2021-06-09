@@ -28,4 +28,7 @@ public protocol RendererConfiguration {
 
     /// Provides a view for `ResourceLinkBlock` nodes.
     var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding? { get }
+
+    /// Loads remote images into `UIImageView`s.
+    var imageLoader: ImageLoader { get }
 }

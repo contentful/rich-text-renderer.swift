@@ -71,6 +71,7 @@
 		6DB2F43E24C02BA500A07D9B /* BlockQuoteConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */; };
 		6DB2F43F24C02BA500A07D9B /* TextConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */; };
 		6DB2F44024C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */; };
+		97130A912578B35B00CC7618 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97130A902578B35B00CC7618 /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextConfiguration+Default.swift"; sourceTree = "<group>"; };
 		6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlockQuoteConfiguration+Default.swift"; sourceTree = "<group>"; };
 		8C884D16587DB5F715026BEF /* libPods-RichTextRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RichTextRenderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97130A902578B35B00CC7618 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,6 +411,7 @@
 				6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */,
 				6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */,
 				6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */,
+				97130A902578B35B00CC7618 /* ImageLoader.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				6DB2F41824C02BA500A07D9B /* OrderedListRenderer.swift in Sources */,
 				6DB2F40B24C02BA500A07D9B /* CodingUserInfoKey+CustomKeys.swift in Sources */,
 				6DB2F43624C02BA500A07D9B /* DefaultFontProvider.swift in Sources */,
+				97130A912578B35B00CC7618 /* ImageLoader.swift in Sources */,
 				6DB2F43424C02BA500A07D9B /* NodeRenderersProviding.swift in Sources */,
 				6DB2F41F24C02BA500A07D9B /* ResourceLinkBlockViewRepresentable.swift in Sources */,
 				6DB2F41624C02BA500A07D9B /* ParagraphRenderer.swift in Sources */,

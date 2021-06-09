@@ -1,6 +1,5 @@
 // RichTextRenderer
 
-import AlamofireImage
 import Contentful
 import UIKit
 
@@ -8,10 +7,11 @@ import UIKit
 public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepresentable {
 
     private var asset: Asset
-    public var context: [CodingUserInfoKey: Any] = [:]
+    public var context: [CodingUserInfoKey: Any]
 
-    public init(asset: Asset) {
+    public init(asset: Asset, context: [CodingUserInfoKey: Any] = [:]) {
         self.asset = asset
+        self.context = context
         super.init(frame: .zero)
     }
 
@@ -54,12 +54,7 @@ public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepre
 
         let url = try! asset.url(with: imageOptions)
 
-        self.af.setImage(
-            withURL: url,
-            placeholderImage: nil,
-            imageTransition: .crossDissolve(0.5),
-            runImageTransitionIfCached: true
-        )
+        context.rendererConfiguration.imageLoader.loadImage(with: url, into: self)
     }
 }
 

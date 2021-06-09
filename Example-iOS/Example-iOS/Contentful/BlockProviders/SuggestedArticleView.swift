@@ -1,5 +1,6 @@
 // Example-iOS
 
+import AlamofireImage
 import ContentfulRichTextRenderer
 import UIKit
 
@@ -13,10 +14,11 @@ final class SuggestedArticleView: UIView, ResourceLinkBlockViewRepresentable {
     private var imageView: UIImageView!
     private var title: UILabel!
 
-    var context: [CodingUserInfoKey : Any] = [:]
+    var context: [CodingUserInfoKey: Any]
 
-    public init(article: Article) {
+    public init(article: Article, context: [CodingUserInfoKey: Any] = [:]) {
         self.article = article
+        self.context = context
         super.init(frame: .init(x: 0, y: 0, width: 1, height: 1))
 
         imageView = UIImageView(frame: .zero)
@@ -75,8 +77,8 @@ final class SuggestedArticleView: UIView, ResourceLinkBlockViewRepresentable {
         layer.shadowRadius = 6
         layer.shadowOpacity = 0.25
 
-        if let imageUrl = article.thumbnail?.url {
-            imageView.af.setImage(withURL: imageUrl)
+        if let imageUrl = article.thumbnail?.url, let configuration = context[.rendererConfiguration] as? RendererConfiguration {
+            configuration.imageLoader.loadImage(with: imageUrl, into: imageView)
         }
     }
 

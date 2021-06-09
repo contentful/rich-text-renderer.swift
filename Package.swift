@@ -16,17 +16,12 @@ let package = Package(
             name: "Contentful",
             url: "https://github.com/contentful/contentful.swift.git",
             from: "5.2.0"
-        ),
-        .package(
-            name: "AlamofireImage",
-            url: "https://github.com/Alamofire/AlamofireImage.git",
-            from: "4.1.0"
         )
     ],
     targets: [
         .target(
             name: "RichTextRenderer",
-            dependencies: ["Contentful", "AlamofireImage"],
+            dependencies: ["Contentful"],
             path: "Sources"
         )
     ],
