@@ -54,12 +54,21 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
      */
     private var expectedTextViewSizeAfterOrientationChange: CGSize?
 
+    private var isScrollEnabled: Bool
+
+    /// trim whitespace from beginning and end of rendered string
+    private var trimWhitespace: Bool
+
     public init(
         renderer: RichTextDocumentRenderer,
-        richTextDocument: RichTextDocument? = nil
+        richTextDocument: RichTextDocument? = nil,
+        isScrollEnabled: Bool? = nil,
+        trimWhitespace: Bool? = nil
     ) {
         self.richTextDocument = richTextDocument
         self.renderer = renderer
+        self.isScrollEnabled = isScrollEnabled ?? true
+        self.trimWhitespace = trimWhitespace ?? false
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -111,8 +120,13 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         textView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 
-        textView.isScrollEnabled = true
-        textView.contentSize.height = .greatestFiniteMagnitude
+        if isScrollEnabled {
+            textView.isScrollEnabled = true
+            textView.contentSize.height = .greatestFiniteMagnitude
+        } else {
+            // omitting .greatestFiniteMagnitude lets UITextView fit content when not scrolling
+            textView.isScrollEnabled = false
+        }
         textView.isEditable = false
     }
 
@@ -134,6 +148,9 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
         DispatchQueue.main.async {
             let output = self.renderer.render(document: document)
+            if self.trimWhitespace {
+                output = output.trim()
+            }
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
