@@ -147,7 +147,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         guard let document = richTextDocument else { return }
 
         DispatchQueue.main.async {
-            let output = self.renderer.render(document: document)
+            var output = self.renderer.render(document: document)
             if self.trimWhitespace {
                 output = output.trim()
             }
