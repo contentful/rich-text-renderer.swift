@@ -71,6 +71,7 @@
 		6DB2F43E24C02BA500A07D9B /* BlockQuoteConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */; };
 		6DB2F43F24C02BA500A07D9B /* TextConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */; };
 		6DB2F44024C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */; };
+		B1C680A727D94A1D00467934 /* NSAttributedString+Trim.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C680A627D94A1D00467934 /* NSAttributedString+Trim.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextConfiguration+Default.swift"; sourceTree = "<group>"; };
 		6DB2F40224C02BA500A07D9B /* BlockQuoteConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlockQuoteConfiguration+Default.swift"; sourceTree = "<group>"; };
 		8C884D16587DB5F715026BEF /* libPods-RichTextRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RichTextRenderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1C680A627D94A1D00467934 /* NSAttributedString+Trim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Trim.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				6DB2F3B524C02BA300A07D9B /* NSMutableAttributedString+ArrayOperations.swift */,
 				6DB2F3B624C02BA300A07D9B /* UIColor+DarkAppearance.swift */,
 				6DB2F3B724C02BA300A07D9B /* NSAttributedString+FullRange.swift */,
+				B1C680A627D94A1D00467934 /* NSAttributedString+Trim.swift */,
 				6DB2F3B824C02BA300A07D9B /* CodingUserInfoKey+CustomKeys.swift */,
 				6DB2F3B924C02BA300A07D9B /* FontProviding+Marks.swift */,
 			);
@@ -613,6 +616,7 @@
 				6DB2F40824C02BA500A07D9B /* NSMutableAttributedString+ArrayOperations.swift in Sources */,
 				6DB2F41124C02BA500A07D9B /* BlockLineFragmentProvider.swift in Sources */,
 				6DB2F40624C02BA500A07D9B /* NSAttributedStringKey+Contentful.swift in Sources */,
+				B1C680A727D94A1D00467934 /* NSAttributedString+Trim.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
