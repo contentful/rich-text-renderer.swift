@@ -1,1 +1,0 @@
-../../../Target Support Files/Contentful/Contentful-umbrella.h
