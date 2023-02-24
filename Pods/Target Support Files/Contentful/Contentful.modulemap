@@ -1,6 +1,0 @@
-module Contentful {
-  umbrella header "Contentful-umbrella.h"
-
-  export *
-  module * { export * }
-}

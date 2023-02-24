@@ -7,13 +7,16 @@
 *.xccheckout
 xcuserdata
 .idea
+IDEWorkspaceChecks.plist
 
 ## Cocoapods
-#Pods/
+Pods/
 build
 .build
 Packages
 *.xcscmblueprint
 
 # Carthage
-Carthage/Build/
+Carthage
+*.framework.zip
+vendor

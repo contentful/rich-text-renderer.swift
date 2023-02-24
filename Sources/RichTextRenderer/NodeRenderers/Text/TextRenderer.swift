@@ -20,8 +20,10 @@ open class TextRenderer: NodeRendering {
 
         let textColor = UIColor.rtrLabel
 
+        let currentFont = rootRenderer.configuration.fontProvider.font(for: node)
+                
         var attributes: [NSAttributedString.Key: Any] = [
-            .font: rootRenderer.configuration.fontProvider.font(for: node),
+            .font: currentFont,
             .foregroundColor: textColor,
             .paragraphStyle: paragraphStyle
         ]
@@ -29,6 +31,18 @@ open class TextRenderer: NodeRendering {
         if node.marks.contains(Text.Mark(type: .underline)) {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
             attributes[.underlineColor] = textColor
+        }
+        
+        let hasSubscript = node.marks.contains(Text.Mark(type: .subscript))
+        let hasSuperscript = node.marks.contains(Text.Mark(type: .superscript))
+        
+        if hasSuperscript || hasSubscript {
+            // We make the superscript/subscript font twice smaller than original
+            let twiceSmallerFont = currentFont.withSize(currentFont.pointSize * 0.5)
+            attributes[.font] = twiceSmallerFont
+            // We also need to move superscript up and subscript down by the size of the new font
+            let multiplier: CGFloat = hasSuperscript ? 1 : -1
+            attributes[.baselineOffset] = twiceSmallerFont.pointSize * multiplier
         }
 
         return [

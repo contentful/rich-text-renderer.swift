@@ -1,6 +1,0 @@
-module ContentfulRichTextRenderer {
-  umbrella header "ContentfulRichTextRenderer-umbrella.h"
-
-  export *
-  module * { export * }
-}
