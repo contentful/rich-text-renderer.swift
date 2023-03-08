@@ -8,7 +8,7 @@ public extension Swift.Array where Element == NSMutableAttributedString {
 
         // check the current node and if it has children,
         // if any of children are blocks, mutate and pass down context.
-        // if it doesn’t have children, apply styles, clear conte
+        // if it doesn’t have children, apply styles, clear context
         guard node is Text || (node as? BlockNode)?.content.filter({ $0 is BlockNode }).count == 0 else {
             return
         }

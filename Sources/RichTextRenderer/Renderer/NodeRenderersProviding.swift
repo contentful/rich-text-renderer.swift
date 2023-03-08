@@ -12,6 +12,10 @@ public protocol NodeRenderersProviding {
     var listItem: ListItemRenderer { get set }
     var orderedList: OrderedListRenderer { get set }
     var paragraph: ParagraphRenderer { get set }
+    var table: TableRenderer { get set }
+    var tableRow: TableRowRenderer { get set }
+    var tableRowCell: TableRowCellRenderer { get set }
+    var tableRowHeaderCell: TableRowHeaderCellRenderer { get set }
     var resourceLinkBlock: ResourceLinkBlockRenderer { get set }
     var resourceLinkInline: ResourceLinkInlineRenderer { get set }
     var text: TextRenderer { get set }
@@ -25,6 +29,30 @@ extension NodeRenderersProviding {
         context: [CodingUserInfoKey : Any]
     ) -> [NSMutableAttributedString] {
         switch node {
+        case .table(let table):
+            return self.table.render(
+                node: table,
+                rootRenderer: renderer,
+                context: context
+            )
+        case .tableRow(let tableRow):
+            return self.tableRow.render(
+                node: tableRow,
+                rootRenderer: renderer,
+                context: context
+            )
+        case .tableRowCell(let tableRowCell):
+            return self.tableRowCell.render(
+                node: tableRowCell,
+                rootRenderer: renderer,
+                context: context
+            )
+        case .tableRowHeaderCell(let tableRowHeaderCell):
+            return self.tableRowHeaderCell.render(
+                node: tableRowHeaderCell,
+                rootRenderer: renderer,
+                context: context
+            )
         case .blockQuote(let blockQuote):
             return self.blockQuote.render(
                 node: blockQuote,

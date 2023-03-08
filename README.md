@@ -12,7 +12,7 @@ When integrated into an iOS project, this library renders Contentful [RichText](
 ##### CocoaPods installation
 
 ```ruby
-platform :ios, '10.0'
+platform :ios, '11.0'
 use_frameworks!
 pod 'ContentfulRichTextRenderer'
 ```

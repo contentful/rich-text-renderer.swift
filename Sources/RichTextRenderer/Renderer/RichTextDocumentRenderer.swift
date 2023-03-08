@@ -23,15 +23,22 @@ public struct RichTextDocumentRenderer: RichTextDocumentRendering {
         let context = makeRenderingContext()
 
         let contentNodes = document.content.compactMap { $0 as? RenderableNodeProviding }
-        let result = contentNodes.reduce(into: [NSMutableAttributedString]()) { result, contentNode in
+        let results = contentNodes.reduce(into: [NSMutableAttributedString]()) { result, contentNode in
             let renderedNode = render(
                 node: contentNode,
                 context: context
             )
 
             result.append(contentsOf: renderedNode)
-        }.reduce(into: NSMutableAttributedString()) { result, child in
-            result.append(child)
+        }
+        var i = 0
+        let result = results.reduce(into: NSMutableAttributedString()) { result, child in
+            
+            // Remove the very bottom empty line space under the document as it is unnecessary
+            if i < results.count - 1 {
+                result.append(child)
+            }
+            i += 1
         }
 
         return result

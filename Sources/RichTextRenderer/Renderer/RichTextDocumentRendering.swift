@@ -17,3 +17,9 @@ public protocol RichTextDocumentRendering {
         context: [CodingUserInfoKey: Any]
     ) -> [NSMutableAttributedString]
 }
+
+internal extension RichTextDocumentRendering {
+    var nodeRenderers: NodeRenderersProviding {
+        return DefaultRenderersProvider()
+    }
+}
