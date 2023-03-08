@@ -213,11 +213,14 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 // In cases if table row or cell has to be rendered on its own in the future, more if cases have to be added here
                 
                 if let blockAttachment = attrView as? ResourceLinkBlockViewRepresentable {
-                    layoutEmbedElementResourceBlock(attrView: blockAttachment,  attributes: attributes, range: range, containerSize: containerSize)
+                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
+                    DispatchQueue.main.async { [weak self] in
+                        self?.layoutEmbedElementResourceBlock(attrView: blockAttachment,  attributes: attributes, range: range, containerSize: containerSize)
+                    }
                 } else if let tableAttachment = attrView as? SimpleTableView {
-                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently. This could possibly be needed also for the other views in this block so if any issues happens in the future with custom views layout this might be the solution in other if statements as well.
-                    DispatchQueue.main.async {
-                        self.layoutEmbedElementTable(attrView: tableAttachment, attributes: attributes, range: range, containerSize: containerSize)
+                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
+                    DispatchQueue.main.async { [weak self] in
+                        self?.layoutEmbedElementTable(attrView: tableAttachment, attributes: attributes, range: range, containerSize: containerSize)
                     }
                     
                 } else {
@@ -225,7 +228,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 }
                 
             } else if attributes.keys.contains(.horizontalRule) {
-                layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
+                // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
+                DispatchQueue.main.async { [weak self] in
+                    self?.layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
+                }
             }
         }
     }
