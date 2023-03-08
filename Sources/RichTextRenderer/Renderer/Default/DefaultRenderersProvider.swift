@@ -12,6 +12,10 @@ public struct DefaultRenderersProvider: NodeRenderersProviding {
     public var resourceLinkInline: ResourceLinkInlineRenderer = ResourceLinkInlineRenderer()
     public var text: TextRenderer = TextRenderer()
     public var unorderedList: UnorderedListRenderer = UnorderedListRenderer()
+    public var table: TableRenderer = TableRenderer()
+    public var tableRow: TableRowRenderer = TableRowRenderer()
+    public var tableRowCell: TableRowCellRenderer = TableRowCellRenderer()
+    public var tableRowHeaderCell: TableRowHeaderCellRenderer = TableRowHeaderCellRenderer()
 
     public init() {}
 }

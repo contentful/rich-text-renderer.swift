@@ -20,6 +20,30 @@ extension HorizontalRule: RenderableNodeProviding {
     }
 }
 
+extension Table: RenderableNodeProviding {
+    public var renderableNode: RenderableNode {
+        .table(self)
+    }
+}
+
+extension TableRow: RenderableNodeProviding {
+    public var renderableNode: RenderableNode {
+        .tableRow(self)
+    }
+}
+
+extension TableRowCell: RenderableNodeProviding {
+    public var renderableNode: RenderableNode {
+        .tableRowCell(self)
+    }
+}
+
+extension TableRowHeaderCell: RenderableNodeProviding {
+    public var renderableNode: RenderableNode {
+        .tableRowHeaderCell(self)
+    }
+}
+
 extension Hyperlink: RenderableNodeProviding {
     public var renderableNode: RenderableNode {
         .hyperlink(self)

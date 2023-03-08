@@ -59,6 +59,11 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     /// trim whitespace from beginning and end of rendered string
     private var trimWhitespace: Bool
 
+    /// Clear the document background color
+    func clearBackgroundColor() {
+        textView.backgroundColor = .clear
+    }
+    
     public init(
         renderer: RichTextDocumentRenderer,
         richTextDocument: RichTextDocument? = nil,
@@ -201,24 +206,36 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             options: []
         ) { attributes, range, _ in
             if attributes.keys.contains(.embed) {
-                layoutEmbedElement(attributes: attributes, range: range, containerSize: containerSize)
+                guard let attrView = attributes[.embed] as? UIView else {
+                    return
+                }
+                
+                // In cases if table row or cell has to be rendered on its own in the future, more if cases have to be added here
+                
+                if let blockAttachment = attrView as? ResourceLinkBlockViewRepresentable {
+                    layoutEmbedElementResourceBlock(attrView: blockAttachment,  attributes: attributes, range: range, containerSize: containerSize)
+                } else if let tableAttachment = attrView as? SimpleTableView {
+                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently. This could possibly be needed also for the other views in this block so if any issues happens in the future with custom views layout this might be the solution in other if statements as well.
+                    DispatchQueue.main.async {
+                        self.layoutEmbedElementTable(attrView: tableAttachment, attributes: attributes, range: range, containerSize: containerSize)
+                    }
+                    
+                } else {
+                    attrView.isHidden = true
+                }
+                
             } else if attributes.keys.contains(.horizontalRule) {
                 layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
     }
 
-    private func layoutEmbedElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
+    private func layoutEmbedElementResourceBlock(
+        attrView: ResourceLinkBlockViewRepresentable,
+        attributes: [NSAttributedString.Key: Any],
+        range: NSRange,
+        containerSize: CGSize) {
         let contentInset = renderer.configuration.contentInsets
-
-        guard let attrView = attributes[.embed] as? UIView else {
-            return
-        }
-
-        guard let attachmentCastedView = attrView as? ResourceLinkBlockViewRepresentable else {
-            attrView.isHidden = true
-            return
-        }
 
         let glyphRange = layoutManager.glyphRange(
             forCharacterRange: NSRange(location: range.location, length: 1),
@@ -267,18 +284,83 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         if attrView.superview == nil {
             attrView.frame = attachmentRect
 
-            attachmentCastedView.layout(with: attachmentRect.width)
+            attrView.layout(with: attachmentRect.width)
 
             let exclusionKey = String(range.hashValue) + Constant.embedSuffix
 
             // Update bounding rect after laying out the view.
-            let updatedRect = attachmentCastedView.frame
+            let updatedRect = attrView.frame
             boundingRect.size.height = updatedRect.height
 
             addExclusionPath(for: boundingRect, key: exclusionKey)
 
             textView.addSubview(attrView)
             attachmentViews[exclusionKey] = attrView
+        }
+    }
+    
+    private func layoutEmbedElementTable(
+        attrView: SimpleTableView,
+        attributes: [NSAttributedString.Key: Any],
+        range: NSRange,
+        containerSize: CGSize) {
+        let contentInset = renderer.configuration.contentInsets
+
+        let glyphRange = layoutManager.glyphRange(
+            forCharacterRange: NSRange(location: range.location, length: 1),
+            actualCharacterRange: nil
+        )
+
+        let glyphIndex = glyphRange.location
+        guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
+            attrView.isHidden = true
+            return
+        }
+
+        let lineFragmentRect = layoutManager.lineFragmentRect(
+            forGlyphAt: glyphIndex,
+            effectiveRange: nil
+        )
+
+        let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
+
+        let newWidth = containerSize.width
+            - lineFragmentRect.minX
+            - glyphLocation.x
+            - contentInset.left
+            - contentInset.right
+
+        // Rect specifying an area where text should not be rendered.
+        // The rect is being updated right before the exclusion path is created.
+        var boundingRect = CGRect(
+            x: lineFragmentRect.minX,
+            y: lineFragmentRect.minY,
+            width: containerSize.width,
+            height: 100
+        )
+
+        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
+        var attachmentRect = CGRect(
+            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
+            y: lineFragmentRect.minY + contentInset.top,
+            width: newWidth,
+            height: 100
+        )
+
+        if attrView.superview == nil {
+            textView.addSubview(attrView)
+            attrView.frame = attachmentRect
+            attrView.setNeedsLayout()
+            attrView.layoutIfNeeded()
+            boundingRect.size.height = attrView.contentSize.height
+            attachmentRect.size.height = boundingRect.size.height
+            attrView.frame = attachmentRect
+
+            let exclusionKey = String(range.hashValue) + Constant.embedSuffix
+
+            self.addExclusionPath(for: boundingRect, key: exclusionKey)
+
+            self.attachmentViews[exclusionKey] = attrView
         }
     }
 

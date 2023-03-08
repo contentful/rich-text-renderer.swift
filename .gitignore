@@ -20,3 +20,5 @@ Packages
 Carthage
 *.framework.zip
 vendor
+/Podfile.lock
+/.ruby-version
