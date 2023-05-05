@@ -26,6 +26,14 @@ github "Alamofire/AlamofireImage"
 github "contentful/rich-text-renderer.swift"
 ```
 
+And then run the following command in the terminal:
+
+```
+carthage update --platform iOS --use-xcframeworks
+```
+
+Add all the XCFrameworks from `Cartfile/Build` directory into your project manually.
+
 ### Integrating the renderer into your 
 The main entry point for the library is the `RichTextViewController`. You can either use it standalone, or subclass it. The `view` instance for `RichTextViewController` has a `UITextView` subview that uses a custom `NSLayoutManager` and `NSTextContainer` to lay out text, enabling text to wrap around nested views for embedded assets and entries, and also enabling blockquote styling analogous to that seen on websites. 
 
