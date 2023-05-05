@@ -21,7 +21,7 @@ pod 'ContentfulRichTextRenderer'
 You can also use [Carthage](https://github.com/Carthage/Carthage) for integration by adding the following to your `Cartfile`:
 
 ```
-github "contentful/rich-text-renderer-swift"
+github "contentful/rich-text-renderer.swift"
 ```
 
 ### Integrating the renderer into your 
