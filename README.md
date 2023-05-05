@@ -21,6 +21,8 @@ pod 'ContentfulRichTextRenderer'
 You can also use [Carthage](https://github.com/Carthage/Carthage) for integration by adding the following to your `Cartfile`:
 
 ```
+github "contentful/contentful.swift"
+github "Alamofire/AlamofireImage"
 github "contentful/rich-text-renderer.swift"
 ```
 
