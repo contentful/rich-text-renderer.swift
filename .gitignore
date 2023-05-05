@@ -10,16 +10,11 @@ xcuserdata
 IDEWorkspaceChecks.plist
 
 ## Cocoapods
-Pods/
-build
-.build
-Packages
-*.xcscmblueprint
+
 
 # Carthage
 Carthage
 *.framework.zip
 vendor
-/Podfile.lock
 /.ruby-version
 /.gitconfig

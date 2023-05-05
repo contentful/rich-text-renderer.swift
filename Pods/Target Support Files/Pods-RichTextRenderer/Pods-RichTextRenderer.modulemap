@@ -1,0 +1,6 @@
+module Pods_RichTextRenderer {
+  umbrella header "Pods-RichTextRenderer-umbrella.h"
+
+  export *
+  module * { export * }
+}
