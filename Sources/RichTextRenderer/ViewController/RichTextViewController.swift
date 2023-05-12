@@ -110,6 +110,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         setupTextView()
 
         textContainer.size.height = .greatestFiniteMagnitude
+
+        renderDocumentIfNeeded()
     }
 
     private func setupTextView() {
