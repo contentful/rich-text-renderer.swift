@@ -24,7 +24,7 @@
 		6DB2F40924C02BA500A07D9B /* UIColor+DarkAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B624C02BA300A07D9B /* UIColor+DarkAppearance.swift */; };
 		6DB2F40A24C02BA500A07D9B /* NSAttributedString+FullRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B724C02BA300A07D9B /* NSAttributedString+FullRange.swift */; };
 		6DB2F40B24C02BA500A07D9B /* CodingUserInfoKey+CustomKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B824C02BA300A07D9B /* CodingUserInfoKey+CustomKeys.swift */; };
-		6DB2F40C24C02BA500A07D9B /* FontProviding+Marks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B924C02BA300A07D9B /* FontProviding+Marks.swift */; };
+		6DB2F40C24C02BA500A07D9B /* StyleProviding+Marks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B924C02BA300A07D9B /* StyleProviding+Marks.swift */; };
 		6DB2F40D24C02BA500A07D9B /* DecorationRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3BC24C02BA300A07D9B /* DecorationRendering.swift */; };
 		6DB2F40E24C02BA500A07D9B /* DefaultLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3BD24C02BA300A07D9B /* DefaultLayoutManager.swift */; };
 		6DB2F40F24C02BA500A07D9B /* BlockQuoteDecorationRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3BE24C02BA300A07D9B /* BlockQuoteDecorationRenderer.swift */; };
@@ -66,13 +66,13 @@
 		6DB2F43324C02BA500A07D9B /* RichTextDocumentRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F324C02BA500A07D9B /* RichTextDocumentRenderer.swift */; };
 		6DB2F43424C02BA500A07D9B /* NodeRenderersProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F424C02BA500A07D9B /* NodeRenderersProviding.swift */; };
 		6DB2F43524C02BA500A07D9B /* DefaultRendererConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F624C02BA500A07D9B /* DefaultRendererConfiguration.swift */; };
-		6DB2F43624C02BA500A07D9B /* DefaultFontProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F724C02BA500A07D9B /* DefaultFontProvider.swift */; };
+		6DB2F43624C02BA500A07D9B /* DefaultStyleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F724C02BA500A07D9B /* DefaultStyleProvider.swift */; };
 		6DB2F43724C02BA500A07D9B /* DefaultRenderersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F824C02BA500A07D9B /* DefaultRenderersProvider.swift */; };
 		6DB2F43824C02BA500A07D9B /* RendererConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3F924C02BA500A07D9B /* RendererConfiguration.swift */; };
 		6DB2F43924C02BA500A07D9B /* RichTextDocumentRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FA24C02BA500A07D9B /* RichTextDocumentRendering.swift */; };
 		6DB2F43A24C02BA500A07D9B /* TextListConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FC24C02BA500A07D9B /* TextListConfiguration+Default.swift */; };
 		6DB2F43B24C02BA500A07D9B /* TextConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FD24C02BA500A07D9B /* TextConfiguration.swift */; };
-		6DB2F43C24C02BA500A07D9B /* FontProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FE24C02BA500A07D9B /* FontProviding.swift */; };
+		6DB2F43C24C02BA500A07D9B /* StyleProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FE24C02BA500A07D9B /* StyleProviding.swift */; };
 		6DB2F43D24C02BA500A07D9B /* TextListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3FF24C02BA500A07D9B /* TextListConfiguration.swift */; };
 		6DB2F43E24C02BA500A07D9B /* BlockQuoteConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */; };
 		6DB2F43F24C02BA500A07D9B /* TextConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */; };
@@ -103,7 +103,7 @@
 		6DB2F3B624C02BA300A07D9B /* UIColor+DarkAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+DarkAppearance.swift"; sourceTree = "<group>"; };
 		6DB2F3B724C02BA300A07D9B /* NSAttributedString+FullRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+FullRange.swift"; sourceTree = "<group>"; };
 		6DB2F3B824C02BA300A07D9B /* CodingUserInfoKey+CustomKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodingUserInfoKey+CustomKeys.swift"; sourceTree = "<group>"; };
-		6DB2F3B924C02BA300A07D9B /* FontProviding+Marks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FontProviding+Marks.swift"; sourceTree = "<group>"; };
+		6DB2F3B924C02BA300A07D9B /* StyleProviding+Marks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StyleProviding+Marks.swift"; sourceTree = "<group>"; };
 		6DB2F3BC24C02BA300A07D9B /* DecorationRendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecorationRendering.swift; sourceTree = "<group>"; };
 		6DB2F3BD24C02BA300A07D9B /* DefaultLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultLayoutManager.swift; sourceTree = "<group>"; };
 		6DB2F3BE24C02BA300A07D9B /* BlockQuoteDecorationRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockQuoteDecorationRenderer.swift; sourceTree = "<group>"; };
@@ -145,13 +145,13 @@
 		6DB2F3F324C02BA500A07D9B /* RichTextDocumentRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextDocumentRenderer.swift; sourceTree = "<group>"; };
 		6DB2F3F424C02BA500A07D9B /* NodeRenderersProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeRenderersProviding.swift; sourceTree = "<group>"; };
 		6DB2F3F624C02BA500A07D9B /* DefaultRendererConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRendererConfiguration.swift; sourceTree = "<group>"; };
-		6DB2F3F724C02BA500A07D9B /* DefaultFontProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultFontProvider.swift; sourceTree = "<group>"; };
+		6DB2F3F724C02BA500A07D9B /* DefaultStyleProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStyleProvider.swift; sourceTree = "<group>"; };
 		6DB2F3F824C02BA500A07D9B /* DefaultRenderersProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRenderersProvider.swift; sourceTree = "<group>"; };
 		6DB2F3F924C02BA500A07D9B /* RendererConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RendererConfiguration.swift; sourceTree = "<group>"; };
 		6DB2F3FA24C02BA500A07D9B /* RichTextDocumentRendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichTextDocumentRendering.swift; sourceTree = "<group>"; };
 		6DB2F3FC24C02BA500A07D9B /* TextListConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextListConfiguration+Default.swift"; sourceTree = "<group>"; };
 		6DB2F3FD24C02BA500A07D9B /* TextConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextConfiguration.swift; sourceTree = "<group>"; };
-		6DB2F3FE24C02BA500A07D9B /* FontProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontProviding.swift; sourceTree = "<group>"; };
+		6DB2F3FE24C02BA500A07D9B /* StyleProviding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleProviding.swift; sourceTree = "<group>"; };
 		6DB2F3FF24C02BA500A07D9B /* TextListConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextListConfiguration.swift; sourceTree = "<group>"; };
 		6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockQuoteConfiguration.swift; sourceTree = "<group>"; };
 		6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextConfiguration+Default.swift"; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 				6DB2F3B724C02BA300A07D9B /* NSAttributedString+FullRange.swift */,
 				B1C680A627D94A1D00467934 /* NSAttributedString+Trim.swift */,
 				6DB2F3B824C02BA300A07D9B /* CodingUserInfoKey+CustomKeys.swift */,
-				6DB2F3B924C02BA300A07D9B /* FontProviding+Marks.swift */,
+				6DB2F3B924C02BA300A07D9B /* StyleProviding+Marks.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -449,7 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				6DB2F3F624C02BA500A07D9B /* DefaultRendererConfiguration.swift */,
-				6DB2F3F724C02BA500A07D9B /* DefaultFontProvider.swift */,
+				6DB2F3F724C02BA500A07D9B /* DefaultStyleProvider.swift */,
 				6DB2F3F824C02BA500A07D9B /* DefaultRenderersProvider.swift */,
 			);
 			path = Default;
@@ -460,7 +460,7 @@
 			children = (
 				6DB2F3FC24C02BA500A07D9B /* TextListConfiguration+Default.swift */,
 				6DB2F3FD24C02BA500A07D9B /* TextConfiguration.swift */,
-				6DB2F3FE24C02BA500A07D9B /* FontProviding.swift */,
+				6DB2F3FE24C02BA500A07D9B /* StyleProviding.swift */,
 				6DB2F3FF24C02BA500A07D9B /* TextListConfiguration.swift */,
 				6DB2F40024C02BA500A07D9B /* BlockQuoteConfiguration.swift */,
 				6DB2F40124C02BA500A07D9B /* TextConfiguration+Default.swift */,
@@ -620,7 +620,7 @@
 				6DB2F43324C02BA500A07D9B /* RichTextDocumentRenderer.swift in Sources */,
 				6DB2F41824C02BA500A07D9B /* OrderedListRenderer.swift in Sources */,
 				6DB2F40B24C02BA500A07D9B /* CodingUserInfoKey+CustomKeys.swift in Sources */,
-				6DB2F43624C02BA500A07D9B /* DefaultFontProvider.swift in Sources */,
+				6DB2F43624C02BA500A07D9B /* DefaultStyleProvider.swift in Sources */,
 				6DB2F43424C02BA500A07D9B /* NodeRenderersProviding.swift in Sources */,
 				402EE6FD29B8EA27004084BD /* TableRowRenderer.swift in Sources */,
 				6DB2F41F24C02BA500A07D9B /* ResourceLinkBlockViewRepresentable.swift in Sources */,
@@ -629,7 +629,7 @@
 				6DB2F40724C02BA500A07D9B /* NSTextStorage+Attachments.swift in Sources */,
 				6DB2F42024C02BA500A07D9B /* ListItemRenderer.swift in Sources */,
 				6DB2F41B24C02BA500A07D9B /* NodeRendering.swift in Sources */,
-				6DB2F43C24C02BA500A07D9B /* FontProviding.swift in Sources */,
+				6DB2F43C24C02BA500A07D9B /* StyleProviding.swift in Sources */,
 				6DB2F43824C02BA500A07D9B /* RendererConfiguration.swift in Sources */,
 				6DB2F43D24C02BA500A07D9B /* TextListConfiguration.swift in Sources */,
 				402EE6FE29B8EA27004084BD /* SimpleTableView.swift in Sources */,
@@ -669,7 +669,7 @@
 				402EE6FC29B8EA27004084BD /* TableRenderer.swift in Sources */,
 				6DB2F41024C02BA500A07D9B /* RichTextViewController.swift in Sources */,
 				6DB2F43524C02BA500A07D9B /* DefaultRendererConfiguration.swift in Sources */,
-				6DB2F40C24C02BA500A07D9B /* FontProviding+Marks.swift in Sources */,
+				6DB2F40C24C02BA500A07D9B /* StyleProviding+Marks.swift in Sources */,
 				6DB2F43F24C02BA500A07D9B /* TextConfiguration+Default.swift in Sources */,
 				6DB2F42E24C02BA500A07D9B /* OrderedListIndicator.swift in Sources */,
 				6DB2F40324C02BA500A07D9B /* Node+RenderableNodeProviding.swift in Sources */,

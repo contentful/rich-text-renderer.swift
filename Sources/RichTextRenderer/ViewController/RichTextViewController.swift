@@ -58,10 +58,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     /// trim whitespace from beginning and end of rendered string
     private var trimWhitespace: Bool
-
-    /// Clear the document background color
-    func clearBackgroundColor() {
-        textView.backgroundColor = .clear
+    
+    /// Set a custom UITextView background color
+    public func updateTextViewBackground(color: UIColor) {
+        textView.backgroundColor = color
     }
     
     public init(
