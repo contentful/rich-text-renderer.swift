@@ -115,7 +115,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
     private func setupTextView() {
         textView = UITextView(frame: view.bounds, textContainer: textContainer)
         textView.textContainerInset = renderer.configuration.contentInsets
-        textView.backgroundColor = UIColor.rtrSystemBackground
+        textView.backgroundColor = renderer.configuration.backgroundColor
 
         view.addSubview(textView)
 
