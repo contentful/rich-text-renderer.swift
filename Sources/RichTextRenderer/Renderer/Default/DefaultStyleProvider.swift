@@ -2,6 +2,7 @@ public final class DefaultStyleProvider: StyleProviding {
     private let baseFont: UIFont
     private let monospacedFont: UIFont
     private let baseColor: UIColor
+    private let baseHyperlinkColor: UIColor
 
     public var regular: UIFont {
         return UIFont(descriptor: baseFont.fontDescriptor, size: baseFont.pointSize)
@@ -65,14 +66,20 @@ public final class DefaultStyleProvider: StyleProviding {
             h6: .boldSystemFont(ofSize: baseFont.pointSize * 1.05), h6Color: baseColor
         )
     }
+    
+    public var hyperlinkColor: UIColor {
+        return baseHyperlinkColor
+    }
 
     public init(
         baseFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
         baseColor: UIColor = UIColor.black, // Base color initialization
-        monospacedFont: UIFont? = UIFont(name: "Menlo-Regular", size: UIFont.systemFontSize)
+        monospacedFont: UIFont? = UIFont(name: "Menlo-Regular", size: UIFont.systemFontSize),
+        hyperlinkColor: UIColor? = UIColor.black
     ) {
         self.baseFont = baseFont
         self.baseColor = baseColor // Base color setup
         self.monospacedFont = monospacedFont ?? baseFont
+        self.baseHyperlinkColor = hyperlinkColor ?? baseColor
     }
 }

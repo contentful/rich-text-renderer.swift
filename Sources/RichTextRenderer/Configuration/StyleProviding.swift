@@ -12,6 +12,9 @@ public protocol StyleProviding {
 
     var boldItalic: UIFont { get }
     var boldItalicColor: UIColor { get }
+    
+    /// Base hyperlink color
+    var hyperlinkColor: UIColor { get }
 
     /// Fonts and their colors used in heading nodes.
     var headingStyles: HeadingStyles { get }
