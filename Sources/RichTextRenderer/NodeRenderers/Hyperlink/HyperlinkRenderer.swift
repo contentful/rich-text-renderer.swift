@@ -29,7 +29,6 @@ open class HyperlinkRenderer: NodeRendering {
         result.addAttributes(
             [
                 .link: node.data.uri,
-                .foregroundColor: rootRenderer.configuration.styleProvider.hyperlinkColor
             ],
             range: result.fullRange
         )

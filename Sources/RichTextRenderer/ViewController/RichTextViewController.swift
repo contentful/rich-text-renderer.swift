@@ -156,6 +156,9 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             if self.trimWhitespace {
                 output = output.trim()
             }
+            
+            self.textView.linkTextAttributes = [.foregroundColor: self.renderer.configuration.styleProvider.hyperlinkColor]
+            
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
