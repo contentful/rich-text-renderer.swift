@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import Foundation
 
 public protocol ResourceLinkBlockViewProviding {
     /// Creates a custom view representing `ResourceLinkBlock` node.

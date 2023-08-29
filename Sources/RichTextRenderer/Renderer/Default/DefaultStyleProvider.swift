@@ -1,3 +1,5 @@
+import UIKit
+
 public final class DefaultStyleProvider: StyleProviding {
     private let baseFont: UIFont
     private let monospacedFont: UIFont

@@ -4,6 +4,8 @@
  Context for list renderer to keep track of the current indentation level of the list items and to properly
  render items on list.
 */
+import Foundation
+
 public struct ListContext {
     /// Depth level of the list.
     public var level: Int

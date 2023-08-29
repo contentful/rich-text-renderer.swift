@@ -1,5 +1,7 @@
 // RichTextRenderer
 
+import UIKit
+
 public extension HeadingStyles {
     static var `default`: HeadingStyles {
         .init(

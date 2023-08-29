@@ -1,5 +1,7 @@
 // RichTextRenderer
 
+import Foundation
+
 public struct DefaultRenderersProvider: NodeRenderersProviding {
     public var blockQuote: BlockQuoteRenderer = BlockQuoteRenderer()
     public var heading: HeadingRenderer = HeadingRenderer()

@@ -1,3 +1,5 @@
+import UIKit
+
 public protocol StyleProviding {
 
     /// Base version of the font.

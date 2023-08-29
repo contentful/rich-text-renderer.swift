@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import CoreGraphics
+import Foundation
 
 /// Configuration for rendering `Text` node.
 public struct TextConfiguration {

@@ -1,5 +1,7 @@
 // RichTextRenderer
 
+import Foundation
+
 public extension TextConfiguration {
     static var `default`: TextConfiguration {
         .init(
