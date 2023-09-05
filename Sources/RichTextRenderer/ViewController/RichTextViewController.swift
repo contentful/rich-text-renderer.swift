@@ -8,7 +8,7 @@ import Contentful
 
  The content of the document is rendered to internal text view.
 */
-open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
+open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UITextViewDelegate {
 
     private enum Constant {
         static let embedSuffix = "-embed"
@@ -133,6 +133,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             textView.isScrollEnabled = false
         }
         textView.isEditable = false
+        textView.delegate = self
     }
 
     private func invalidateLayout() {
@@ -442,5 +443,22 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
         let exclusionPath = UIBezierPath(rect: rect)
         exclusionPathsStorage[key] = exclusionPath
         textView.textContainer.exclusionPaths.append(exclusionPath)
+    }
+    
+    // MARK: - UITextViewDelegate
+    
+    public func textView(_ textView: UITextView,
+                         shouldInteractWith URL: URL,
+                         in characterRange: NSRange,
+                         interaction: UITextItemInteraction) -> Bool {
+        let attributes = textView.attributedText.attributes(at: characterRange.location, longestEffectiveRange: nil, in: characterRange)
+        
+        if let linkToResource = attributes[NSAttributedString.Key(rawValue: ResourceLinkInlineRenderer.kContentfulLinkKey)] as? Link {
+            renderer.configuration.onResourceHyperlinkPressed?(linkToResource)
+            
+            return false
+        }
+        
+        return true
     }
 }

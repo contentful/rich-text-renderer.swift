@@ -28,4 +28,7 @@ public protocol RendererConfiguration {
 
     /// Provides a view for `ResourceLinkBlock` nodes.
     var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding? { get }
+    
+    /// Called, when an asset or entry hyperlink is pressed
+    var onResourceHyperlinkPressed: ((_ destination: Link) -> Void)? { get }
 }

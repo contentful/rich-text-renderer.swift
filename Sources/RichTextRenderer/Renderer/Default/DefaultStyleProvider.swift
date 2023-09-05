@@ -82,6 +82,6 @@ public final class DefaultStyleProvider: StyleProviding {
         self.baseFont = baseFont
         self.baseColor = baseColor // Base color setup
         self.monospacedFont = monospacedFont ?? baseFont
-        self.baseHyperlinkColor = hyperlinkColor ?? baseColor
+        self.baseHyperlinkColor = hyperlinkColor ?? .systemBlue
     }
 }
