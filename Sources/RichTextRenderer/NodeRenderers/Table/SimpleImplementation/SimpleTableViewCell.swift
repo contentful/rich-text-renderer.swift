@@ -31,7 +31,7 @@ class SimpleTableViewCell: UIView {
         richTextViewController.view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         richTextViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         richTextViewController.richTextDocument = RichTextDocument(content: nodes)
-        richTextViewController.clearBackgroundColor()
+        richTextViewController.updateTextViewBackground(color: .clear)
     }
     
     required init?(coder: NSCoder) {

@@ -1,5 +1,7 @@
 // RichTextRenderer
 
+import Foundation
+
 enum OrderedListIndicator {
     case alphabet(Bool) // uppercased
     case number

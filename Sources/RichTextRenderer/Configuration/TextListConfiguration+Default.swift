@@ -1,4 +1,5 @@
 // RichTextRenderer
+import Foundation
 
 public extension TextListConfiguration {
     static var `default`: TextListConfiguration {

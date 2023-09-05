@@ -1,5 +1,7 @@
 // RichTextRenderer
 
+import Foundation
+
 public enum HeadingLevel: Int {
     case h1 = 1
     case h2

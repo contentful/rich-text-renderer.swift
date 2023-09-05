@@ -34,7 +34,8 @@ public extension Swift.Array where Element == NSMutableAttributedString {
 
             if let heading = node as? Heading {
                 let attributes: [NSAttributedString.Key: Any] = [
-                    .font: rendererConfiguration.fontProvider.headingFonts.font(for: heading.headingLevel)
+                    .font: rendererConfiguration.styleProvider.headingStyles.font(for: heading.headingLevel),
+                    .foregroundColor: rendererConfiguration.styleProvider.headingStyles.color(for: heading.headingLevel)
                 ]
 
                 attributedString.addAttributes(

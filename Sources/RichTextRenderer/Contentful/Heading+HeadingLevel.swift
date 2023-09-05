@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import Foundation
 
 extension Heading {
     var headingLevel: HeadingLevel {

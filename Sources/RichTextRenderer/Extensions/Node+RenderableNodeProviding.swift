@@ -1,5 +1,5 @@
 // RichTextRenderer
-
+import Foundation
 import Contentful
 
 extension BlockQuote: RenderableNodeProviding {

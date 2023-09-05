@@ -58,10 +58,10 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
 
     /// trim whitespace from beginning and end of rendered string
     private var trimWhitespace: Bool
-
-    /// Clear the document background color
-    func clearBackgroundColor() {
-        textView.backgroundColor = .clear
+    
+    /// Set a custom UITextView background color
+    public func updateTextViewBackground(color: UIColor) {
+        textView.backgroundColor = color
     }
     
     public init(
@@ -156,11 +156,17 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
             if self.trimWhitespace {
                 output = output.trim()
             }
+            
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
             self.calculateAndSetPreferredContentSize()
+            self.applyTextViewStyles()
         }
+    }
+    
+    private func applyTextViewStyles() {
+        self.textView.linkTextAttributes = [.foregroundColor: self.renderer.configuration.styleProvider.hyperlinkColor]
     }
 
     private func calculateAndSetPreferredContentSize() {

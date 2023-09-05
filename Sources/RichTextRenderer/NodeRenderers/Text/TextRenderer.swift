@@ -18,19 +18,18 @@ open class TextRenderer: NodeRendering {
         paragraphStyle.lineSpacing = rootRenderer.configuration.textConfiguration.lineSpacing
         paragraphStyle.paragraphSpacing = rootRenderer.configuration.textConfiguration.paragraphSpacing
 
-        let textColor = UIColor.rtrLabel
-
-        let currentFont = rootRenderer.configuration.fontProvider.font(for: node)
+        let currentFont = rootRenderer.configuration.styleProvider.font(for: node)
+        let currentColor = rootRenderer.configuration.styleProvider.color(for: node)
                 
         var attributes: [NSAttributedString.Key: Any] = [
             .font: currentFont,
-            .foregroundColor: textColor,
+            .foregroundColor: currentColor,
             .paragraphStyle: paragraphStyle
         ]
 
         if node.marks.contains(Text.Mark(type: .underline)) {
             attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-            attributes[.underlineColor] = textColor
+            attributes[.underlineColor] = currentColor
         }
         
         let hasSubscript = node.marks.contains(Text.Mark(type: .subscript))

@@ -1,4 +1,5 @@
 // RichTextRenderer
+import Foundation
 
 public extension BlockQuoteConfiguration {
     static var `default`: BlockQuoteConfiguration {

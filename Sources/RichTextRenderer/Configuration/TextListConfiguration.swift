@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import CoreGraphics
+import Foundation
 
 /// Configuration for rendering ordered/unordered text lists.
 public struct TextListConfiguration {

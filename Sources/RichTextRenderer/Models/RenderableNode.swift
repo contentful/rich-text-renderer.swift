@@ -1,6 +1,7 @@
 // RichTextRenderer
 
 import Contentful
+import Foundation
 
 /// Concrete types representing renderable nodes.
 public enum RenderableNode {
