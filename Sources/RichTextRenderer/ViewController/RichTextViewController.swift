@@ -157,13 +157,16 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate {
                 output = output.trim()
             }
             
-            self.textView.linkTextAttributes = [.foregroundColor: self.renderer.configuration.styleProvider.hyperlinkColor]
-            
             self.textStorage.beginEditing()
             self.textStorage.setAttributedString(output)
             self.textStorage.endEditing()
             self.calculateAndSetPreferredContentSize()
+            self.applyTextViewStyles()
         }
+    }
+    
+    private func applyTextViewStyles() {
+        self.textView.linkTextAttributes = [.foregroundColor: self.renderer.configuration.styleProvider.hyperlinkColor]
     }
 
     private func calculateAndSetPreferredContentSize() {
