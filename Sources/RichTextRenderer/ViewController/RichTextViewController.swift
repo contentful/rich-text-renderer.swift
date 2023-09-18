@@ -453,11 +453,20 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
                          interaction: UITextItemInteraction) -> Bool {
         let attributes = textView.attributedText.attributes(at: characterRange.location, longestEffectiveRange: nil, in: characterRange)
         
+        // Asset or Entry hyperlink
         if let linkToResource = attributes[NSAttributedString.Key(rawValue: ResourceLinkInlineRenderer.kContentfulLinkKey)] as? Link {
             renderer.configuration.onResourceHyperlinkPressed?(linkToResource)
             
             return false
         }
+        
+        // URL hyperlink interceptor
+        if let link = attributes[.link] as? String, let callback = renderer.configuration.onHyperlinkPressed {
+            callback(link)
+            
+            return false
+        }
+        
         
         return true
     }

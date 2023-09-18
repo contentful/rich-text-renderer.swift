@@ -15,6 +15,7 @@ public struct DefaultRendererConfiguration: RendererConfiguration {
     public var resourceLinkInlineStringProvider: ResourceLinkInlineStringProviding? = nil
     public var resourceLinkBlockViewProvider: ResourceLinkBlockViewProviding? = nil
     public var onResourceHyperlinkPressed: ((Contentful.Link) -> Void)?
+    public var onHyperlinkPressed: ((String) -> Void)?
 
     public init() {}
 }

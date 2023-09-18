@@ -31,4 +31,7 @@ public protocol RendererConfiguration {
     
     /// Called, when an asset or entry hyperlink is pressed
     var onResourceHyperlinkPressed: ((_ destination: Link) -> Void)? { get }
+    
+    /// Called, when a url hyperlink is pressed
+    var onHyperlinkPressed: ((String) -> Void)? { get }
 }
