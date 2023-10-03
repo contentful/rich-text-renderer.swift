@@ -10,6 +10,8 @@ import UIKit
  */
 open class ResourceLinkInlineRenderer: NodeRendering {
     public typealias NodeType = ResourceLinkInline
+    
+    internal static let kContentfulLinkKey = "kContentfulLinkKey"
 
     required public init() {}
 
@@ -18,11 +20,41 @@ open class ResourceLinkInlineRenderer: NodeRendering {
         rootRenderer: RichTextDocumentRendering,
         context: [CodingUserInfoKey : Any]
     ) -> [NSMutableAttributedString] {
-        guard let provider = context.rendererConfiguration.resourceLinkInlineStringProvider else { return [] }
+        
+        switch node.data.target {
+        case .asset(_), .entry(_), .unresolved(_):
+            let contentNodes = node.content.compactMap { $0 as? RenderableNodeProviding }
+            let result = contentNodes.reduce(into: [NSAttributedString]()) { result, contentNode in
+                let renderedNode = rootRenderer.render(
+                    node: contentNode,
+                    context: context
+                )
 
-        var rendered = [provider.string(for: node.data.target, context: context)]
-        rendered.applyListItemStylingIfNecessary(node: node, context: context)
+                result.append(contentsOf: renderedNode)
+            }.reduce(into: NSMutableAttributedString()) { result, child in
+                result.append(child)
+            }
 
-        return rendered
+            result.addAttributes(
+                [
+                    .link: "inlineResourceLink://\(node.data.target.id)",
+                    NSAttributedString.Key(ResourceLinkInlineRenderer.kContentfulLinkKey): node.data.target
+                ],
+                range: result.fullRange
+            )
+
+            return [result]
+        case .entryDecodable(_):
+            guard let provider = context.rendererConfiguration.resourceLinkInlineStringProvider else {
+                return []
+            }
+
+            var rendered = [provider.string(for: node.data.target, context: context)]
+            rendered.applyListItemStylingIfNecessary(node: node, context: context)
+
+            return rendered
+        default:
+            return []
+        }
     }
 }
