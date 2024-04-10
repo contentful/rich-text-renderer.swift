@@ -53,8 +53,8 @@ public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepre
         ] + additionalOptions
 
         let url = try! asset.url(with: imageOptions)
-
-        self.af.setImage(
+        
+        self.af_setImage(
             withURL: url,
             placeholderImage: nil,
             imageTransition: .crossDissolve(0.5),
