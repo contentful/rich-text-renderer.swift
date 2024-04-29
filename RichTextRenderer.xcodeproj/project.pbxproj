@@ -14,6 +14,7 @@
 		402EE6FE29B8EA27004084BD /* SimpleTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EE6F729B8EA27004084BD /* SimpleTableView.swift */; };
 		402EE6FF29B8EA27004084BD /* SimpleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EE6F829B8EA27004084BD /* SimpleTableViewCell.swift */; };
 		402EE70029B8EA27004084BD /* SimpleTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EE6F929B8EA27004084BD /* SimpleTableViewRow.swift */; };
+		40754A332BDFF3D600EF4006 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 40754A322BDFF3D600EF4006 /* PrivacyInfo.xcprivacy */; };
 		6DB2F3A924C02B3600A07D9B /* RichTextRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DB2F40324C02BA500A07D9B /* Node+RenderableNodeProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B024C02BA300A07D9B /* Node+RenderableNodeProviding.swift */; };
 		6DB2F40424C02BA500A07D9B /* CodingUserInfoKey+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB2F3B124C02BA300A07D9B /* CodingUserInfoKey+Dictionary.swift */; };
@@ -90,6 +91,7 @@
 		402EE6F729B8EA27004084BD /* SimpleTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableView.swift; sourceTree = "<group>"; };
 		402EE6F829B8EA27004084BD /* SimpleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewCell.swift; sourceTree = "<group>"; };
 		402EE6F929B8EA27004084BD /* SimpleTableViewRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTableViewRow.swift; sourceTree = "<group>"; };
+		40754A322BDFF3D600EF4006 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
 		6C8FA9691BCA5BB458EB733A /* libPods-RichTextRenderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RichTextRenderer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DB2F3A424C02B3600A07D9B /* RichTextRenderer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RichTextRenderer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RichTextRenderer.h; path = Sources/RichTextRenderer/RichTextRenderer.h; sourceTree = SOURCE_ROOT; };
@@ -481,6 +483,7 @@
 				6DB2F3BA24C02BA300A07D9B /* ViewController */,
 				6DB2F3A724C02B3600A07D9B /* RichTextRenderer.h */,
 				6DB2F3A824C02B3600A07D9B /* Info.plist */,
+				40754A322BDFF3D600EF4006 /* PrivacyInfo.xcprivacy */,
 			);
 			path = RichTextRenderer;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40754A332BDFF3D600EF4006 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
