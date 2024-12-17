@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = "ContentfulRichTextRenderer"
-  spec.version          = "0.4.2"
+  spec.version          = "0.4.3"
   spec.summary          = "Swift library for rendering Contentful RichTextDocument."
   spec.homepage         = "https://github.com/contentful-labs/rich-text-renderer.swift"
   spec.social_media_url = 'https://twitter.com/contentful'
