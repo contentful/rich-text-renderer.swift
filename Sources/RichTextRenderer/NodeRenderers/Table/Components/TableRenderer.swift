@@ -46,6 +46,12 @@ open class TableRenderer: NodeRendering {
                 result.append(v)
             }
         }
-        return SimpleTableView(rows: result)
+            
+        if let rows = result as? [SimpleTableViewRow] {
+            return SimpleTableView(rows: rows)
+        }
+        
+        print("*** WARNING ***", "Table view rows type mismatch - skipping rendering")
+        return UIView()
     }
 }
