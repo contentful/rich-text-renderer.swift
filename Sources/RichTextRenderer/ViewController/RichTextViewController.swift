@@ -151,19 +151,30 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
 
     private func renderDocumentIfNeeded() {
         guard let document = richTextDocument else { return }
-
-        DispatchQueue.main.async {
-            var output = self.renderer.render(document: document)
-            if self.trimWhitespace {
-                output = output.trim()
+        
+        // Check if we are on the main thread
+        if !Thread.isMainThread {
+            // If not on main thread, dispatch synchronously to main
+            DispatchQueue.main.sync {
+                self.performRendering(document: document)
             }
-            
-            self.textStorage.beginEditing()
-            self.textStorage.setAttributedString(output)
-            self.textStorage.endEditing()
-            self.calculateAndSetPreferredContentSize()
-            self.applyTextViewStyles()
+        } else {
+            self.performRendering(document: document)
         }
+    }
+
+    private func performRendering(document: RichTextDocument) {
+        var output = self.renderer.render(document: document)
+        if self.trimWhitespace {
+            output = output.trim()
+        }
+
+        self.textStorage.beginEditing()
+        self.textStorage.setAttributedString(output)
+        self.textStorage.endEditing()
+
+        self.calculateAndSetPreferredContentSize()
+        self.applyTextViewStyles()
     }
     
     private func applyTextViewStyles() {
@@ -216,39 +227,28 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
                 guard let attrView = attributes[.embed] as? UIView else {
                     return
                 }
-                
-                // In cases if table row or cell has to be rendered on its own in the future, more if cases have to be added here
-                
-                if let blockAttachment = attrView as? ResourceLinkBlockViewRepresentable {
-                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
-                    DispatchQueue.main.async { [weak self] in
-                        self?.layoutEmbedElementResourceBlock(attrView: blockAttachment,  attributes: attributes, range: range, containerSize: containerSize)
-                    }
-                } else if let tableAttachment = attrView as? SimpleTableView {
-                    // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
-                    DispatchQueue.main.async { [weak self] in
-                        self?.layoutEmbedElementTable(attrView: tableAttachment, attributes: attributes, range: range, containerSize: containerSize)
-                    }
-                    
-                } else {
-                    attrView.isHidden = true
+                                
+                if let _ = attrView as? ResourceLinkBlockViewRepresentable {
+                    layoutEmbedElementResourceBlock(attributes: attributes, range: range, containerSize: containerSize)
                 }
                 
             } else if attributes.keys.contains(.horizontalRule) {
-                // Async is needed as if there are multiple tables, the starting positions of each will get calculated wrong, so they have to be recalculated after everything else is drawn, and has to be done one after the other instead of concurrently.
-                DispatchQueue.main.async { [weak self] in
-                    self?.layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
-                }
+                layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
     }
 
-    private func layoutEmbedElementResourceBlock(
-        attrView: ResourceLinkBlockViewRepresentable,
-        attributes: [NSAttributedString.Key: Any],
-        range: NSRange,
-        containerSize: CGSize) {
+    private func layoutEmbedElementResourceBlock(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
         let contentInset = renderer.configuration.contentInsets
+
+        guard let attrView = attributes[.embed] as? UIView else {
+            return
+        }
+
+        guard let attachmentCastedView = attrView as? ResourceLinkBlockViewRepresentable else {
+            attrView.isHidden = true
+            return
+        }
 
         let glyphRange = layoutManager.glyphRange(
             forCharacterRange: NSRange(location: range.location, length: 1),
@@ -274,7 +274,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
             - contentInset.left
             - contentInset.right
 
-        let scaleFactor = newWidth / attrView.frame.width
+        let scaleFactor = newWidth > 0 && attrView.frame.width > 0 ?  newWidth / attrView.frame.width : max(attrView.frame.width, newWidth)
         let newHeight = scaleFactor * attrView.frame.height
 
         // Rect specifying an area where text should not be rendered.
@@ -297,83 +297,18 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         if attrView.superview == nil {
             attrView.frame = attachmentRect
 
-            attrView.layout(with: attachmentRect.width)
+            attachmentCastedView.layout(with: attachmentRect.width)
 
             let exclusionKey = String(range.hashValue) + Constant.embedSuffix
 
             // Update bounding rect after laying out the view.
-            let updatedRect = attrView.frame
+            let updatedRect = attachmentCastedView.frame
             boundingRect.size.height = updatedRect.height
 
             addExclusionPath(for: boundingRect, key: exclusionKey)
 
             textView.addSubview(attrView)
             attachmentViews[exclusionKey] = attrView
-        }
-    }
-    
-    private func layoutEmbedElementTable(
-        attrView: SimpleTableView,
-        attributes: [NSAttributedString.Key: Any],
-        range: NSRange,
-        containerSize: CGSize) {
-        let contentInset = renderer.configuration.contentInsets
-
-        let glyphRange = layoutManager.glyphRange(
-            forCharacterRange: NSRange(location: range.location, length: 1),
-            actualCharacterRange: nil
-        )
-
-        let glyphIndex = glyphRange.location
-        guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
-            attrView.isHidden = true
-            return
-        }
-
-        let lineFragmentRect = layoutManager.lineFragmentRect(
-            forGlyphAt: glyphIndex,
-            effectiveRange: nil
-        )
-
-        let glyphLocation = layoutManager.location(forGlyphAt: glyphIndex)
-
-        let newWidth = containerSize.width
-            - lineFragmentRect.minX
-            - glyphLocation.x
-            - contentInset.left
-            - contentInset.right
-
-        // Rect specifying an area where text should not be rendered.
-        // The rect is being updated right before the exclusion path is created.
-        var boundingRect = CGRect(
-            x: lineFragmentRect.minX,
-            y: lineFragmentRect.minY,
-            width: containerSize.width,
-            height: 100
-        )
-
-        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
-        var attachmentRect = CGRect(
-            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
-            y: lineFragmentRect.minY + contentInset.top,
-            width: newWidth,
-            height: 100
-        )
-
-        if attrView.superview == nil {
-            textView.addSubview(attrView)
-            attrView.frame = attachmentRect
-            attrView.setNeedsLayout()
-            attrView.layoutIfNeeded()
-            boundingRect.size.height = attrView.contentSize.height
-            attachmentRect.size.height = boundingRect.size.height
-            attrView.frame = attachmentRect
-
-            let exclusionKey = String(range.hashValue) + Constant.embedSuffix
-
-            self.addExclusionPath(for: boundingRect, key: exclusionKey)
-
-            self.attachmentViews[exclusionKey] = attrView
         }
     }
 
@@ -404,6 +339,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
 
         let newWidth = containerSize.width
             - lineFragmentRect.minX
+            - glyphLocation.x
             - contentInset.left
             - contentInset.right
 
