@@ -1,3 +1,6 @@
+import Foundation
+import UIKit
+
 class SimpleTableView: UIView, ResourceLinkBlockViewRepresentable {
     var context: [CodingUserInfoKey : Any] = [:]
     private let stackView: UIStackView
