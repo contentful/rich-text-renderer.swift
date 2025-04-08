@@ -1,30 +1,14 @@
-# Backstage documentation
-# https://backstage.io/docs/features/software-catalog/descriptor-format/
-
-# !!! WARNING !!!
-# This is a template file with a number of fields that need to be filled before merging this to the default branch
 apiVersion: backstage.io/v1alpha1
-# Component, API, Template, Group, User, Resource, System, Domain, Location
 kind: Component
 metadata:
   name: rich-text-renderer.swift 
-  description: unknown
+  description: Render Contentful Rich Text fields to native strings and views.
   annotations:
     github.com/project-slug: contentful/rich-text-renderer.swift 
-    contentful.com/service-tier: "unknown" #1, 2, 3, 4
-
+    contentful.com/service-tier: "4"
   tags:
-    - update-me
-    #need to add sast.yaml to .github/workflows and enable it in polaris dashboard
-    #once that is done this can be changed to sast-enabled
-    - sast-disabled
-    #make this match the value from service-tier above
-    - tier-unknown
+    - tier-4
 spec:
-  #cli, component, contentful.com/template, documentation, function, library, service, template, website
-  type: component
-  #deprecated, experimental, production, unknown
+  type: library
   lifecycle: production
-  system: unknown #optional
-  # your team name as it appears in github when tagging them for reviews
-  owner: group:team-tundra
+  owner: group:team-developer-experience
