@@ -182,12 +182,24 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     }
 
     private func calculateAndSetPreferredContentSize() {
-        let newContentSize = textView.sizeThatFits(textView.bounds.size)
-        guard newContentSize != preferredContentSize else {
-            return
+        let textSize = textView.sizeThatFits(textView.bounds.size)
+
+        let insetBottom = textView.textContainerInset.bottom
+        var embedsMaxY: CGFloat = 0
+        // If there is only embed custom view in TextView without any text content
+        // This is needed to correctly calculate text view size as by default it would be smaller.
+        for view in attachmentViews.values {
+            let bottom = view.frame.maxY + insetBottom
+            if bottom > embedsMaxY {
+                embedsMaxY = bottom
+            }
         }
 
-        preferredContentSize = newContentSize
+        let height = max(textSize.height, embedsMaxY)
+        let size = CGSize(width: textSize.width, height: height)
+        if preferredContentSize != size {
+            preferredContentSize = size
+        }
     }
 
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -256,8 +268,12 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         )
 
         let glyphIndex = glyphRange.location
-        guard glyphIndex != NSNotFound && glyphRange.length == 1 else {
+        guard glyphIndex != NSNotFound, glyphRange.length == 1 else {
             attrView.isHidden = true
+            return
+        }
+        
+        guard attrView.superview == nil else {
             return
         }
 
@@ -274,42 +290,41 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
             - contentInset.left
             - contentInset.right
 
-        let scaleFactor = newWidth > 0 && attrView.frame.width > 0 ?  newWidth / attrView.frame.width : max(attrView.frame.width, newWidth)
-        let newHeight = scaleFactor * attrView.frame.height
+        attrView.isHidden = true
+        textView.addSubview(attrView)
 
-        // Rect specifying an area where text should not be rendered.
-        // The rect is being updated right before the exclusion path is created.
-        var boundingRect = CGRect(
+        attrView.frame = CGRect(x: 0, y: 0, width: newWidth, height: CGFloat.greatestFiniteMagnitude)
+        attrView.setNeedsLayout()
+        attrView.layoutIfNeeded()
+
+        let correctHeight = attrView.systemLayoutSizeFitting(
+            CGSize(width: newWidth, height: UIView.layoutFittingCompressedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height
+
+        let boundingRect = CGRect(
             x: lineFragmentRect.minX,
             y: lineFragmentRect.minY,
             width: containerSize.width,
-            height: newHeight
+            height: correctHeight
         )
 
-        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
         let attachmentRect = CGRect(
             x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
             y: lineFragmentRect.minY + contentInset.top,
             width: newWidth,
-            height: newHeight
+            height: correctHeight
         )
 
-        if attrView.superview == nil {
-            attrView.frame = attachmentRect
+        attrView.frame = attachmentRect
+        attrView.isHidden = false
 
-            attachmentCastedView.layout(with: attachmentRect.width)
+        attachmentCastedView.layout(with: attachmentRect.width)
 
-            let exclusionKey = String(range.hashValue) + Constant.embedSuffix
-
-            // Update bounding rect after laying out the view.
-            let updatedRect = attachmentCastedView.frame
-            boundingRect.size.height = updatedRect.height
-
-            addExclusionPath(for: boundingRect, key: exclusionKey)
-
-            textView.addSubview(attrView)
-            attachmentViews[exclusionKey] = attrView
-        }
+        let exclusionKey = String(range.hashValue) + Constant.embedSuffix
+        addExclusionPath(for: boundingRect, key: exclusionKey)
+        attachmentViews[exclusionKey] = attrView
     }
 
     private func layoutHorizontalRuleElement(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
@@ -390,7 +405,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         let attributes = textView.attributedText.attributes(at: characterRange.location, longestEffectiveRange: nil, in: characterRange)
         
         // Asset or Entry hyperlink
-        if let linkToResource = attributes[NSAttributedString.Key(rawValue: ResourceLinkInlineRenderer.kContentfulLinkKey)] as? Link {
+        if let linkToResource = attributes[NSAttributedString.Key(rawValue: ResourceLinkInlineRenderer.kContentfulLinkKey)] as? Contentful.Link {
             renderer.configuration.onResourceHyperlinkPressed?(linkToResource)
             
             return false
