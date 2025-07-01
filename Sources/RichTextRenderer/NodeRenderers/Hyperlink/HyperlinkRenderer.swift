@@ -26,9 +26,12 @@ open class HyperlinkRenderer: NodeRendering {
             result.append(child)
         }
 
+        // Prevent crashes for links with spaces or other special characters
+        let encodedURI = node.data.uri.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? node.data.uri
+        
         result.addAttributes(
             [
-                .link: node.data.uri,
+                .link: encodedURI,
             ],
             range: result.fullRange
         )
