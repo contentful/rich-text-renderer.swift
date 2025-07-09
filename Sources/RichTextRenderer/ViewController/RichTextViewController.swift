@@ -64,6 +64,22 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         textView.backgroundColor = color
     }
     
+    /// Forces synchronous layout update. Useful when hosting in SwiftUI to prevent layout race conditions.
+    public func forceLayoutSync() {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.sync {
+                self.forceLayoutSync()
+            }
+            return
+        }
+        
+        // Force layout manager to complete all pending operations
+        layoutManager.ensureLayout(for: textContainer)
+        
+        // Re-layout all elements with current container size
+        layoutElementsOnTextView(containerSize: textView.bounds.size)
+    }
+    
     public init(
         renderer: RichTextDocumentRenderer,
         richTextDocument: RichTextDocument? = nil,
@@ -137,12 +153,28 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     }
 
     private func invalidateLayout() {
+        // Ensure cleanup happens on main thread
+        guard Thread.isMainThread else {
+            DispatchQueue.main.sync {
+                self.invalidateLayout()
+            }
+            return
+        }
+        
         exclusionPathsStorage.removeAll()
 
-        attachmentViews.forEach { _, view in view.removeFromSuperview() }
+        // Remove all attachment views in a single batch operation
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        attachmentViews.forEach { _, view in 
+            view.removeFromSuperview() 
+        }
         attachmentViews.removeAll()
 
         textView.textContainer.exclusionPaths.removeAll()
+        
+        CATransaction.commit()
     }
 
     private func stopObservingNotifications() {
@@ -164,14 +196,23 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     }
 
     private func performRendering(document: RichTextDocument) {
+        // Clear existing layout before rendering new content
+        invalidateLayout()
+        
         var output = self.renderer.render(document: document)
         if self.trimWhitespace {
             output = output.trim()
         }
 
+        // Batch text storage operations to prevent intermediate layout updates
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         self.textStorage.beginEditing()
         self.textStorage.setAttributedString(output)
         self.textStorage.endEditing()
+        
+        CATransaction.commit()
 
         self.calculateAndSetPreferredContentSize()
         self.applyTextViewStyles()
@@ -219,6 +260,18 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     }
 
     private func layoutElementsOnTextView(containerSize: CGSize) {
+        // Ensure we're on the main thread for all UI operations
+        guard Thread.isMainThread else {
+            DispatchQueue.main.sync {
+                self.layoutElementsOnTextView(containerSize: containerSize)
+            }
+            return
+        }
+        
+        // Batch all layout operations together to prevent intermediate states
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         textView.textStorage.enumerateAttributes(
             in: textView.textStorage.fullRange,
             options: []
@@ -236,6 +289,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
                 layoutHorizontalRuleElement(attributes: attributes, range: range, containerSize: containerSize)
             }
         }
+        
+        CATransaction.commit()
     }
 
     private func layoutEmbedElementResourceBlock(attributes: [NSAttributedString.Key: Any], range: NSRange, containerSize: CGSize) {
@@ -274,32 +329,34 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
             - contentInset.left
             - contentInset.right
 
-        let scaleFactor = newWidth > 0 && attrView.frame.width > 0 ?  newWidth / attrView.frame.width : max(attrView.frame.width, newWidth)
-        let newHeight = scaleFactor * attrView.frame.height
+        let exclusionKey = String(range.hashValue) + Constant.embedSuffix
 
-        // Rect specifying an area where text should not be rendered.
-        // The rect is being updated right before the exclusion path is created.
-        var boundingRect = CGRect(
-            x: lineFragmentRect.minX,
-            y: lineFragmentRect.minY,
-            width: containerSize.width,
-            height: newHeight
-        )
-
-        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
-        let attachmentRect = CGRect(
-            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
-            y: lineFragmentRect.minY + contentInset.top,
-            width: newWidth,
-            height: newHeight
-        )
-
+        // Only layout if this view hasn't been added to the text view yet
         if attrView.superview == nil {
+            // Calculate initial scale factor and height like the original code
+            let scaleFactor = newWidth > 0 && attrView.frame.width > 0 ? newWidth / attrView.frame.width : max(attrView.frame.width, newWidth)
+            let newHeight = scaleFactor * attrView.frame.height
+
+            // Rect specifying an area where text should not be rendered.
+            // The rect is being updated right before the exclusion path is created.
+            var boundingRect = CGRect(
+                x: lineFragmentRect.minX,
+                y: lineFragmentRect.minY,
+                width: containerSize.width,
+                height: newHeight
+            )
+
+            // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
+            let attachmentRect = CGRect(
+                x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
+                y: lineFragmentRect.minY + contentInset.top,
+                width: newWidth,
+                height: newHeight
+            )
+
             attrView.frame = attachmentRect
 
             attachmentCastedView.layout(with: attachmentRect.width)
-
-            let exclusionKey = String(range.hashValue) + Constant.embedSuffix
 
             // Update bounding rect after laying out the view.
             let updatedRect = attachmentCastedView.frame
@@ -405,5 +462,17 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         
         
         return true
+    }
+    
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // In SwiftUI environments, we need to ensure layout happens after bounds changes
+        if view.bounds.size != .zero && textView.bounds.size != .zero {
+            // Defer layout to next run loop to ensure all SwiftUI layout is complete
+            DispatchQueue.main.async { [weak self] in
+                self?.layoutElementsOnTextView(containerSize: self?.textView.bounds.size ?? .zero)
+            }
+        }
     }
 }
