@@ -181,8 +181,31 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         self.textView.linkTextAttributes = [.foregroundColor: self.renderer.configuration.styleProvider.hyperlinkColor]
     }
 
+    private func calculateContentHeight() -> CGFloat {
+        // Get the used rect from layout manager
+        let usedRect = layoutManager.usedRect(for: textContainer)
+        var maxHeight = usedRect.maxY
+        
+        // Check all exclusion paths and ensure we account for their bottom bounds
+        for exclusionPath in textContainer.exclusionPaths {
+            let exclusionBounds = exclusionPath.bounds
+            maxHeight = max(maxHeight, exclusionBounds.maxY)
+        }
+        
+        return maxHeight + renderer.configuration.contentInsets.top + renderer.configuration.contentInsets.bottom
+    }
+
     private func calculateAndSetPreferredContentSize() {
-        let newContentSize = textView.sizeThatFits(textView.bounds.size)
+        layoutManager.ensureLayout(for: textContainer)
+        
+        let usedRect = layoutManager.usedRect(for: textContainer)
+        let contentHeight = calculateContentHeight()
+        
+        let newContentSize = CGSize(
+            width: usedRect.width + renderer.configuration.contentInsets.left + renderer.configuration.contentInsets.right,
+            height: contentHeight
+        )
+        
         guard newContentSize != preferredContentSize else {
             return
         }
@@ -306,7 +329,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
             boundingRect.size.height = updatedRect.height
 
             addExclusionPath(for: boundingRect, key: exclusionKey)
-
+            
             textView.addSubview(attrView)
             attachmentViews[exclusionKey] = attrView
         }
