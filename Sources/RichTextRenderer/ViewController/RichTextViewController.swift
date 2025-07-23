@@ -199,7 +199,7 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         layoutManager.ensureLayout(for: textContainer)
         
         let usedRect = layoutManager.usedRect(for: textContainer)
-        let contentHeight = calculateContentHeight()
+        let contentHeight = calculateContentHeight() + 40 //pad to stop bottom line being cut off
         
         let newContentSize = CGSize(
             width: usedRect.width + renderer.configuration.contentInsets.left + renderer.configuration.contentInsets.right,
