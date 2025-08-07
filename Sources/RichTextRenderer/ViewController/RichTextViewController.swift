@@ -280,16 +280,16 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         // Rect specifying an area where text should not be rendered.
         // The rect is being updated right before the exclusion path is created.
         var boundingRect = CGRect(
-            x: lineFragmentRect.minX,
-            y: lineFragmentRect.minY,
+            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left - 1,
+            y: lineFragmentRect.minY + glyphLocation.y + contentInset.top,
             width: containerSize.width,
             height: newHeight
         )
 
         // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
         let attachmentRect = CGRect(
-            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left,
-            y: lineFragmentRect.minY + contentInset.top,
+            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left - 1,
+            y: lineFragmentRect.minY + glyphLocation.y + contentInset.top,
             width: newWidth,
             height: newHeight
         )

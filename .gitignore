@@ -18,3 +18,4 @@ Carthage
 vendor
 /.ruby-version
 /.gitconfig
+/.build
