@@ -1,0 +1,6 @@
+module Pods_Example_iOS_SwiftUI {
+  umbrella header "Pods-Example-iOS-SwiftUI-umbrella.h"
+
+  export *
+  module * { export * }
+}
