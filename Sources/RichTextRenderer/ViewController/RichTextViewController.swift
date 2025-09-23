@@ -172,6 +172,8 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         self.textStorage.beginEditing()
         self.textStorage.setAttributedString(output)
         self.textStorage.endEditing()
+        
+        layoutElementsOnTextView(containerSize: textView.bounds.size)
 
         self.calculateAndSetPreferredContentSize()
         self.applyTextViewStyles()
@@ -182,8 +184,35 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     }
 
     private func calculateAndSetPreferredContentSize() {
-        let newContentSize = textView.sizeThatFits(textView.bounds.size)
-        guard newContentSize != preferredContentSize else {
+        // Base size from text content
+        var newContentSize = textView.sizeThatFits(textView.bounds.size)
+
+        // If there are attachment views (like embedded resources) that sit below the text
+        // they should be accounted for in preferredContentSize. Compute the bottom-most
+        // point of all attachment subviews we've added and expand the height if needed.
+        if !attachmentViews.isEmpty {
+            // Convert attachment subviews' frames to textView coordinate space and find max bottom
+            let maxAttachmentBottom = attachmentViews.values
+                .compactMap { $0.superview == textView ? $0.frame.maxY : nil }
+                .max() ?? 0
+
+            // textView content is inset by textView.textContainerInset; preferredContentSize
+            // should be at least the bottom of the attachments plus bottom inset.
+            let contentInsetBottom = textView.textContainerInset.bottom
+            let attachmentsRequiredHeight = maxAttachmentBottom + contentInsetBottom
+
+            if attachmentsRequiredHeight > newContentSize.height {
+                newContentSize.height = attachmentsRequiredHeight
+            }
+        }
+
+        // Avoid triggering tiny layout changes which could lead to layout loops. Only update
+        // preferredContentSize if the change is meaningful (epsilon threshold).
+        let epsilon: CGFloat = 0.5
+        let heightDelta = abs(preferredContentSize.height - newContentSize.height)
+        let widthDelta = abs(preferredContentSize.width - newContentSize.width)
+
+        guard heightDelta > epsilon || widthDelta > epsilon else {
             return
         }
 
@@ -212,8 +241,6 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
         if let expectedSize = expectedTextViewSizeAfterOrientationChange, expectedSize != textView.bounds.size {
             return
         }
-
-        layoutElementsOnTextView(containerSize: textView.bounds.size)
 
         expectedTextViewSizeAfterOrientationChange = nil
     }
@@ -274,37 +301,39 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
             - contentInset.left
             - contentInset.right
 
-        let scaleFactor = newWidth > 0 && attrView.frame.width > 0 ?  newWidth / attrView.frame.width : max(attrView.frame.width, newWidth)
-        let newHeight = scaleFactor * attrView.frame.height
+        // Compute the origin inside the text container using glyph location and line fragment rect
+        let fragmentOriginX = floor(lineFragmentRect.minX + glyphLocation.x)
+        let fragmentOriginY = floor(lineFragmentRect.minY + glyphLocation.y)
 
-        // Rect specifying an area where text should not be rendered.
+        // Rect specifying an area where text should not be rendered (in text container coordinates).
         // The rect is being updated right before the exclusion path is created.
         var boundingRect = CGRect(
-            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left - 1,
-            y: lineFragmentRect.minY + glyphLocation.y + contentInset.top,
-            width: containerSize.width,
-            height: newHeight
-        )
-
-        // Rect specifying an area where the attachment is rendered. This can differ from the `boundingRect`.
-        let attachmentRect = CGRect(
-            x: lineFragmentRect.minX + glyphLocation.x + contentInset.left - 1,
-            y: lineFragmentRect.minY + glyphLocation.y + contentInset.top,
+            x: fragmentOriginX,
+            y: fragmentOriginY + contentInset.top,
             width: newWidth,
-            height: newHeight
+            height: 0 // does not matter now as will ask to calculate height below in layout method
         )
 
+        // Rect specifying an area where the attachment is rendered (in text view coordinates).
+        // Must add content inset to convert from text container coords to text view coords.
+        var attachmentRect = CGRect(
+            x: contentInset.left + fragmentOriginX,
+            y: contentInset.top + fragmentOriginY,
+            width: newWidth,
+            height: 0 // does not matter now as will ask to calculate height below in layout method
+        )
+              
         if attrView.superview == nil {
-            attrView.frame = attachmentRect
-
             attachmentCastedView.layout(with: attachmentRect.width)
 
             let exclusionKey = String(range.hashValue) + Constant.embedSuffix
 
             // Update bounding rect after laying out the view.
             let updatedRect = attachmentCastedView.frame
-            boundingRect.size.height = updatedRect.height
-
+            boundingRect.size.height = floor(updatedRect.height)
+            attachmentRect.size.height = floor(updatedRect.height)
+            attrView.frame = attachmentRect
+            
             addExclusionPath(for: boundingRect, key: exclusionKey)
 
             textView.addSubview(attrView)
