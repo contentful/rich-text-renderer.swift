@@ -57,6 +57,10 @@ class SimpleTableViewCell: UIView, ResourceLinkBlockViewRepresentable {
             richTextViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
 
+        if isHeader {
+            richTextViewController.view.overrideUserInterfaceStyle = .light
+        }
+
         richTextViewController.richTextDocument = RichTextDocument(content: nodes)
         richTextViewController.updateTextViewBackground(color: .clear)
     }

@@ -75,7 +75,7 @@ public final class DefaultStyleProvider: StyleProviding {
 
     public init(
         baseFont: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize),
-        baseColor: UIColor = UIColor.black, // Base color initialization
+        baseColor: UIColor = UIColor.rtrLabel, // Base color initialization - adapts to dark mode
         monospacedFont: UIFont? = UIFont(name: "Menlo-Regular", size: UIFont.systemFontSize),
         hyperlinkColor: UIColor? = UIColor.systemBlue
     ) {

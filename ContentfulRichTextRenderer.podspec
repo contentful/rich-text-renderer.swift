@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = "ContentfulRichTextRenderer"
-  spec.version          = "0.4.5"
+  spec.version          = "0.4.6"
   spec.summary          = "Swift library for rendering Contentful RichTextDocument."
   spec.homepage         = "https://github.com/contentful-labs/rich-text-renderer.swift"
   spec.social_media_url = 'https://twitter.com/contentful'
@@ -15,7 +15,7 @@ Pod::Spec.new do |spec|
   spec.requires_arc = true
   
   spec.swift_version = "5.2"
-  spec.ios.deployment_target = "12.4"
+  spec.ios.deployment_target = "13.0"
 
   spec.source_files = "Sources/RichTextRenderer/**/*.swift"
 
