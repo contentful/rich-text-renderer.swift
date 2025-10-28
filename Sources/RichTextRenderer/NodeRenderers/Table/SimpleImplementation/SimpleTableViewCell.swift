@@ -27,7 +27,7 @@ class SimpleTableViewCell: UIView, ResourceLinkBlockViewRepresentable {
         )
 
         measuredWidth = width
-        measuredHeight = calculatedSize.height
+        measuredHeight = ceil(calculatedSize.height)
         invalidateIntrinsicContentSize()
     }
 
