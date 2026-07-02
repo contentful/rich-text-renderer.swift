@@ -35,8 +35,8 @@ class SimpleTableViewCell: UIView, ResourceLinkBlockViewRepresentable {
         return CGSize(width: measuredWidth, height: measuredHeight)
     }
 
-    init(isHeader: Bool, nodes: [Node]) {
-        let configuration = DefaultRendererConfiguration()
+    init(isHeader: Bool, nodes: [Node], context: [CodingUserInfoKey: Any]) {
+        let configuration = context.rendererConfiguration
         let renderer = RichTextDocumentRenderer(configuration: configuration)
         richTextViewController = RichTextViewController(renderer: renderer, isScrollEnabled: false)
 
@@ -48,6 +48,10 @@ class SimpleTableViewCell: UIView, ResourceLinkBlockViewRepresentable {
             ? UIColor(red: 232/255, green: 235/255, blue: 238/255, alpha: 1)
             : .clear
 
+        // Establish proper UIKit view controller containment before adding the child's view.
+        let parentVC = context.parentViewController
+        parentVC?.addChild(richTextViewController)
+
         addSubview(richTextViewController.view)
         richTextViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -56,6 +60,8 @@ class SimpleTableViewCell: UIView, ResourceLinkBlockViewRepresentable {
             richTextViewController.view.leadingAnchor.constraint(equalTo: leadingAnchor),
             richTextViewController.view.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+
+        richTextViewController.didMove(toParent: parentVC)
 
         if isHeader {
             richTextViewController.view.overrideUserInterfaceStyle = .light
