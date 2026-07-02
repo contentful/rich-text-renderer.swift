@@ -152,19 +152,17 @@ open class RichTextViewController: UIViewController, NSLayoutManagerDelegate, UI
     private func renderDocumentIfNeeded() {
         guard let document = richTextDocument else { return }
         
-        // Check if we are on the main thread
-        if !Thread.isMainThread {
-            // If not on main thread, dispatch synchronously to main
-            DispatchQueue.main.sync {
+        if Thread.isMainThread {
+            performRendering(document: document)
+        } else {
+            DispatchQueue.main.async {
                 self.performRendering(document: document)
             }
-        } else {
-            self.performRendering(document: document)
         }
     }
 
     private func performRendering(document: RichTextDocument) {
-        var output = self.renderer.render(document: document)
+        var output = self.renderer.render(document: document, additionalContext: [.parentViewController: self])
         if self.trimWhitespace {
             output = output.trim()
         }

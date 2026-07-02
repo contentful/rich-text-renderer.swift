@@ -34,6 +34,7 @@ open class TableRowHeaderCellRenderer: NodeRendering {
         
         return SimpleTableViewCell(
             isHeader: true,
-            nodes: node.content)
+            nodes: node.content,
+            context: context)
     }
 }

@@ -29,20 +29,27 @@ public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepre
     }
 
     public func setImageToNaturalHeight(additionalOptions: [ImageOption] = []) {
-        // Get the current width of the cell and see if it is wider than the screen.
         guard let imageSize = asset.imageSize else { return }
 
-        // Use scale to get the pixel size of the image view.
-        let scale = UIScreen.main.scale
+        // Use the view's actual display scale via traitCollection to support multi-window
+        // environments (iPad Split View, Stage Manager) correctly, avoiding the deprecated
+        // UIScreen.main API.
+        let scale = traitCollection.displayScale
 
-        let viewWidthPixels = UIScreen.main.bounds.width * scale
+        // Use the container width already established by layout(with:), falling back to the
+        // window bounds for cases where the view fills available width.
+        let containerWidth: CGFloat = frame.size.width > 0
+            ? frame.size.width
+            : (window?.bounds.width ?? UIScreen.main.bounds.width)
+
+        let viewWidthPixels = containerWidth * scale
         let percentageDifference = viewWidthPixels / imageSize.width
 
         let viewHeightInPoints = imageSize.height * percentageDifference / scale
         let viewHeightPixels = viewHeightInPoints * scale
 
         frame.size = CGSize(
-            width: UIScreen.main.bounds.width,
+            width: containerWidth,
             height: viewHeightInPoints
         )
 
@@ -52,7 +59,7 @@ public class ResourceLinkBlockImageView: UIImageView, ResourceLinkBlockViewRepre
             .height(UInt(viewHeightPixels)),
         ] + additionalOptions
 
-        let url = try! asset.url(with: imageOptions)
+        guard let url = try? asset.url(with: imageOptions) else { return }
 
         self.af.setImage(
             withURL: url,

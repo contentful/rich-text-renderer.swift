@@ -20,7 +20,17 @@ public struct RichTextDocumentRenderer: RichTextDocumentRendering {
     }
 
     public func render(document: RichTextDocument) -> NSAttributedString {
-        let context = makeRenderingContext()
+        render(document: document, additionalContext: [:])
+    }
+
+    /// Renders the document with optional additional context entries merged on top of the base context.
+    /// Use this when you need to inject values such as a parent `UIViewController` for proper
+    /// UIKit view controller containment inside embedded renderers.
+    public func render(document: RichTextDocument, additionalContext: [CodingUserInfoKey: Any]) -> NSAttributedString {
+        var context = makeRenderingContext()
+        for (key, value) in additionalContext {
+            context[key] = value
+        }
 
         let contentNodes = document.content.compactMap { $0 as? RenderableNodeProviding }
         let results = contentNodes.reduce(into: [NSMutableAttributedString]()) { result, contentNode in
