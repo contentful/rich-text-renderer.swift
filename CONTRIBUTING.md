@@ -10,10 +10,14 @@ might expect.
   scheme `RichTextRenderer.xcodeproj/xcshareddata/xcschemes/RichTextRenderer.xcscheme`
   declares no testable references. Changes are verified by building the library and
   exercising an example app by hand.
-- **CI does not build the library.** The only workflow is
-  `.github/workflows/codeql.yml`, and it only runs when files under
-  `.github/workflows/**` change. A PR with all checks green tells you nothing about
-  whether the code compiles — build locally.
+- **There is no dedicated build workflow.** The only committed workflow,
+  `.github/workflows/codeql.yml`, runs solely when files under
+  `.github/workflows/**` change. The compile signal on a PR comes from CodeQL
+  **default setup**, enabled at the repo level for `actions`, `ruby`, and `swift`
+  and therefore not visible anywhere in `.github/workflows/`. The `Analyze (swift)`
+  job does build the library, but it is slow and it is a security-analysis job, not
+  a build gate — build locally rather than waiting on it. Wiz scanners and a
+  `Governance Controls` check also run from org configuration.
 - **`Pods/` is committed.** That is intentional; see
   `docs/ADRs/2026-08-25-commit-cocoapods-pods-directory.md`. Running `pod install`
   will produce a large but legitimate diff.

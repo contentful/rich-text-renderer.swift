@@ -37,11 +37,20 @@ instances embedded in the text flow. It is built on TextKit (`NSLayoutManager`,
    - `Cartfile` — Carthage
    They are not currently in lockstep (see "Known inconsistencies" below); do not
    silently "fix" them as a drive-by.
-4. **CI does not build this library.** The only workflow is
-   `.github/workflows/codeql.yml`, which runs CodeQL against
-   `.github/workflows/**` only. A green PR does not mean the library compiles.
-5. `catalog-info.yaml` still routes CI alerts to the `sdk-bots` Slack channel even
-   though no build CI exists.
+4. **There is no dedicated build or release CI, and the CI that exists is not
+   visible in `.github/workflows/`.** The only committed workflow is
+   `.github/workflows/codeql.yml`, which analyses `.github/workflows/**` only.
+   Everything else comes from repo- and org-level configuration:
+   - CodeQL **default setup** is enabled for `actions`, `ruby`, and `swift`
+     (`gh api repos/contentful/rich-text-renderer.swift/code-scanning/default-setup`,
+     configured 2026-07-02). The `Analyze (swift)` job compiles the library, so it is
+     in practice the only signal that the code still builds — and it is slow, taking
+     noticeably longer than every other check on a PR.
+   - Wiz scanners (Secret, SAST, IaC, Data, Vulnerability) and a `Governance Controls`
+     check also run on PRs from org configuration.
+   There is still no job that runs the example apps or publishes a release.
+5. `catalog-info.yaml` routes CI alerts to the `sdk-bots` Slack channel, though the
+   only builds happening are the CodeQL Swift analysis runs.
 
 ## Building
 

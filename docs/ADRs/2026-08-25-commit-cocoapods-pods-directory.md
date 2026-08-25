@@ -67,9 +67,11 @@ lines, including the full sources of Alamofire, AlamofireImage, and Contentful u
 - The vendored copies can drift from the versions the other two channels resolve.
   `Package.resolved` currently pins Contentful 5.5.14 / AlamofireImage 4.3.0 /
   Alamofire 5.10.2, while `Podfile.lock` records its own checksums for the committed
-  `Pods/` tree. Nothing in the repository enforces that these agree, and there is no
-  CI that builds the library to catch a mismatch — the only workflow,
-  `.github/workflows/codeql.yml`, scans `.github/workflows/**` only.
+  `Pods/` tree. Nothing in the repository enforces that these agree.
+  The only committed workflow, `.github/workflows/codeql.yml`, scans
+  `.github/workflows/**` only; the CodeQL default-setup `Analyze (swift)` job does
+  compile the library, but it exists to find security issues and is not a guard
+  against manifest drift between the three channels.
 - Renovate (`renovate.json`) can update the manifests, but a manifest-only update
   leaves the committed `Pods/` tree stale until someone runs `pod install` and commits
   the result.

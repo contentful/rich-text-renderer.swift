@@ -146,6 +146,9 @@ Resolved CocoaPods sources are committed under `Pods/`; see
 ## What is not here
 
 - No test target and no tests, in either the SPM package or the Xcode project.
-- No build or release CI. `.github/workflows/codeql.yml` scans workflow files only.
+- No dedicated build or release CI. The one committed workflow,
+  `.github/workflows/codeql.yml`, scans workflow files only; CodeQL default setup
+  (configured at the repo level for `actions`, `ruby`, `swift`) is what actually
+  compiles the library on a PR.
 - No changelog file and no release automation; versions are bumped by hand in the
   podspec and tagged (`0.4.1` … `0.4.10`).
