@@ -86,7 +86,7 @@ bundle exec pod lib lint ContentfulRichTextRenderer.podspec
 1. Open the PR against `master`.
 2. Describe what you changed and, since there are no tests, **how you verified it** —
    which example app, which simulator, which node types you exercised.
-3. `.github/CODEOWNERS` assigns every path to `@contentful/team-developer-experience`,
+3. `.github/CODEOWNERS` assigns every path to `@contentful/group-applied-ai-solutions`,
    so that team's review is required.
 4. Dependency updates arrive automatically via Renovate (`renovate.json` extends
    `local>contentful/renovate-config`). Prefer letting Renovate raise dependency

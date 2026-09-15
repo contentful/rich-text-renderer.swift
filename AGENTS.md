@@ -15,7 +15,7 @@ instances embedded in the text flow. It is built on TextKit (`NSLayoutManager`,
 - Platform floor: iOS 13 (`Package.swift`, `ContentfulRichTextRenderer.podspec`)
 - Swift version: 5.2 (`.swift-version`, `swift-tools-version:5.2`, `spec.swift_version`)
 - Default branch: `master` (not `main`)
-- Owner: `@contentful/team-developer-experience` (`.github/CODEOWNERS`), service tier 4
+- Owner: `@contentful/group-applied-ai-solutions` (`.github/CODEOWNERS`), service tier 4
   (`catalog-info.yaml`)
 
 ## Repository facts you need before you edit anything
