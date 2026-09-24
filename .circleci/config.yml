@@ -1,0 +1,145 @@
+version: 2.1
+
+# Release: trigger a pipeline on master with run-release = true, either from the CircleCI UI
+# (Trigger Pipeline -> add parameter) or with ./Scripts/trigger-release.sh. See RELEASING.md.
+#
+# There are no tests in this repository, so the checks are builds: the Swift package, the framework
+# target the way Carthage users build it, and both example apps.
+
+parameters:
+  run-release:
+    type: boolean
+    default: false
+    description: Release the version in ContentfulRichTextRenderer.podspec from master (builds, tag, GitHub release).
+  xcode:
+    type: string
+    default: "26.2.0"
+    description: Xcode image for all jobs.
+
+executors:
+  mac:
+    macos:
+      xcode: << pipeline.parameters.xcode >>
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+
+commands:
+  install-carthage:
+    steps:
+      - run:
+          name: Install Carthage
+          command: brew list carthage >/dev/null 2>&1 || brew install carthage
+
+jobs:
+  release-wrong-branch:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Releases run from master only
+          command: |
+            echo "run-release was set on branch '<< pipeline.git.branch >>'. Trigger it on master."
+            exit 1
+
+  build-spm:
+    executor: mac
+    steps:
+      - checkout
+      - run:
+          name: Build the Swift package for iOS
+          command: |
+            xcodebuild build -workspace .swiftpm/xcode/package.xcworkspace -scheme ContentfulRichTextRenderer \
+              -destination generic/platform=iOS -derivedDataPath build/spm
+
+  build-examples:
+    executor: mac
+    parameters:
+      scheme:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Build << parameters.scheme >> (from the committed Pods/)
+          command: |
+            xcodebuild build -workspace RichTextRenderer.xcworkspace -scheme << parameters.scheme >> \
+              -destination 'generic/platform=iOS Simulator' -derivedDataPath build/examples CODE_SIGNING_ALLOWED=NO
+
+  carthage-check:
+    executor: mac
+    steps:
+      - checkout
+      - install-carthage
+      - run:
+          name: Carthage source build, fail if dependencies are embedded
+          command: ./Scripts/release.sh carthage-check
+
+  release-validate:
+    executor: mac
+    steps:
+      - checkout
+      - run:
+          name: Validate release
+          command: RELEASE_COMMIT="$CIRCLE_SHA1" ./Scripts/release.sh validate
+
+  release-publish:
+    executor: mac
+    steps:
+      - checkout
+      - run:
+          name: Install GitHub CLI
+          command: command -v gh >/dev/null 2>&1 || brew install gh
+      - run:
+          name: Tag
+          command: RELEASE_COMMIT="$CIRCLE_SHA1" ./Scripts/release.sh tag
+      - run:
+          name: GitHub release
+          command: ./Scripts/release.sh github-release
+
+workflows:
+  build-workflow:
+    when:
+      not: << pipeline.parameters.run-release >>
+    jobs:
+      - build-spm
+      - carthage-check
+      - build-examples:
+          name: build-example-ios
+          scheme: Example-iOS
+      - build-examples:
+          name: build-example-ios-swiftui
+          scheme: Example-iOS-SwiftUI
+
+  release-workflow:
+    when:
+      and:
+        - << pipeline.parameters.run-release >>
+        - equal: [master, << pipeline.git.branch >>]
+    jobs:
+      - build-spm
+      - carthage-check
+      - build-examples:
+          name: build-example-ios
+          scheme: Example-iOS
+      - build-examples:
+          name: build-example-ios-swiftui
+          scheme: Example-iOS-SwiftUI
+      - release-validate
+      - release-publish:
+          context: rich-text-renderer-release
+          requires:
+            - build-spm
+            - carthage-check
+            - build-example-ios
+            - build-example-ios-swiftui
+            - release-validate
+
+  release-wrong-branch-workflow:
+    when:
+      and:
+        - << pipeline.parameters.run-release >>
+        - not:
+            equal: [master, << pipeline.git.branch >>]
+    jobs:
+      - release-wrong-branch

@@ -152,10 +152,10 @@ Resolved CocoaPods sources are still committed under `Pods/` for the example app
 ## What is not here
 
 - No test target and no tests, in either the SPM package or the Xcode project.
-- No dedicated build or release CI. The one committed workflow,
-  `.github/workflows/codeql.yml`, scans workflow files only; CodeQL default setup
-  (configured at the repo level for `actions`, `ruby`, `swift`) is what actually
-  compiles the library on a PR.
-- No changelog file and no release automation. Versions are bumped with
-  `Scripts/set-version.sh` and released by hand with `Scripts/release.sh`
-  (`0.4.1` … `0.4.10`); see `RELEASING.md`. CocoaPods is frozen at 0.4.10.
+- No test CI. CircleCI (`.circleci/config.yml`) builds the Swift package, the
+  framework target via Carthage (`Scripts/release.sh carthage-check`) and both
+  example apps on every push.
+- No changelog file. Versions are bumped with `Scripts/set-version.sh`; a
+  maintainer-triggered CircleCI pipeline (`run-release = true` on `master`) runs
+  `Scripts/release.sh` to tag and create the GitHub release (`0.4.1` … `0.4.10`);
+  see `RELEASING.md`. CocoaPods is frozen at 0.4.10.

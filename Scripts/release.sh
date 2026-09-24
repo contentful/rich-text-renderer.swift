@@ -1,5 +1,5 @@
 #!/bin/bash
-# Manual release helper for rich-text-renderer.swift. See RELEASING.md.
+# Release rich-text-renderer.swift. CircleCI runs the same steps as a manual release. See RELEASING.md.
 #
 # Usage: ./Scripts/release.sh <step>
 #
@@ -14,7 +14,8 @@
 #
 # Environment:
 #   DRY_RUN=1        print the commands that would change anything on GitHub instead of running them
-#   RELEASE_COMMIT   commit to tag; defaults to HEAD
+#   RELEASE_COMMIT   commit to tag (CI passes $CIRCLE_SHA1); defaults to HEAD
+#   GITHUB_TOKEN     used for pushes and the GitHub API when set (CI); otherwise your git/gh auth is used
 #   GIT_REMOTE       remote to fetch from and push to (default: origin)
 #
 # CocoaPods: new versions are no longer pushed to trunk (read-only from 2026-12-02). Existing
@@ -31,6 +32,10 @@ DRY_RUN="${DRY_RUN:-0}"
 
 VERSION="$(sed -n -E 's/^[[:space:]]*spec\.version[[:space:]]*=[[:space:]]*"([^"]*)".*/\1/p' ContentfulRichTextRenderer.podspec)"
 
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+  export GH_TOKEN="${GH_TOKEN:-$GITHUB_TOKEN}"
+fi
+
 log()  { printf '\n==> %s\n' "$*"; }
 fail() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 
@@ -43,8 +48,28 @@ publish() {
   fi
 }
 
+# git with GitHub auth from GITHUB_TOKEN when it is set (CI). Locally it falls back to your own credentials.
+git_auth() {
+  if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    local basic
+    basic="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 | tr -d '\n')"
+    git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $basic" "$@"
+  else
+    git "$@"
+  fi
+}
+
+# Remote to push to: an HTTPS URL when a token is available (CI checkout keys are read-only), else GIT_REMOTE.
+push_target() {
+  if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    echo "https://github.com/$REPO_SLUG.git"
+  else
+    echo "$GIT_REMOTE"
+  fi
+}
+
 remote_tag_sha() {
-  git ls-remote "$GIT_REMOTE" "refs/tags/$VERSION^{}" "refs/tags/$VERSION" | awk 'NR==1{print $1}'
+  git_auth ls-remote "$(push_target)" "refs/tags/$VERSION^{}" "refs/tags/$VERSION" | awk 'NR==1{print $1}'
 }
 
 step_validate() {
@@ -79,9 +104,11 @@ step_validate() {
 
   local commit
   commit="$(git rev-parse "${RELEASE_COMMIT:-HEAD}^{commit}")"
-  git fetch --quiet "$GIT_REMOTE" master
-  git merge-base --is-ancestor "$commit" "$GIT_REMOTE/master" \
-    || fail "Commit $commit is not on $GIT_REMOTE/master. Releases are made from master only"
+  if ! git merge-base --is-ancestor "$commit" "$GIT_REMOTE/master" 2>/dev/null; then
+    git fetch --quiet "$GIT_REMOTE" master
+    git merge-base --is-ancestor "$commit" "$GIT_REMOTE/master" \
+      || fail "Commit $commit is not on $GIT_REMOTE/master. Releases are made from master only"
+  fi
 
   echo "OK: $VERSION (previous: ${latest:-none}) from $commit"
 }
@@ -91,6 +118,9 @@ step_carthage_check() {
   command -v carthage >/dev/null 2>&1 || fail "'carthage' is required. Install it with: brew install carthage"
 
   local derived="$ROOT/build/DerivedData-carthage"
+  # --no-skip-current builds every shared scheme it finds in the repo, including the Alamofire and
+  # Contentful projects in package checkouts left by local SPM builds (-derivedDataPath build/...).
+  rm -rf "$ROOT"/build/*/SourcePackages
   carthage bootstrap --use-xcframeworks --platform iOS --derived-data "$derived"
   rm -rf Carthage/Build/RichTextRenderer.xcframework
   carthage build --no-skip-current --use-xcframeworks --platform iOS --derived-data "$derived"
@@ -136,7 +166,7 @@ step_tag() {
   fi
 
   # Push only this tag, never --tags.
-  publish git push "$GIT_REMOTE" "refs/tags/$VERSION"
+  publish git_auth push "$(push_target)" "refs/tags/$VERSION"
 }
 
 step_github_release() {
@@ -173,7 +203,7 @@ case "${1:-}" in
     fi
     ;;
   *)
-    sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'
     exit 1
     ;;
 esac
