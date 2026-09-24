@@ -130,12 +130,18 @@ Declared in three places for three distribution channels (`Package.swift`,
 `Package.resolved` currently pins Contentful 5.5.14, AlamofireImage 4.3.0, and
 Alamofire 5.10.2.
 
-Resolved CocoaPods sources are committed under `Pods/`; see
+The `RichTextRenderer` framework target in the Xcode project links the dynamic
+Contentful, AlamofireImage and Alamofire frameworks that Carthage builds from
+`Cartfile` / `Cartfile.resolved` (`carthage bootstrap --use-xcframeworks --platform iOS`),
+so Carthage consumers get one copy of each; see
+`docs/ADRs/2026-09-23-framework-target-links-carthage-dependencies.md`.
+
+Resolved CocoaPods sources are still committed under `Pods/` for the example apps; see
 `docs/ADRs/2026-08-25-commit-cocoapods-pods-directory.md`.
 
 ## Platform and toolchain
 
-- iOS 13 minimum in `Package.swift` and the podspec; the `Podfile` still says 11.0.
+- iOS 13 minimum in `Package.swift`, the podspec, and the `Podfile` (and the example apps).
 - Swift 5.2 (`.swift-version`, `swift-tools-version`, `spec.swift_version`).
 - UIKit-only. There is no macOS, tvOS, or watchOS support, and no SwiftUI-native
   rendering path — the SwiftUI example wraps `RichTextViewController` in a
@@ -150,5 +156,6 @@ Resolved CocoaPods sources are committed under `Pods/`; see
   `.github/workflows/codeql.yml`, scans workflow files only; CodeQL default setup
   (configured at the repo level for `actions`, `ruby`, `swift`) is what actually
   compiles the library on a PR.
-- No changelog file and no release automation; versions are bumped by hand in the
-  podspec and tagged (`0.4.1` … `0.4.10`).
+- No changelog file and no release automation. Versions are bumped with
+  `Scripts/set-version.sh` and released by hand with `Scripts/release.sh`
+  (`0.4.1` … `0.4.10`); see `RELEASING.md`. CocoaPods is frozen at 0.4.10.

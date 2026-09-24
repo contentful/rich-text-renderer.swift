@@ -139,6 +139,9 @@ import RichTextRenderer
 
 #### CocoaPods
 
+> [!IMPORTANT]
+> **CocoaPods is frozen at version 0.4.10.** The [CocoaPods trunk becomes read-only on December 2, 2026](https://blog.cocoapods.org/CocoaPods-Specs-Repo/), so new versions of this library are no longer published to CocoaPods. Existing versions stay installable, and the snippet below keeps working. New releases ship through [Swift Package Manager](#swift-package-manager) (recommended) and [Carthage](#carthage) only.
+
 ```ruby
 platform :ios, '13.0'
 use_frameworks!
@@ -165,7 +168,7 @@ Then build the XCFrameworks:
 carthage update --platform iOS --use-xcframeworks
 ```
 
-Add all the XCFrameworks from the `Carthage/Build` directory to your project manually.
+Add the four XCFrameworks from `Carthage/Build` to your app target with **Embed & Sign**: `RichTextRenderer`, `Contentful`, `AlamofireImage`, and `Alamofire`. From version 0.4.11, `RichTextRenderer` links the other three dynamically instead of containing its own copies, so your app ships exactly one copy of each.
 
 ### Your first render
 

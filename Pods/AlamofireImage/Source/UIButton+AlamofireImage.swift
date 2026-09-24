@@ -25,13 +25,13 @@
 import Alamofire
 import Foundation
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import UIKit
 
 public typealias ControlState = UIControl.State
 
-extension UIButton: AlamofireExtended {}
+extension UIButton: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIButton {
     // MARK: - Properties
 
@@ -182,17 +182,15 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         cancelImageRequest(for: state)
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
         if let request = urlRequest.urlRequest {
-            let cachedImage: Image?
-
-            if let cacheKey = cacheKey {
-                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            let cachedImage: Image? = if let cacheKey {
+                imageCache?.image(withIdentifier: cacheKey)
             } else {
-                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
             if let image = cachedImage {
@@ -211,13 +209,17 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setImage(placeholderImage, for: state) }
+        if let placeholderImage { type.setImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,
@@ -253,7 +255,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
     public func cancelImageRequest(for state: ControlState) {
         guard let receipt = imageRequestReceipt(for: state) else { return }
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: receipt)
 
         setImageRequestReceipt(nil, for: state)
@@ -351,17 +353,15 @@ extension AlamofireExtension where ExtendedType: UIButton {
 
         cancelBackgroundImageRequest(for: state)
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         let imageCache = imageDownloader.imageCache
 
         // Use the image from the image cache if it exists
         if let request = urlRequest.urlRequest {
-            let cachedImage: Image?
-
-            if let cacheKey = cacheKey {
-                cachedImage = imageCache?.image(withIdentifier: cacheKey)
+            let cachedImage: Image? = if let cacheKey {
+                imageCache?.image(withIdentifier: cacheKey)
             } else {
-                cachedImage = imageCache?.image(for: request, withIdentifier: filter?.identifier)
+                imageCache?.image(for: request, withIdentifier: filter?.identifier)
             }
 
             if let image = cachedImage {
@@ -380,13 +380,17 @@ extension AlamofireExtension where ExtendedType: UIButton {
         }
 
         // Set the placeholder since we're going to have to download
-        if let placeholderImage = placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
+        if let placeholderImage { type.setBackgroundImage(placeholderImage, for: state) }
 
         // Generate a unique download id to check whether the active request has changed while downloading
         let downloadID = UUID().uuidString
 
         // Weakify the button to allow it to go out-of-memory while download is running if deallocated
+        #if swift(>=6.3)
+        weak let button = type
+        #else
         weak var button = type
+        #endif
 
         // Download the image, then set the image for the control state
         let requestReceipt = imageDownloader.download(urlRequest,
@@ -422,7 +426,7 @@ extension AlamofireExtension where ExtendedType: UIButton {
     public func cancelBackgroundImageRequest(for state: ControlState) {
         guard let receipt = backgroundImageRequestReceipt(for: state) else { return }
 
-        let imageDownloader = self.imageDownloader ?? UIButton.af.sharedImageDownloader
+        let imageDownloader = imageDownloader ?? UIButton.af.sharedImageDownloader
         imageDownloader.cancelRequest(with: receipt)
 
         setBackgroundImageRequestReceipt(nil, for: state)
@@ -608,10 +612,10 @@ extension UIButton {
 // MARK: - Private - AssociatedKeys
 
 private enum AssociatedKeys {
-    static var imageDownloader = "UIButton.af.imageDownloader"
-    static var sharedImageDownloader = "UIButton.af.sharedImageDownloader"
-    static var imageReceipts = "UIButton.af.imageReceipts"
-    static var backgroundImageReceipts = "UIButton.af.backgroundImageReceipts"
+    static var imageDownloader = true
+    static var sharedImageDownloader = true
+    static var imageReceipts = true
+    static var backgroundImageReceipts = true
 }
 
 #endif

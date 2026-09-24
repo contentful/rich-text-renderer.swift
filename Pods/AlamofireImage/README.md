@@ -1,11 +1,11 @@
 # AlamofireImage
 
-[![Build Status](https://travis-ci.org/Alamofire/AlamofireImage.svg?branch=master)](https://travis-ci.org/Alamofire/AlamofireImage)
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform](https://img.shields.io/cocoapods/p/AlamofireImage.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireImage)
-[![Twitter](https://img.shields.io/badge/twitter-@AlamofireSF-blue.svg?style=flat)](http://twitter.com/AlamofireSF)
-[![Gitter](https://badges.gitter.im/Alamofire/Alamofire.svg)](https://gitter.im/Alamofire/Alamofire?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Swift](https://img.shields.io/badge/Swift-6.0_6.1_6.2_6.3-orange?style=flat-square)](https://img.shields.io/badge/Swift-6.0_6.1_6.2_6.3-orange?style=flat-square)
+[![Platforms](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS_visionOS-yellowgreen?style=flat-square)](https://img.shields.io/badge/Platforms-macOS_iOS_tvOS_watchOS_visionOS-Green?style=flat-square)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/AlamofireImage.svg?style=flat-square)](https://img.shields.io/cocoapods/v/AlamofireImage.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat-square)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
+[![Swift Forums](https://img.shields.io/badge/Swift_Forums-Alamofire-orange?style=flat-square)](https://forums.swift.org/c/related-projects/alamofire/37)
 
 AlamofireImage is an image component library for Alamofire.
 
@@ -19,14 +19,14 @@ AlamofireImage is an image component library for Alamofire.
 - [x] Authentication with URLCredential
 - [x] UIImageView Async Remote Downloads with Placeholders
 - [x] UIImageView Filters and Transitions
-- [x] Comprehensive Test Coverage 
+- [x] Comprehensive Test Coverage
 - [x] [Complete Documentation](https://alamofire.github.io/AlamofireImage/)
 
 ## Requirements
 
-- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
-- Xcode 11+
-- Swift 5.1+
+- iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+ / visionOS 1.0+
+- Xcode 16+
+- Swift 6.0+
 
 ## Migration Guides
 
@@ -36,14 +36,14 @@ AlamofireImage is an image component library for Alamofire.
 
 ## Dependencies
 
-- [Alamofire 5.1+](https://github.com/Alamofire/Alamofire)
+- [Alamofire 5.11+](https://github.com/Alamofire/Alamofire)
 
 ## Communication
 
 - If you need to **find or understand an API**, check [our documentation](https://alamofire.github.io/AlamofireImage/).
 - If you need **help with an AlamofireImage feature**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
 - If you'd like to **discuss AlamofireImage best practices**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
-- If you'd like to **discuss a feature request**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire). 
+- If you'd like to **discuss a feature request**, use [our forum on swift.org](https://forums.swift.org/c/related-projects/alamofire).
 - If you **found a bug**, open an issue and follow the guide. The more detail the better!
 - If you **want to contribute**, submit a pull request.
 
@@ -54,7 +54,7 @@ AlamofireImage is an image component library for Alamofire.
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate AlamofireImage into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'AlamofireImage', '~> 4.1'
+pod 'AlamofireImage', '~> 4.4'
 ```
 
 ### Carthage
@@ -62,18 +62,18 @@ pod 'AlamofireImage', '~> 4.1'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate AlamofireImage into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/AlamofireImage" ~> 4.1
+github "Alamofire/AlamofireImage" ~> 4.4
 ```
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. It is in early development, but AlamofireImage does support its use on supported platforms.
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. AlamofireImage supports its use on all supported platforms.
 
 Once you have your Swift package set up, adding AlamofireImage as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.2.0"))
+    .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.4.0"))
 ]
 ```
 
@@ -97,7 +97,7 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 
 - Open the new `AlamofireImage` folder, and drag the `AlamofireImage.xcodeproj` into the Project Navigator of your application's Xcode project.
 
-    > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
+  > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
 
 - Select the `AlamofireImage.xcodeproj` in the Project Navigator and verify the deployment target matches that of your application target.
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
@@ -105,11 +105,11 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 - Click on the `+` button under the "Embedded Binaries" section.
 - You will see two different `AlamofireImage.xcodeproj` folders each with two different versions of the `AlamofireImage.framework` nested inside a `Products` folder.
 
-    > It does not matter which `Products` folder you choose from, but it does matter whether you choose the top or bottom `AlamofireImage.framework`.
+  > It does not matter which `Products` folder you choose from, but it does matter whether you choose the top or bottom `AlamofireImage.framework`.
 
 - Select the top `AlamofireImage.framework` for iOS and the bottom one for OS X.
 
-    > You can verify which one you selected by inspecting the build log for your project. The build target for `AlamofireImage` will be listed as either `AlamofireImage iOS`, `AlamofireImage macOS`, `AlamofireImage tvOS` or `AlamofireImage watchOS`.
+  > You can verify which one you selected by inspecting the build log for your project. The build target for `AlamofireImage` will be listed as either `AlamofireImage iOS`, `AlamofireImage macOS`, `AlamofireImage tvOS` or `AlamofireImage watchOS`.
 
 - And that's it!
 
@@ -125,35 +125,39 @@ $ git submodule add https://github.com/Alamofire/AlamofireImage.git
 import Alamofire
 import AlamofireImage
 
-Alamofire.request("https://httpbin.org/image/png").responseImage { response in
-	debugPrint(response)
+AF.request("https://httpbin.org/image/png").responseImage { response in
+  debugPrint(response)
 
-	print(response.request)
-	print(response.response)
-	debugPrint(response.result)
+  print(response.request)
+  print(response.response)
+  debugPrint(response.result)
 
-    if case .success(let image) = response.result {
-		print("image downloaded: \(image)")
-	}
+  if case .success(let image) = response.result {
+    print("image downloaded: \(image)")
+  }
 }
 ```
 
 The AlamofireImage response image serializers support a wide range of image types including:
 
-
-- `image/png`
-- `image/jpeg`
-- `image/tiff`
-- `image/gif`
-- `image/ico`
-- `image/x-icon`
+- `application/octet-stream` - As a fallback for things like AWS which provide no real type.
+- `image/avif` - On 2022 OS versions and later, except watchOS.
 - `image/bmp`
+- `image/gif`
+- `image/heic`, `image/heif` - On 2017 OS versions and later.
+- `image/ico`
+- `image/jp2`
+- `image/jpeg`
+- `image/jpg`
+- `image/jxl` - On 2023 OS versions and later.
+- `image/png`
+- `image/tiff`
+- `image/webp` - On 2020 OS versions and later, except tvOS and watchOS.
 - `image/x-bmp`
-- `image/x-xbitmap`
+- `image/x-icon`
 - `image/x-ms-bmp`
 - `image/x-win-bitmap`
-- `image/heic`
-- `application/octet-stream` (added for iOS 13 support)
+- `image/x-xbitmap`
 
 > If the image you are attempting to download is an invalid MIME type not in the list, you can add custom acceptable content types using the `addAcceptableImageContentTypes` extension on the `DataRequest` type.
 
@@ -218,7 +222,7 @@ The `ImageFilter` protocol was designed to make it easy to apply a filter operat
 
 ```swift
 public protocol ImageFilter {
-    var filter: Image -> Image { get }
+    var filter: (Image) -> Image { get }
     var identifier: String { get }
 }
 ```
@@ -245,7 +249,7 @@ The current list of single pass image filters includes:
 - `CircleFilter` - Rounds the corners of an image into a circle.
 - `BlurFilter` - Blurs an image using a `CIGaussianBlur` filter with the specified blur radius.
 
-> Each image filter is built ontop of the `UIImage` extensions.
+> Each image filter is built on top of the `UIImage` extensions.
 
 #### Multi-Pass
 
@@ -328,7 +332,7 @@ let avatar = imageCache.image(withIdentifier: "avatar")
 let circularAvatar = imageCache.image(for: urlRequest, withIdentifier: "circle")
 ```
 
-By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryCapacityAfterPurge`.
+By updating the last access date for each image, the image cache can make more informed decisions about which images to purge when the memory capacity is reached. The `AutoPurgingImageCache` automatically evicts images from the cache in order from oldest last access date to newest until the memory capacity drops below the `preferredMemoryUsageAfterPurge`.
 
 > It is important to set reasonable default values for the `memoryCapacity` and `preferredMemoryCapacityAfterPurge` when you are initializing your image cache. By default, the `memoryCapacity` equals 100 MB and the `preferredMemoryCapacityAfterPurge` equals 60 MB.
 
@@ -338,7 +342,7 @@ The `AutoPurgingImageCache` also listens for memory warnings from your applicati
 
 ### Image Downloader
 
-The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `SessionManager` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `URLSessionConfiguration` with the most common parameter values.
+The `ImageDownloader` class is responsible for downloading images in parallel on a prioritized queue. It uses an internal Alamofire `Session` instance to handle all the downloading and response image serialization. By default, the initialization of an `ImageDownloader` uses a default `URLSessionConfiguration` with the most common parameter values.
 
 ```swift
 let imageDownloader = ImageDownloader(
@@ -434,7 +438,7 @@ Determining the ideal the in-memory and on-disk capacity limits of the `URLCache
 
 > If you do not use image filters, it is advised to set the memory capacity of the `URLCache` to zero. Otherwise, you will be storing the original image data in both the URLCache's in-memory store as well as the AlamofireImage in-memory store.
 
-#### Duplicate Downloads    
+#### Duplicate Downloads
 
 Sometimes application logic can end up attempting to download an image more than once before the initial download request is complete. Most often, this results in the image being downloaded more than once. AlamofireImage handles this case elegantly by merging the duplicate downloads. The image will only be downloaded once, yet both completion handlers will be called.
 
@@ -546,7 +550,7 @@ ImageDownloader.default.addAuthentication(user: "user", password: "password")
 
 ## Credits
 
-Alamofire is owned and maintained by the [Alamofire Software Foundation](http://alamofire.org). You can follow them on Twitter at [@AlamofireSF](https://twitter.com/AlamofireSF) for project updates and releases.
+Alamofire is owned and maintained by the [Alamofire Software Foundation](http://alamofire.org).
 
 ### Security Disclosure
 

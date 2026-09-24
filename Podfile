@@ -1,12 +1,7 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '11.0'
+source 'https://cdn.cocoapods.org/'
+platform :ios, '13.0'
 
 workspace 'RichTextRenderer.xcworkspace'
-
-target 'RichTextRenderer' do
-    pod 'AlamofireImage'
-    pod 'Contentful', '~> 5'
-end
 
 target 'Example-iOS' do
   project 'Example-iOS/Example-iOS.xcodeproj'

@@ -1,21 +1,20 @@
 PODS:
-  - Alamofire (5.6.4)
-  - AlamofireImage (4.2.0):
-    - Alamofire (~> 5.4)
+  - Alamofire (5.11.2)
+  - AlamofireImage (4.4.0):
+    - Alamofire (~> 5.11)
   - Contentful (5.5.7):
     - Contentful/ImageOptions (= 5.5.7)
   - Contentful/ImageOptions (5.5.7)
-  - ContentfulRichTextRenderer (0.4.5):
+  - ContentfulRichTextRenderer (0.4.10):
     - AlamofireImage (~> 4)
     - Contentful (~> 5)
 
 DEPENDENCIES:
-  - AlamofireImage
   - Contentful (~> 5)
   - ContentfulRichTextRenderer (from `ContentfulRichTextRenderer.podspec`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - AlamofireImage
     - Contentful
@@ -25,11 +24,11 @@ EXTERNAL SOURCES:
     :path: ContentfulRichTextRenderer.podspec
 
 SPEC CHECKSUMS:
-  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
-  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  Alamofire: 400275dd1c6d87d95a041861d2a59da4b520a203
+  AlamofireImage: 19ec9c0991f52cc7f9ba6a9d4ec782e29bdf6210
   Contentful: 65ba623bca2d08d86db886a84ddc7674d9141f92
-  ContentfulRichTextRenderer: 074175044c961cd2746a63635992ec5f1940d846
+  ContentfulRichTextRenderer: daeee1c7f07176b7b53deca5f6c6f4ccd6143efb
 
-PODFILE CHECKSUM: 77437d5573513cefde0933496e53fd45b3c6f329
+PODFILE CHECKSUM: ed41aec78703fd9faa6ebc73b438bd3ee063b4b3
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0

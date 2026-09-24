@@ -16,6 +16,6 @@ IDEWorkspaceChecks.plist
 Carthage
 *.framework.zip
 vendor
-/.ruby-version
 /.gitconfig
 /.build
+/build

@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 //
 
-#if os(iOS) || os(tvOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 import Alamofire
 import CoreGraphics
@@ -33,7 +33,7 @@ import UIKit
 
 private let lock = NSLock()
 
-extension UIImage: AlamofireExtended {}
+extension UIImage: @retroactive AlamofireExtended {}
 extension AlamofireExtension where ExtendedType: UIImage {
     /// Initializes and returns the image object with the specified data in a thread-safe manner.
     ///
@@ -92,9 +92,9 @@ extension AlamofireExtension where ExtendedType: UIImage {
     public var isInflated: Bool {
         get {
             if let isInflated = objc_getAssociatedObject(type, &AssociatedKeys.isInflated) as? Bool {
-                return isInflated
+                isInflated
             } else {
-                return false
+                false
             }
         }
         nonmutating set {
@@ -133,12 +133,11 @@ extension AlamofireExtension where ExtendedType: UIImage {
     public var containsAlphaComponent: Bool {
         let alphaInfo = type.cgImage?.alphaInfo
 
-        return (
+        return
             alphaInfo == .first ||
-                alphaInfo == .last ||
-                alphaInfo == .premultipliedFirst ||
-                alphaInfo == .premultipliedLast
-        )
+            alphaInfo == .last ||
+            alphaInfo == .premultipliedFirst ||
+            alphaInfo == .premultipliedLast
     }
 
     /// Returns whether the image is opaque.
@@ -194,12 +193,10 @@ extension AlamofireExtension where ExtendedType: UIImage {
         let imageAspectRatio = type.size.width / type.size.height
         let canvasAspectRatio = size.width / size.height
 
-        var resizeFactor: CGFloat
-
-        if imageAspectRatio > canvasAspectRatio {
-            resizeFactor = size.width / type.size.width
+        var resizeFactor: CGFloat = if imageAspectRatio > canvasAspectRatio {
+            size.width / type.size.width
         } else {
-            resizeFactor = size.height / type.size.height
+            size.height / type.size.height
         }
 
         let scaledSize = CGSize(width: type.size.width * resizeFactor, height: type.size.height * resizeFactor)
@@ -228,12 +225,10 @@ extension AlamofireExtension where ExtendedType: UIImage {
         let imageAspectRatio = type.size.width / type.size.height
         let canvasAspectRatio = size.width / size.height
 
-        var resizeFactor: CGFloat
-
-        if imageAspectRatio > canvasAspectRatio {
-            resizeFactor = size.height / type.size.height
+        var resizeFactor: CGFloat = if imageAspectRatio > canvasAspectRatio {
+            size.height / type.size.height
         } else {
-            resizeFactor = size.width / type.size.width
+            size.width / type.size.width
         }
 
         let scaledSize = CGSize(width: type.size.width * resizeFactor, height: type.size.height * resizeFactor)
@@ -342,7 +337,7 @@ extension UIImage {
 
 #endif
 
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 
 import CoreImage
 
@@ -391,5 +386,5 @@ extension UIImage {
 // MARK: -
 
 private enum AssociatedKeys {
-    static var isInflated = "UIImage.af.isInflated"
+    static var isInflated = true
 }

@@ -1,7 +1,7 @@
 # Commit the resolved CocoaPods `Pods/` directory to the repository
 
 - **Date:** 2026-08-25
-- **Status:** Accepted (in effect since 2023-05-05)
+- **Status:** Superseded in part by [2026-09-23 — Link the framework target against Carthage-built dependencies](./2026-09-23-framework-target-links-carthage-dependencies.md). `Pods/` is still committed, but only the example apps use it. The framework target and Carthage builds no longer depend on it.
 
 > This record was written on 2026-08-25 from the commit history. It documents an
 > existing decision rather than a new one; the rationale below is reconstructed from
